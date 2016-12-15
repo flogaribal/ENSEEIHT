@@ -1,0 +1,9 @@
+net test
+pl Tentative (3)
+pl Succes
+pl NbEchec
+pl NaPasReussi (1)
+pl Echec
+tr BonneReponse Tentative NaPasReussi -> Succes
+tr MauvaiseReponse Tentative NaPasReussi?1 -> NbEchec
+tr AEchoue NbEchec*3 -> Echec

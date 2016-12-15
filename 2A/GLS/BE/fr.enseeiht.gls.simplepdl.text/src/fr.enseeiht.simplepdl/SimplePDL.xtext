@@ -1,0 +1,49 @@
+
+grammar fr.enseeiht.SimplePDL with org.eclipse.xtext.common.Terminals
+import "http://simplepdl" as pdl
+
+Process returns pdl::Process :
+	'process' name=ID '{'
+	processElements+=ProcessElement*
+	
+	'}'
+	;
+
+ProcessElement returns pdl::ProcessElement :
+	WorkDefinition
+	| WorkSequence
+	| Guidance
+	| UseResources
+	| Resources
+	;
+		
+WorkDefinition returns pdl::WorkDefinition :
+	'wd' name=ID
+	;
+	
+WorkSequence returns pdl::WorkSequence :
+	'ws' linkType=WorkSequenceType
+		'from' predecessor=[pdl::WorkDefinition]
+		'to'   successor=[pdl::WorkDefinition]
+	;
+	
+Guidance returns pdl::Guidance :
+	text=STRING
+	;
+	
+Resources returns pdl::Resource:
+	'res' name=ID ':' quantity=INT
+;
+ 
+UseResources returns pdl::UseResources:  
+	associatedWD=[pdl::WorkDefinition] 'requires' weight=INT 'to' usedResource=[pdl::Resource]  
+	;
+
+
+enum WorkSequenceType returns pdl::WorkSequenceType :
+	startToStart = 's2s'
+	| finishToStart = 'f2s'
+	| startToFinish = 's2f'
+	| finishToFinish = 'f2f'
+	;
+	

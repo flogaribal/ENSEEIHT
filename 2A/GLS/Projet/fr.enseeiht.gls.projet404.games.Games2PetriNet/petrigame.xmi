@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:PetriNet="http://PetriNet">
+  <PetriNet:PetriNet name="testXtext"/>
+  <PetriNet:Place nom="cpote_inv" nbJetons="5"/>
+  <PetriNet:Place nom="place1" nbJetons="1"/>
+  <PetriNet:Place nom="place2"/>
+  <PetriNet:Transition nom="chemin"/>
+  <PetriNet:Arc dbt="/2" fin="/4"/>
+  <PetriNet:Arc dbt="/4" fin="/2"/>
+  <PetriNet:Transition nom="erreur"/>
+  <PetriNet:Arc dbt="/7" fin="/7" poids="5"/>
+  <PetriNet:Transition nom="pathItemsGiven"/>
+  <PetriNet:Arc dbt="/4" fin="/1" poids="10"/>
+  <PetriNet:Transition nom="erreur"/>
+  <PetriNet:Arc dbt="/11" fin="/11" poids="5"/>
+</xmi:XMI>

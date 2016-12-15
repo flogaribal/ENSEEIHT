@@ -1,0 +1,131 @@
+game testGame :
+		
+	player "test" {
+	}
+	
+	/******* PLACES  ********/ 
+	places [ 
+		place Enigme {
+			people Sphinx
+			paths enigmeToEchec enigmeToSuccess
+		},
+		
+		place Success {
+		},
+		
+		place Echec {
+		}
+	]
+	
+	/******* KNOWLEDGES ********/
+	knowledge [
+		knowledge Reussite {
+			description "Reussite"
+			visible 1
+			active 1
+		}
+	]
+	
+	
+	/******* PEOPLE ********/
+	people [ 
+		people Sphinx {
+			description "txt Question"
+			visible 1
+			active 1
+			isMandatory 1
+			interaction "interSphinx" {
+				propositions {
+					proposition {
+						value "BonneReponse1"
+						action action1 {
+							value LEARN_KNOWLEDGE
+							nextInteraction
+							knowledgeGiven Reussite
+							game testGame
+						}	
+					}
+					proposition {
+						value "MauvaiseReponse1"
+						action action2 {
+							value CONSUME_ITEM
+							nextInteraction
+							itemsConsumed Tentative (1)
+							conditionsActionsAvailable
+							game testGame
+						}
+					}
+				}
+				conditionsBegin condition "reste_tentative" {
+					player test 
+					items Tentative:1:0
+				}
+			}
+		}
+	]
+	
+	  /******* OBJECTS ********/
+	items [
+		item Tentative {
+			size 10
+			description "Tentative"
+			visible 1
+			active 1
+			conditionsActive
+			canPutDown 0
+		}
+	]
+	
+	
+
+	
+	
+	/******* PATH ********/
+	path [ 
+		path enigmeToSuccess{
+			description "link to Success"
+			visible 0
+			endPlace Success
+			isOpen 1
+			conditionsOpen
+				condition "enigmeToSuccess_visible" {
+					player test
+					knowledge Reussite
+					items
+				}
+			isMandatory 1
+			}
+			,
+		path enigmeToEchec{
+			description "link to Echec"
+			visible 0
+			endPlace Echec
+			isOpen 1 
+			conditionsOpen 
+				condition "enigmeToEchec_visible" {
+					player test
+					knowledge
+					items Tentative:0:1			 
+				}
+			isMandatory 1
+		}
+	]
+		
+
+	
+	/******* INTERACTIONS ********/
+	
+
+	
+	/******* START AND END PLACES ********/
+	startPlace Enigme
+	endPlace Echec Success
+	
+	/******* DIFFICULTY ********/
+	difficulty 1{
+		sizeMax 3
+		items [ Tentative (3) ]
+	}
+	
+
+	

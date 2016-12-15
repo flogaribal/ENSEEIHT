@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+  <extension point="org.eclipse.sirius.componentization">
+    <component class="fr.enseeiht.gls.projet404.games.design.Activator"
+               id="fr.enseeiht.gls.projet404.games.design"
+	       name="games">
+    </component>
+  </extension>
+</plugin>

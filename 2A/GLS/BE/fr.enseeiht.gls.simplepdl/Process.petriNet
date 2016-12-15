@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:pfx="platform:/resource/TP2/PetriNet.ecore">
+  <pfx:ReseauPetri/>
+  <pfx:Place name="A1_ready" nbJeton="1"/>
+  <pfx:Place name="A1_started" nbJeton="0"/>
+  <pfx:Place name="A1_running" nbJeton="0"/>
+  <pfx:Place name="A1_finished" nbJeton="0"/>
+  <pfx:Transition name="A1_start"/>
+  <pfx:Transition name="A1_finish"/>
+  <pfx:Arc poids="1" debut="/1" fin="/5"/>
+  <pfx:Arc poids="1" debut="/5" fin="/2"/>
+  <pfx:Arc poids="1" debut="/5" fin="/3"/>
+  <pfx:Arc poids="1" debut="/3" fin="/6"/>
+  <pfx:Arc poids="1" debut="/6" fin="/4"/>
+  <pfx:Place name="A2_ready" nbJeton="1"/>
+  <pfx:Place name="A2_started" nbJeton="0"/>
+  <pfx:Place name="A2_running" nbJeton="0"/>
+  <pfx:Place name="A2_finished" nbJeton="0"/>
+  <pfx:Transition name="A2_start"/>
+  <pfx:Transition name="A2_finish"/>
+  <pfx:Arc poids="1" debut="/12" fin="/16"/>
+  <pfx:Arc poids="1" debut="/16" fin="/13"/>
+  <pfx:Arc poids="1" debut="/16" fin="/14"/>
+  <pfx:Arc poids="1" debut="/14" fin="/17"/>
+  <pfx:Arc poids="1" debut="/17" fin="/15"/>
+  <pfx:Arc poids="1" debut="/2" fin="/2" type="Read_arc"/>
+  <pfx:Place name="R1" nbJeton="5"/>
+  <pfx:Place name="R2" nbJeton="3"/>
+  <pfx:Arc poids="5" fin="/2"/>
+  <pfx:Arc poids="5" debut="/2"/>
+  <pfx:Arc poids="3" fin="/13"/>
+  <pfx:Arc poids="3" debut="/13"/>
+</xmi:XMI>

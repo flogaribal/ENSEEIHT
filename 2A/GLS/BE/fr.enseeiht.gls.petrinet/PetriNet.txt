@@ -1,0 +1,41 @@
+import ecore : 'http://www.eclipse.org/emf/2002/Ecore' ;
+
+package PetriNet : pfx = 'platform:/resource/TP2/PetriNet.ecore'
+{
+	class Arc
+	{
+		attribute poids : ecore::EIntegerObject[?];
+		property debut : PetriElement[1];
+		property fin : PetriElement[1];
+		attribute type : ArcType[?] = 'Normal';
+		invariant correctArc: (self.debut.oclIsTypeOf(Place) and self.fin.oclIsTypeOf(Transition))
+			or (self.debut.oclIsTypeOf(Transition) and self.fin.oclIsTypeOf(Place));
+		invariant pasBoucle: self.debut <> self.fin;
+		invariant poidsPos: self.poids > 0;
+	}
+	class Place extends PetriElement
+	{
+		attribute borne : ecore::EIntegerObject[?];
+		attribute nbJeton : ecore::EIntegerObject[?];
+		invariant nbJetonPos: self.nbJeton >= 0;
+		invariant bornePos: self.borne > 0;
+	}
+	class Transition extends PetriElement;
+	class PetriElement
+	{
+		attribute name : String[?];
+		invariant petriElementnameNotEmpty: self.name <> null and self.name <> '';
+	}
+	class ReseauPetri
+	{
+		property elements : PetriElement[*|1] { ordered composes };
+		property arcs : Arc[*|1] { ordered composes };
+		attribute name : String[?];
+		invariant petriNewtorkNameNotEmpty: self.name <> null and self.name <> '';
+	}
+	enum ArcType { serializable }
+	{
+		literal Normal;
+		literal Read_arc = 1;
+	}
+}

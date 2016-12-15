@@ -1,0 +1,65 @@
+import ecore : 'http://www.eclipse.org/emf/2002/Ecore#/' ;
+
+package simplepdl : simplepdl = 'http://simplepdl'
+{
+	enum WorkSequenceType { serializable }
+	{
+		literal startToStart;
+		literal finishToStart = 1;
+		literal startToFinish = 2;
+		literal finishToFinish = 3;
+	}
+	class Process
+	{
+		attribute name : String[1];
+		property processElements : ProcessElement[*|1] { ordered composes };
+		invariant nomDifferent: Process.allInstances()
+			->select(i | i.oclIsTypeOf(WorkDefinition))
+			->forAll(i,j | i<>j implies i.name <> j.name);
+	}
+	abstract class ProcessElement
+	{
+		property process : Process[1] { derived readonly transient volatile !resolve }
+		{
+			initial: Process.allInstances()
+					->select(p | p.processElements->includes(self))
+					->asSequence()->first();
+		}
+	}
+	class WorkDefinition extends ProcessElement
+	{
+		property linksToPredecessors#successor : WorkSequence[*|1] { ordered };
+		property linksToSuccessors#predecessor : WorkSequence[*|1] { ordered };
+		attribute name : String[1];
+		property uses : UseResources[+|1] { ordered composes };
+		invariant oneChar: self.name <> '';
+	}
+	class WorkSequence extends ProcessElement
+	{
+		attribute linkType : WorkSequenceType[1];
+		property predecessor#linksToSuccessors : WorkDefinition[1];
+		property successor#linksToPredecessors : WorkDefinition[1];
+		invariant previousWDinSameProcess: self.process = self.predecessor.process;
+		invariant nextWDinSameProcess: self.process = self.successor.process;
+		invariant nonReflexive: self.successor <> self.predecessor;
+	}
+	class Guidance extends ProcessElement
+	{
+		property element : ProcessElement[*|1] { ordered };
+		attribute text : String[1];
+	}
+	class Resource extends ProcessElement
+	{
+		attribute quantity : ecore::EIntegerObject[?];
+		attribute name : String[?];
+		invariant nameNotEmpty: self.name <> null and self.name <> '';
+	}
+	class UseResources extends ProcessElement
+	{
+		attribute weight : ecore::EInt[?] = '1';
+		property usedResource : Resource[1];
+		property associatedWD : WorkDefinition[1];
+		invariant correctWeight: self.weight <= self.usedResource.quantity;
+		invariant positiveWeight: self.weight >= 0;
+	}
+}

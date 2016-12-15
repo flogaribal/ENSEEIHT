@@ -1,0 +1,84 @@
+module Games2PetriNet;
+create OUT: petrinet from  IN: games;
+
+
+-- Traduire un Game en un PetriNet de même nom
+rule Game2PetriNet {
+	from g: games!Game
+	to pn: petrinet!PetriNet (name <- g.name)
+}
+
+helper context games!Item
+def: getQuantityOfItem(): Integer =
+	games!Difficulty.allInstances()->asSequence()->first().items
+		->select(it | it.item = self)->asSequence()->first().quantite;
+
+helper context games!Item
+def: getGame(): games!Game =
+	games!Game.allInstances()->asSequence()->select(g | g.items->contains(self))->first();
+
+helper context games!Place
+def: getGame(): games!Game =
+	games!Game.allInstances()->asSequence()->select(g | g.places->contains(self))->first();
+
+helper context games!Place
+def: isInitial(): Integer = 
+	if (self->getGame().startPlace = self) then 1
+		else 0 endif;
+
+helper context games!Path
+def: getSource() : games!Place = 
+	games!Place.allInstances()->asSequence()->select(p | p.paths->contains(self))->first();
+
+helper context games!ItemInSomething
+def: getRole(): String =
+	if (games!Path.allInstances()->asSequence()->select(p | p.itemsGiven->contains(self))->size() >=1)
+	then 'pathItemsGiven'
+	else'erreur'
+	endif;
+	
+
+helper context games!ItemInSomething
+def: getContainer(): games!Path =
+	games!Path.allInstances()->asSequence()->select(p | p.itemsGiven->contains(self))->asSequence()->first();
+	
+
+
+rule item2PetriNet {
+	from i: games!Item
+	to p_inv: petrinet!Place (nom <- i.name + '_inv', nbJetons <- i->getQuantityOfItem())
+	
+}
+
+rule place2PetriNet {
+	from p: games!Place
+	to p_place : petrinet!Place(nom <- p.name, nbJetons <- p->isInitial())
+}
+
+rule path2PetriNet{
+	from p: games!Path
+	to t_path : petrinet!Transition(nom <- p.name),
+		arc_pred : petrinet!Arc(arcType <- 'Arc',
+									poids <- 1,
+									dbt <- thisModule.resolveTemp(p.getSource(), 'p_place'),
+									fin <- t_path
+									),
+		arc_next : petrinet!Arc(arcType <- 'Arc',
+									poids <- 1,
+									dbt <- t_path,
+									fin <- thisModule.resolveTemp(p.endPlace, 'p_place')
+									)
+		
+}
+
+
+rule itemInSomething2PetriNet {
+	from i: games!ItemInSomething
+	to transbidon : petrinet!Transition(nom <- i.getRole()),
+	
+	arc: petrinet!Arc(arcType <- 'Arc', poids <- i.quantite,
+		dbt <- if (i.getRole()='pathItemsGiven') then thisModule.resolveTemp(i.getContainer(), 't_path') 
+		else transbidon endif,
+		fin <- if (i.getRole()='pathItemsGiven') then thisModule.resolveTemp(i.item, 'p_inv')
+		else transbidon endif)
+}

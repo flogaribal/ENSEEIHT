@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ASCII"?>
+<games:Game xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:games="http://www.enseeiht.fr/gls/projet404/Games" name="testGame" startPlace="//@places.0" endPlace="//@places.2 //@places.1">
+  <player name="test"/>
+  <places name="Enigme" people="//@people.0" paths="//@path.1 //@path.0"/>
+  <places name="Success"/>
+  <places name="Echec"/>
+  <knowledge name="Reussite" description="Reussite" visible="1" active="1"/>
+  <people name="Sphinx" description="txt Question" visible="1" active="1" isMandatory="1">
+    <interaction name="interSphinx">
+      <prop value="BonneReponse1">
+        <act name="action1" val="LEARN_KNOWLEDGE" knowledgeGiven="//@knowledge.0" game="/"/>
+      </prop>
+      <prop value="MauvaiseReponse1">
+        <act name="action2" val="CONSUME_ITEM" game="/">
+          <itemsConsumed item="//@items.0" quantite="1"/>
+        </act>
+      </prop>
+      <conditionsBegin name="reste_tentative" player="//@player">
+        <item item="//@items.0" quantity="1"/>
+      </conditionsBegin>
+    </interaction>
+  </people>
+  <items name="Tentative" size="10" description="Tentative" visible="1" active="1"/>
+  <path name="enigmeToSuccess" description="link to Success" endPlace="//@places.1" isOpen="1" isMandatory="1">
+    <conditionsOpening name="enigmeToSuccess_visible" player="//@player" know="//@knowledge.0"/>
+  </path>
+  <path name="enigmeToEchec" description="link to Echec" endPlace="//@places.2" isOpen="1" isMandatory="1">
+    <conditionsOpening name="enigmeToEchec_visible" player="//@player">
+      <item item="//@items.0" mustBeExact="1"/>
+    </conditionsOpening>
+  </path>
+  <difficulty lvl="1" sizeMax="3">
+    <items item="//@items.0" quantite="3"/>
+  </difficulty>
+</games:Game>

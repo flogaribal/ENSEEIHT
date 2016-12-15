@@ -1,0 +1,261 @@
+grammar fr.enseeiht.gls.projet404.Games with org.eclipse.xtext.common.Terminals
+
+generate games "http://www.enseeiht.fr/gls/projet404/Games"
+
+/**
+ * Xtext used to make a basic exploration game
+ */
+ 
+ /**
+  * General Game 
+  */
+Game returns Game:
+	'game' name=ID ':'
+		
+		player=Player
+		'places' '[' places+=Place (',' places+=Place)*']'
+//		eltJeu+=ElementJeu*
+//		interact+=Interaction*
+		('knowledge' '['knowledge+=Knowledge (',' knowledge+=Knowledge)*']')?
+		'people' '[' people+=People (','people+=People)*']'
+		('items' '[' items+=Item (',' items+=Item)* ']')?
+		'path' '['path+=Path (',' path+=Path)* ']'
+		('recipes' '['recipes+=Recipe (',' recipes+=Recipe)* ']')?
+		'startPlace' startPlace=[Place]
+		'endPlace' endPlace+=[Place]+
+		difficulty=Difficulty
+	;
+	
+/**
+ * Difficulty chosen for the game
+ */
+Difficulty:
+	'difficulty' lvl=INT '{'
+		// Size max for cumulative size of objects
+		'sizeMax' sizeMax=INT
+		// Objects and knowledges given at the beginning
+		('items' '[' items+=ItemInSomething (',' items+=ItemInSomething)* ']')?
+		('knowledge' knowledges+=[Knowledge]*)?
+	'}'
+	;
+	
+/**
+ * Unique player 
+ */
+Player:
+	'player' name=STRING '{'
+	('items' items+=ItemInSomething*)?
+	('knowledge' knowledge+=[Knowledge]*)?
+	'}'
+	;
+	
+	
+	
+/**
+ * Element of the game
+ */
+//ElementJeu:
+//	elt= Object | Knowledge | People | Path	
+//;
+//	
+
+
+
+/**
+ * 
+ */
+ElementJeuFact:
+	'description' description=STRING
+	'visible' visible=INT
+	'conditions' cond+=Condition*
+;
+
+/**
+ * People with whom player can interact
+ */
+People: 
+	'people' name=ID '{'
+		'description' description=STRING
+		
+		'visible' visible=INT
+		('conditionsVisible' conditionsVisible+=Condition*)?
+		
+		'active' active=INT
+		('conditionsActive' conditionsActive+=Condition*)?
+		// if the player absolutely needs to talk to this person
+		'isMandatory' isMandatory=INT
+		interaction=Interaction?
+	'}'
+;
+
+
+/**
+ * Paths which link each place
+ */
+Path: 
+	'path' name=ID '{'
+		'description' description=STRING
+		'visible' visible=INT
+		('conditionsVisible' conditionVisible+=Condition*)?
+		
+		'endPlace' endPlace=[Place]
+		
+		// Condition on path opening
+		'isOpen' isOpen=INT
+		('conditionsOpen' conditionsOpening+=Condition*)?
+
+		// If the player don't have choice to take this path
+		'isMandatory' isMandatory=INT
+
+		// Objects and knowledge given by going through this path
+		('knowledgesGiven' knowledgeGiven+=[Knowledge]*)?
+		('itemsGiven' itemsGiven+=ItemInSomething*)?
+
+		// Objects consumed by going through this path
+		('itemsConsumed' itemsConsumed+=ItemInSomething*)?
+
+		// Conditions on objects and knowledges consumed/given
+//		'conditionsObjectGiven' conditionsObjectGiven+=Condition*
+//		'conditionsConsumed' conditionsConsumed+=Condition*   		
+	'}'
+	;
+
+/**
+ * Item which can be found/use in the game
+ */
+Item: 
+	'item' name=ID '{'
+		// Size of one object
+		'size' size=INT
+		
+		'description' description=STRING
+		
+		'visible' visible=INT
+		('conditionsVisible' conditionsVisible+=Condition*)?
+		
+		'active' active=INT
+		'conditionsActive' conditionsActive+=Condition*
+		
+		'canPutDown' canPutDown=INT
+		('conditionsPutDown' conditionsPutDown+=Condition*)?
+		
+		//conditions when object is in a path
+		('conditionsGive' conditionsGive+=Condition*)?
+		('conditionsConsumed' conditionsConsumed+=Condition*)?
+	'}'
+	;
+
+
+ItemInSomething :
+	item=[Item] '(' quantite=INT ')'
+;
+
+
+/**
+ * Recipe of multiple objects in order to make a new object
+ */
+Recipe:
+	'recipe' name=ID '{'
+
+		// List of objects used to make a new object
+		'itemsUsed' objectsUsed+=ItemInSomething*
+
+		// Conditions mandatory to make this new object
+		('conditions' conditions+=Condition*)?
+		'itemsMade' itemsMade+=ItemInSomething*
+	'}'
+;
+
+/**
+ * Knowledge which can be learned by the player
+ */
+Knowledge: 
+	'knowledge' name=ID '{'
+		'description' description=STRING
+		
+		'visible' visible=INT
+		('conditionsVisible' conditionsVisible+=Condition*)?
+		
+		'active' active=INT
+		('conditionsActive' conditionsActive+=Condition*)?
+		
+		('conditionsGive' conditionsGive+=Condition*)?
+	'}'
+	;
+
+/**
+ * Place which can be visited by the player
+ */
+Place: 
+	'place' name=ID '{'
+		('knowledge' knowledges+=[Knowledge]*)?
+		('people' people+=[People]*)?
+		('paths' paths+=[Path]*)?
+		('items' objects+=ItemInSomething*)?
+	'}'	
+	;
+
+ItemInCondition:
+	item=[Item] ':' quantity=INT ':' mustBeExact=INT
+;
+
+/**
+ * Condition used for each object of the game
+ */
+Condition:
+	'condition' name=STRING '{'
+		'player' player=[Player]
+		('knowledge' know+=[Knowledge]*)?
+		('items' item+=ItemInCondition*)?
+	'}'
+	;
+	
+/**
+ * Action done after a proposition has been chosen
+ */
+Action:
+	'action' name=ID '{'
+		'value' val=Actions
+		'nextInteraction' interSuivante=Interaction?
+		('knowledgeGiven' knowledgeGiven+=[Knowledge]*)?
+		('itemsGiven' itemsGiven+=ItemInSomething*)?
+		('itemsConsumed' itemsConsumed+=ItemInSomething*)?
+		('conditionsActionsAvailable' conditionsActionsAvailable+=Condition*)?
+		'game' game=[Game]
+	'}'
+	;
+
+/**
+ * Interaction between  player and people
+ */
+Interaction:
+	'interaction' name=STRING '{'
+		'propositions' '{'
+			prop+=Proposition*
+		'}'
+		('conditionsBegin' conditionsBegin+=Condition*)?
+		('conditionsEnd' conditionsEnd+=Condition*)?
+	'}'
+	;	
+
+/**
+ * Proposition used as interaction choice
+ */
+Proposition:
+	'proposition' '{'
+		'value' value=STRING
+		act=Action
+	'}'
+	;
+	
+/**
+ * Different types of Actions available 
+ */
+enum Actions :
+	PRENDRE_CHEMIN = "TAKE_PATH"
+  	|PRENDRE_OBJET = "TAKE_ITEM"
+  	|APPRENDRE_CONNAISSANCE = "LEARN_KNOWLEDGE"
+  	|QUITTER = "QUIT"
+  	|CONSOMMER_OBJET = "CONSUME_ITEM"
+	;
+	

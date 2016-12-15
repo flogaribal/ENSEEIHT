@@ -1,0 +1,12 @@
+game testATL :
+player "ppr" {
+}
+place entree { }
+place sortie { }
+item cc1 { size 5 description "cclol" visible 1 active 1 conditionsActive condition "cc" { player ppr } canPutDown 1 }
+item cc2 { size 5 description "cclol" visible 1 active 1 conditionsActive condition "cc" { player ppr } canPutDown 1 }
+startPlace entree
+endPlace sortie
+difficulty 1 { sizeMax 1 
+	items cc1 cc1
+}

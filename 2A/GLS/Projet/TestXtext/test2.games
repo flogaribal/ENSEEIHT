@@ -1,0 +1,269 @@
+game test2 :
+
+	player "test2" {
+		items
+		knowledge	
+	}
+	
+/******* PLACES ********/
+
+	places [
+		place Question1 {
+			knowledge 
+			people Chef1
+			paths Question1_to_Echec1 Question1_to_Question2
+			items
+		},
+		place Question2 {
+			knowledge 
+			people Chef2
+			paths Question2_to_Echec2 Question2_to_Success
+			items 
+		},
+		place Echec1 {
+			knowledge
+			people
+			paths
+			items
+		},		
+		place Echec2 {
+			knowledge
+			people
+			paths
+			items
+		},			
+		place Success {
+			knowledge
+			people
+			paths
+			items	
+		}
+	]
+	
+	
+/******* KNOWLEDGES ********/
+
+	knowledge [
+		knowledge Reussite1 {
+			description "Reussite question 1"
+			visible 1
+			conditionsVisible
+			active 1
+			conditionsActive
+			conditionsGive
+		},		
+		knowledge Reussite2 {
+			description "Reussite question 2"
+			visible 1
+			conditionsVisible
+			active 1
+			conditionsActive
+			conditionsGive
+		}
+	]
+
+	
+	
+/**********  PEOPLE  **********/
+
+	people [
+		people Chef1 {
+			description "Question1"
+			visible 1
+			conditionsVisible
+			active 1
+			conditionsActive
+			isMandatory 1
+			interaction "interChef1" {
+				propositions {
+					proposition {
+						value "BonneReponse1"
+						action action1 {
+							value APPRENDRE_CONNAISSANCE
+							nextInteraction
+							knowledgeGiven Reussite1
+							itemsGiven Vie2(3)
+							itemsConsumed
+							conditionsActionsAvailable
+							game test2
+					
+						}
+					}
+					proposition {
+						value "MauvaiseReponse1"
+						action action1 {
+							value CONSOMMER_OBJET
+							nextInteraction
+							knowledgeGiven
+							itemsGiven
+							itemsConsumed Vie1(1)
+							conditionsActionsAvailable
+							game test2
+							
+							
+						}
+					}
+				}
+				conditionsBegin
+				conditionsEnd
+			}
+		},		
+		people Chef2 {
+			description "Question2"
+			visible 1
+			conditionsVisible
+			active 1
+			conditionsActive
+			isMandatory 1
+			interaction "interChef2" {
+				propositions {
+					proposition {
+						value "BonneReponse1"
+						action action2 {
+							value APPRENDRE_CONNAISSANCE
+							nextInteraction
+							knowledgeGiven Reussite2
+							itemsGiven 
+							itemsConsumed
+							conditionsActionsAvailable
+							game test2
+					
+						}
+					}
+					proposition {
+						value "MauvaiseReponse1"
+						action action2 {
+							value CONSOMMER_OBJET
+							nextInteraction
+							knowledgeGiven
+							itemsGiven
+							itemsConsumed Vie2(1)
+							conditionsActionsAvailable
+							game test2
+							
+							
+						}
+					}
+				}
+				conditionsBegin
+				conditionsEnd
+			}
+		}
+	]
+		
+	
+	
+/*******   ITEM    *******/	
+	items [ 
+		item Vie1 {	
+			size 1
+			description "Vie"
+			visible 1
+			conditionsVisible
+			active 1
+			conditionsActive
+			canPutDown 0
+			conditionsPutDown
+			conditionsGive
+			conditionsConsumed
+		},		
+		item Vie2 {
+			size 1
+			description "Vie"
+			visible 1
+			conditionsVisible
+			active 1
+			conditionsActive
+			canPutDown 0
+			conditionsPutDown
+			conditionsGive
+			conditionsConsumed
+		}
+	]
+		
+	
+	
+
+	
+	
+	path [
+		path Question1_to_Echec1{
+			description "link to Echec from Question1"
+			visible 0
+			conditionsVisible
+			endPlace Echec1
+			isOpen 1
+			conditionsOpen
+				condition "path_visible" {
+					player test2
+					knowledge
+					items Vie1:0:1
+				}
+			isMandatory 1
+			knowledgesGiven 
+			itemsGiven
+			itemsConsumed
+		},		
+		path Question1_to_Question2{
+			description "link to Question2 from Question1"
+			visible 0
+			conditionsVisible
+			endPlace Question2
+			isOpen 1
+			conditionsOpen
+				condition "path_visible" {
+					player test2
+					knowledge
+					items 
+				}
+			isMandatory 1
+			knowledgesGiven 
+			itemsGiven
+			itemsConsumed
+		},		
+		path Question2_to_Echec2{
+			description "link to Question2 from Question1"
+			visible 0
+			conditionsVisible
+			endPlace Echec2
+			isOpen 1
+			conditionsOpen
+				condition "path_visible" {
+					player test2
+					knowledge
+					items Vie2:0:1
+				}
+			isMandatory 1
+			knowledgesGiven 
+			itemsGiven
+			itemsConsumed
+		},		
+		path Question2_to_Success{
+			description "link to success from question2"
+			visible 0
+			conditionsVisible
+			endPlace Success
+			isOpen 1
+			conditionsOpen
+				condition "path_visible" {
+					player test2
+					knowledge Reussite2
+					items
+				}
+			isMandatory 1
+			knowledgesGiven
+			itemsGiven
+			itemsConsumed
+		}
+	]
+	
+	startPlace Question1
+	endPlace Echec1 Echec2 Success
+	
+	difficulty 1{
+		sizeMax 3
+		items [Vie1(3)]
+	}
+	
+	
+	

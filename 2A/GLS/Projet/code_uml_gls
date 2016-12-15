@@ -1,0 +1,185 @@
+@startuml
+
+class Difficulty { 
+	- level : int
+	- maxWeight : int
+
+	+ getItems(): Item[]
+	+ getKnowledges(): Knowledge[]
+}
+
+class Game {
+	-Gamename : String
+	+getGameName(): String
+	+getDifficulty() : Difficulty
+	+setDifficulty(Difficulty d) : void
+	+giveKnowledgesVisibles() : void
+	+showItemsVisibles() : Item[]
+	+showPathsVisiblesOuverts() : Path[]
+	+showPeoplesVisibles() : People[]
+	+prendrePath() : void
+	+launchInteraction() : void
+	+consumeItems() : void
+	+askPath() : Path
+	+askPeople() : People
+	+askProposition() : Proposition
+}
+
+
+class Player {
+	-PlayerName : String
+	+getPlayerName() : String 
+	+getKnowledges() : Knowledge[]
+	+getItems() : Item[]
+	+takeItem(Item o) : void
+	+dropItem(Item o) : void
+	+consumeItem(Item o) : void
+}
+
+class Place {
+	-placeName : String
+	
+	+getPlaceName(): String
+	+getPathsVisibles() : Path[]
+	+getPeoplesVisibles() : People[]
+	+getKnowledgesVisibles() : Knowledge[]
+	+getItemsVisibles() : Item[]
+	+updateVisibleAllElements() : void
+
+	+addPath(Path c) : void
+	+addPeople(People p) : void
+	+addKnowledge(Knowledge c) : void
+	+addItem(Item o) : void
+}
+
+abstract class GameElement {
+	-description : String
+	-visible : boolean
+
+	+setDescription(Description d) : void
+	+setVisible(Boolean isVis) : void
+	+getDescription() : String
+	+getVisible() : boolean
+}
+
+class Item {
+	-size : int
+
+	+getSize() : int
+}
+
+class Knowledge {
+}
+
+class People {
+	-mandatory : boolean
+
+	+isMandatory() : boolean
+	+setMandatory(Boolean b) : void
+}
+
+class Path {
+	-open : boolean
+	-mandatory : boolean
+
+	+isOpen() : boolean
+	+setOpen(Boolean b) : void
+	+isMandatory() : boolean
+	+setMandatory(Boolean b) : void
+	+getItems() : Item[]
+	+addItem(Item o) : void
+	+getKnowledges() : Knowledge[]
+	+addKnowledge(Knowledge c) : void
+	+getNecessaryItems() : Item[]
+	+addNecessaryItem(Item o) : void
+
+
+}
+
+class Condition {
+	- conditionName : String
+
+	+getConditionName() : String
+	+isTrue() : boolean
+}
+
+class Interaction {
+	+getListePropositions(): Proposition
+}
+
+class Proposition {
+	+isEnd() : boolean
+	+getAction() : Action
+	+getCondition() : Condition
+}
+
+class Action {
+	+entreprendreAction(Actions a) : void
+	-getPath() : Path
+	-getItemAPrendre() : Item
+	-getKnowledgeAApprendre() : Knowledge
+	-getItemAConsommer() : Item 
+}
+
+class Recipe {
+	+transform() : void
+}
+
+enum Actions {
+  PRENDRE_CHEMIN
+  PRENDRE_OBJET
+  APPRENDRE_CONNAISSANCE
+  QUITTER
+  CONSOMMER_OBJET
+}
+
+
+
+Game "1" --> "1" Difficulty : level
+Game *-- "1" Player : joueur
+Game *-- "1..*" Place : lieux
+Game *-- "1" Place : depart
+Game *-- "1..*" Place : fins
+Game *-- "1" Place : lieuActuel
+Game *-- "0..*" Action : actions
+
+Difficulty "0..*" --> "0..*" GameElement : elementsGame
+/' Difficulty "0..*" --> "0..*" Knowledge : connaissances
+// Difficulty "0..*" --> "0..*" People : personnes
+// Difficulty "0..*" --> "0..*" Item : objets
+// Difficulty "0..*" --> "0..*" Path : chemins'/
+
+Player --> "0..*" Knowledge : connaissances
+Player --> "0..*" Item : objets
+
+Place "0..*" --> "0..*" GameElement : elementsGame
+/' Place "0..*" --> "0..*" Knowledge : connaissances
+// Place "0..*" --> "0..*" People : personnes
+// Place "0..*" --> "0..*" Item : objets
+// Place "0..*" --> "0..*" Path : chemins'/
+
+Item --|> GameElement
+Knowledge --|> GameElement
+Path --|> GameElement
+People --|> GameElement
+
+Path "0..*" --> "0..*" Item : objets
+Path "0..*" --> "0..*" Knowledge : connaissances
+Path "0..*" -->"0..*" Item : objetsNecessaires
+
+Interaction --> "0..*" Proposition : listePropositions
+
+Proposition --> "1" Condition : condition
+Proposition -->"1" Action : action
+
+Action -->"1" Path : cheminAPrendre
+Action -->"1" Item : objetAPrendre
+Action -->"1" Knowledge : connaissanceAApprendre
+Action -->"1" Item : objetAConsommer
+Action -->"1" Interaction : interactionSuivante
+
+Recipe -->"1..*" Item : objetsATransformer
+Recipe -->"1..*" Item : objetsResultat
+
+Condition "0..*" --> "0..*" GameElement
+@enduml

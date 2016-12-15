@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<games:Game xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:games="http://www.enseeiht.fr/gls/projet404/Games" name="testATL" startPlace="//@places.0" endPlace="//@places.1">
+  <player name="ppr"/>
+  <places name="entree"/>
+  <places name="sortie"/>
+  <items name="cc1" size="5" description="cclol" visible="1" active="1" canPutDown="1">
+    <conditionsActive name="cc" player="//@player"/>
+  </items>
+  <items name="cc2" size="5" description="cclol" visible="1" active="1" canPutDown="1">
+    <conditionsActive name="cc" player="//@player"/>
+  </items>
+  <difficulty lvl="1" sizeMax="1" items="//@items.0 //@items.0"/>
+</games:Game>
