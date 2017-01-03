@@ -1,0 +1,10 @@
+module affmux(h, data[15..0] : anodes[3..0], segs[6..0])
+	
+	clock28(0, h: s[27..0]);
+	decoder2to4(s[1..0] : anodes[3..0]);
+	
+	x[3..0] = data[3..0]*anodes[0] + data[7..4]*anodes[1] + data[11..8]* anodes[2] + data[15..12]*anodes[3];
+	
+	dec7segsH(x[3..0] : segs[6..0]);
+	
+end module

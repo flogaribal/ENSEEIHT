@@ -1,0 +1,57 @@
+V "GNAT Lib v4.9"
+M P W=b
+P ZX
+
+RN
+RV NO_DIRECT_BOOLEAN_OPERATORS
+RV NO_IO
+RV SPARK_05
+
+U no_letter%b		no_letter.adb		0c3f2af5 NE OO SU IL
+W ada%s			ada.ads			ada.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+
+D ada.ads		20070406091342 3ffc8e18
+D a-except.ads		20140129161953 f86a4103
+D a-finali.ads		20111121113555 52ecdc1b
+D a-ioexce.ads		20140225151544 e4a01f64
+D a-stream.ads		20140122164720 1a984740
+D a-tags.ads		20111212115430 6c0509d0
+D a-textio.ads		20140129155348 386df5d4
+D a-unccon.ads		20070406091342 f9eb8f06
+D interfac.ads		20140225151838 69adb1b9
+D i-cstrea.ads		20130412125801 8128536b
+D no_letter.adb		20151021153826 3452df21
+D system.ads		20141119215827 90249111
+D s-crtl.ads		20140225151544 840e6817
+D s-exctab.ads		20140225151139 54135002
+D s-ficobl.ads		20120709130952 55a71d43
+D s-finmas.ads		20140225151139 814daec4
+D s-finroo.ads		20120426095924 4ff27390
+D s-parame.ads		20140225151139 ab8cb46a
+D s-pooglo.ads		20110804083314 542f33d0
+D s-soflin.ads		20140225151139 aa763b52
+D s-stache.ads		20140225151139 a37c21ec
+D s-stalib.ads		20140225151139 a891183f
+D s-stoele.ads		20140225151139 2dc34a04
+D s-stoele.adb		20140225151139 ed88f8fb
+D s-stopoo.ads		20131010103753 b16154c2
+D s-traent.ads		20140225151139 b5116092
+D s-unstyp.ads		20140225151139 510692af
+D s-wchcon.ads		20140225151139 1b7d22d2
+X 1 ada.ads
+16K9*Ada 19e8 11|86r6 87r5
+X 7 a-textio.ads
+49K13*Text_IO 471e16 11|86w10 87r9
+166U14*New_Line 11|108s8 118s23 128s10
+208U14*Put 11|119s23
+242U14*Put 11|104s8 109s8 110s8 129s10 130s10
+249U14*Get_Line 11|105s8
+X 11 no_letter.adb
+89U11*no_letter 89b11 133l5 133t14
+92i8 CMAX{integer} 95r27
+95a8 chaine{string} 105m17 110r12 117r19 117r39 119r27 120m23 120r41 130r14
+96i8 len_chaine{integer} 100m8 105m24 110r22 114r36 123m20 123r34 130r24
+97i8 indEcr{integer} 101m8 120r30 121m23 121r33
+114i14 I{integer} 117r26 117r46 119r34 120r48
+

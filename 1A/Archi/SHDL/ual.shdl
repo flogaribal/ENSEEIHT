@@ -1,0 +1,62 @@
+module ual(a[31..0],b[31..0],cmd[5..0] : s[31..0],eVC,eN,eZ,N,Z,V,C)
+	decoder6to64(cmd[5..0],decode[63..0]);
+	
+	is_sub = decode[4] + decode[20];
+	addsub32(a[31..0],b[31..0], is_sub : add[31..0], vAddSub,cAddSub);
+	s[31..0] = add[31..0] : decode[0] ;
+	s[31..0] = add[31..0] : decode[16] ;
+	s[31..0] = add[31..0] : decode[4] ;
+	s[31..0] = add[31..0] : decode[20] ;
+	
+	sand[31..0] = a[31..0]*b[31..0];
+	s[31..0] = sand[31..0] : decode[1];
+	s[31..0] = sand[31..0] : decode[17];
+	
+	sor[31..0] = a[31..0]+b[31..0];
+	s[31..0] = sor[31..0] : decode[2];
+	s[31..0] = sor[31..0] : decode[18];
+	
+	sxor[31..0] = a[31..0]*/b[31..0] + /a[31..0]*b[31..0];
+	s[31..0] = sxor[31..0] : decode[3];
+	s[31..0] = sxor[31..0] : decode[19];
+	
+	umult16x16(a[15..0], b[15..0] : tmpmul[31..0]);
+	s[31..0] = tmpmul[31..0] : decode[26];
+	
+	barrelshifter32(decode[13], b[4..0],a[31..0] : shiftr[31..0]);
+	s[31..0] = shiftr[31..0] : decode[13];
+	s[31..0] = shiftr[31..0] : decode[14];
+	
+	// SIGNEXT13
+	tmp[12..0] = a[12..0];
+	tmp[31..13] = a[12] * 0x7FFFF;
+	s[31..0] = tmp[31..0] : decode[32];
+	
+	
+	// SIGNEXT25
+	tmp1[24..0] = a[24..0];
+	tmp1[31..25] = a[24] * 0x7F;
+	s[31..0] = tmp1[31..0] : decode[33];
+	
+	
+	// SETHI
+	tmp2[31..8] = a[23..0];
+	tmp2[7..0]=0x00;
+	s[31..0] = tmp2[31..0] : decode[35];
+	
+	// NOPB 
+	s[31..0] = b[31..0] : decode[40];
+	
+	
+	eN = decode[16]+decode[20]+decode[17]+decode[18]+decode[19];
+	eVC = decode[16]+decode[20];
+	eZ = decode[16]+decode[20]+decode[26]+decode[17]+decode[18]+decode[19];
+	
+	
+	
+	N = s[31];
+	zero32(s[31..0], Z);
+	C = cAddSub*decode[0] + cAddSub*decode[16] + cAddSub*decode[4] + cAddSub*decode[20];
+	V = vAddSub*decode[0] + vAddSub*decode[16] + vAddSub*decode[4] + vAddSub*decode[20];
+	
+end module 

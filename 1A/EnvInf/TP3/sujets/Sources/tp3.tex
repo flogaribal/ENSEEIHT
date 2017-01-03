@@ -1,0 +1,838 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%           Auteur :  Patrick Sallé
+%         Création :  01/08/04              
+%         Modifications 
+%              (Ph. Mauran, 21/09/07) : shell, tubes, redirections; compléments 
+%              sur les fichiers et les variables d'environnement
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper,11pt]{article}
+
+\usepackage{../tp_utf8}
+
+%====[ PAGE DE TITRE ]==========================================================
+\title{Coquillages et crustacés : quelques commandes \textsc{Shell}}
+\numero{TP n°3}
+\date{2013--2014}
+\discipline{Utilisation des Ordinateurs}
+\promotion{ENSEEIHT --- 1\iere Année Informatique}
+
+\newcommand{\unix}{\textsc{unix}}
+\newcommand{\linux}{\textsc{linux}}
+\newcommand{\shell}{\textsc{shell}}
+
+
+%====[ DEBUT DU DOCUMENT ]======================================================
+
+\begin{document}
+
+\maketitle
+
+\section*{Objectifs}
+\begin{itemize}
+  \item Interpréteur de commandes :  \shell,
+  \item Archivage et compression de données,
+  \item Les commandes de gestion des répertoires et des fichiers,
+  \item Redirections et tubes,
+  \item La commande alias,
+  \item Les variables d'environnement,
+  \item Les fichiers de configuration du shell.
+\end{itemize}
+
+\
+
+\begin{danger}
+  Le sujet étant assez dense et certaines notions plus avancées, nous avons
+  distingué 2 niveaux de difficultés et/ou d'utilité ;
+  nous souhaitons que vous abordiez toutes les notions de niveaux $*$.
+\end{danger}
+
+\section{Interpréteur de commandes :  \shell \; (niveau $*$)}
+
+Lorsqu'un utilisateur se connecte, un interpréteur de commandes (ou
+\shell{} dans la terminologie \unix/\linux)
+est lancé\footnote{dans la suite du document, nous utiliserons le terme
+\unix, \linux{} étant un type d'\unix}.
+Cet interpréteur a pour charge de recueillir les commandes de l'utilisateur
+et lancer leur exécution.
+Le  \shell{} exécute donc une boucle sans fin dont chaque pas consiste
+à :
+\begin{itemize}
+  \item lire une ligne de commande (terminée par une frappe sur la touche
+        \textsc{Entrée}),
+  \item interpréter la ligne saisie : le \shell{} propose en effet un certain
+        nombre de raccourcis (jokers, alias\ldots (voir plus loin)), destinés
+        à faciliter la saisie des commandes. L'interprétation de la ligne va
+        donc consister à remplacer les abréviations par la forme complète
+        correspondante,
+  \item lancer l'exécution de la commande.
+\end{itemize}
+
+Une ligne de commande se présente comme une suite de mots, séparés par des
+espaces. La forme générale d'une ligne de commande est :
+
+ \verb!chemin -options paramètres!
+ 
+où $chemin$, qui est le premier mot, est le chemin d'accès au fichier
+exécutable correspondant à la commande. Les options se distinguent
+(généralement) des paramètres en ce qu'elles sont précédées d'un tiret.
+Toutes les options et tous les paramètres sont séparés par des espaces.
+
+Il existe deux grandes familles de \shell{} : \textsc{Bourne-Shell} \cmd{sh} et
+\textsc{C-Shell} \cmd{csh} et leurs dérivés (\cmd{bash}, \cmd{tcsh}, ...).
+C'est le \shell{} \cmd{bash} qui vous utiliserez cette année.
+
+Nous allons manipuler dans cette séance quelques commandes utiles du
+\shell{}.
+
+\section{Archivage (niveau $*$)}
+
+Il est possible en \unix{} d'archiver plusieurs fichiers ou répertoires
+en les regroupant dans un fichier archive unique.
+Dans le cas d'un répertoire toute l'arborescence de fichiers dont ce
+répertoire est la racine est archivée.
+Cet archivage est utile pour des sauvegardes ou pour communiquer facilement un
+ensemble de fichiers.
+
+Pour effectuer l'archivage et le désarchivage, on utilise la commande
+\cmd{tar} :
+
+\begin{itemize}
+  \item Archivage : \cmd{tar -cvf arch.tar file1 file2 rep1} \\
+        regroupe dans le fichier arch.tar les deux fichiers file1 et file2
+        ainsi que le contenu du répertoire rep1, en préservant
+        l'arborescence.
+\end{itemize}
+
+\begin{danger}
+\textbf{Bien spécifier en premier paramètre un nom de fichier d'archivage avec
+son suffixe .tar, sinon c'est le nom du premier fichier que vous voulez
+archiver qui sera utilisé comme nom d'archive et donc votre premier fichier
+sera écrasé et perdu.}
+\end{danger}
+
+\begin{itemize}
+  \item Désarchivage : \cmd{tar -xvf arch.tar} extrait le contenu du fichier
+        archive,
+  \item Consultation : \cmd{tar -tvf arch.tar} liste le contenu du
+        fichier archive sans extraire.
+\end{itemize}
+
+Faire \cmd{man tar} pour plus d'informations.
+
+\
+
+\begin{maw}
+
+\begin{itemize}
+  \item Créer un répertoire \cmd{TP3} dans votre répertoire
+        \cmd{UtilisationDesOrdinateurs},
+  \item Récupérer sur la page Utilisation des Ordinateurs,
+        le fichier sujets.tar,
+  \item Dés-archiver cette archive et parcourez-la pour découvrir son
+        contenu,
+  \item Détruire le fichier sujets.tar,
+  \item Reconstruire un fichier d'archive identique à l'original.
+\end{itemize}
+\end{maw}
+
+\begin{danger}[Conseil]
+\textbf{pour éviter de mal utiliser la commande \cmd{tar} et
+d'écraser par mégarde des fichiers, nous vous conseillons d'archiver des
+répertoires. Par exemple si vous voulez archiver le répertoire TP3, il
+suffira de  :
+\begin{itemize}
+  \item se placer dans le répertoire parent de TP3
+  \item taper \cmd{tar -cvf TP3.tar TP3}
+\end{itemize}
+Un oubli de \cmd{TP3.tar} entraînera une erreur d'utilisation de \cmd{tar}
+mais en aucun cas ne détruira de fichier.}
+\end{danger}
+
+\begin{danger}[Conseil]
+Pensez à effacer les fichiers archive une fois que vous avez dé-archivé leur
+contenu. Dans beaucoup d'enseignements, vous allez récupérer de tels fichiers
+et, à la longue, vous risquez de ne plus avoir de place mémoire (quota).
+\end{danger}
+
+\section{Gestion des répertoires et des fichiers (niveau $*$)}
+
+On rappelle que tout fichier ou répertoire peut être désigné :
+\begin{itemize}
+  \item soit par un chemin absolu depuis la racine / 
+
+        \verb!/bin/ls! est le chemin d'accès au programme qui exécute la
+        commande ls,
+  \item soit par un chemin relatif par rapport au répertoire de travail
+        (\emph{working directory} affiché par la commande \cmd{pwd}), aussi
+        appellé répertoire courant.
+        Initialement (en début de session \shell), le répertoire travail est le
+        répertoire de connexion.  La commande \verb!cd! permet de 
+        changer le répertoire de travail (voir TP1) :
+
+        \verb!UtilisationDesOrdinateurs/TP3! est un chemin d'accès à partir de votre
+        répertoire de travail.
+\end{itemize}
+
+
+\subsection{Copie, Déplacement, Suppression, Renommage (niveau $*$)}
+
+Les commandes \cmd{cp} et \cmd{mv} utilisent un «argument source» et un
+«argument destination». Ces arguments sont un chemin d'accès relatif
+ou absolu vers un fichier ou un répertoire. L'action effectuée dépend
+de la nature de la source et de la destination :
+
+\begin{itemize}
+  \item \cmd{cp f1 f2} : fait une copie du fichier f1 dans un fichier f2
+        dont le chemin d'accès sera f2. 
+        Si un fichier ayant ce chemin d'accès existe, il est écrasé par la
+        copie de f1,\\
+  \item \cmd{cp f1 ... fn rep} : fait une copie des fichiers f1, \ldots,
+        fn dans le répertoire rep (existant) en préservant le nom des
+        fichiers,\\
+  \item \cmd{mv f1 f2} : déplace le fichier f1  dans un fichier dont le chemin
+        d'accès sera f2. Si un fichier ayant ce chemin d'accès existe il est
+        écrasé par f1, \\
+  \item \cmd{mv f1 ... fn rep} : déplace les fichiers f1 \ldots fn dans le
+        répertoire existant  dont le chemin d'accès est rep.
+        Les fichiers de même nom dans ce répertoire seront écrasés,\\
+  \item \cmd{mv rep1 rep2} : 
+        \begin{itemize}
+          \item si le répertoire désigné par le chemin d'accès rep2 existe
+                alors le répertoire rep1 et son contenu est transféré dans le
+                répertoire rep2 dont il devient un sous-répertoire,
+          \item s'il n'existe pas, le répertoire rep1 est renommé en rep2
+                (changement du chemin d'accès).
+        \end{itemize}
+\end{itemize}
+
+Les commandes \cmd{rm} et \cmd{rmdir} suppriment respectivement des
+fichiers et des répertoires vides, désignés par leur chemin d'accès :
+
+\begin{itemize}
+  \item \cmd{rm f1 ... fn} : supprime les fichiers f1 \ldots fn,
+  \item \cmd{rmdir rep} : supprime le répertoire rep si celui-ci est vide.
+\end{itemize}
+
+% Les trois commandes \cmd{cp}, \cmd{mv} et \cmd{rm} que vous avez à votre
+% disposition sont des \cmd{alias} (voir section \ref{alias}) et l'option
+% \cmd{-i} (interactif) est activée. Les commandes demandent donc
+% confirmation :
+% 
+% \begin{itemize}
+%   \item pour \cmd{cp} et \cmd{mv} quand la destination est un fichier existant,
+%   \item dans tous les cas pour le \cmd{rm}.
+% \end{itemize}
+
+\subsection{Caractères joker (niveau $*$)}
+Lorsque le  \shell{} interprète les noms de fichiers, il considère certains
+caractères comme des caractères spéciaux (jokers, aussi appelés
+\emph{métacaractères})~:
+
+\begin{itemize}
+  \item \verb|*| correspond à un nombre quelconque de caractères,
+  \item \verb|?| correspond  à exactement un caractère,
+  \item \verb|[abcdgh]| correspond  à exactement un caractère de
+        l'ensemble {a,b,c,d,g,h},
+  \item \verb|\| indique que le caractère qui suit ne doit pas être considéré
+        comme un métacaractère, ou un caractère spécial du \shell ($<$, $>$,
+        \verb+|+) ; cela permet, par exemple de désigner des fichiers dont le
+        nom comporte des métacaractères.
+ \end{itemize}
+
+Par exemple~:
+
+\begin{itemize}
+  \item \cmd{more *.ml} : fait un \cmd{more} sur tous les fichiers
+        dont le nom est terminé par .ml,
+\\  
+  \item \cmd{ls *.*} : liste tous les fichiers du répertoire courant dont le
+        nom contient un point,
+\\  
+  \item \cmd{rm a/*} : supprime tous les fichiers du répertoire \verb+a+ du
+        répertoire courant dont le nom ne commence pas
+        par un point (i.e. tous les fichiers du répertoire \verb+a+ 
+        sauf les fichiers cachés),
+\\  
+  \item \cmd{ls TP?/*.c} : liste tous les fichiers dont le nom a pour suffixe
+        \cmd{.c}, et qui sont en outre contenus dans des répertoires dont le nom
+        est composé de trois lettres commence par \cmd{TP},
+\\  
+  \item \cmd{ls *?.*?.*} : liste tous les fichiers dont le nom contient au
+        moins un caractère puis un point puis au moins un caractère puis un
+        point puis un nombre quelconque (nul éventuellement) de caractères.
+\end{itemize}
+
+\
+
+\begin{maw}
+
+L'archive que vous avez extraite contient les premiers sujets de
+TP. On vous demande de réorganiser cet ensemble de répertoires en :
+
+\begin{itemize}
+  \item créant deux nouveaux répertoires «Sources» et «PDF»,
+  \item transférant dans Sources tous les fichiers .tex et dans PDF tous
+        les fichiers .pdf,
+  \item supprimant les anciens répertoires et les fichiers qui subsistent,
+  \item reconstituant une archive contenant la nouvelle structure.
+\end{itemize}
+
+Vous pouvez recommencer plusieurs fois en utilisant des commandes
+différentes et en utilisant des chemins relatifs et absolus.
+\end{maw}
+
+\section{Redirections (niveau $**$)}
+
+Les calculs en cours (ou processus) échangent des informations avec leur
+environnement (périphériques, fichiers, ...) sous la forme de suites d'octets
+(ou flots d'entrées/sorties).
+
+Initialement, le \shell{} dispose de trois flots d'entrée/sortie :
+\begin{itemize}
+  \item l'entrée standard (flot numéro $0$), associée au clavier,
+  \item la sortie standard (flot numéro $1$), associée à l'écran,
+  \item la sortie erreur standard (flot numéro $2$), associée aussi à l'écran.
+\end{itemize}
+Ces associations des flots standard sont conservées, par défaut pour les
+commandes lancées à partir du \shell. Néanmoins, il est possible de redéfinir
+ces associations, pour une commande donnée : on parle alors de redirection
+d'un flot. Ainsi :
+\begin{itemize}
+  \item la sortie standard peut être définie à l'aide du caractère \verb!>! :\\
+        \cmd{ls -l > liste} : permet de récupérer le résultat de  \verb!ls!
+        dans le fichier $liste$,
+\\
+  \item il est possible de conserver le contenu d'un fichier vers lequel on
+        redirige la sortie standard :\\
+        \cmd{ls -l >> liste} : ajoute le résultat de \verb!ls!  a la fin du
+        fichier $liste$,
+\\
+  \item en Bourne Shell  (\verb!sh! ou \verb!bash!), la sortie erreur standard
+        peut être redirigée par  \verb!2>!\\
+        \cmd{rm * 2> log} : écrit les messages d'erreurs éventuellement
+        engendrés par l'exécution de  \verb!rm!  dans le fichier $log$,
+\\
+  \item l'entrée standard peut être redirigée par  \verb!<!\\
+        \cmd{sort < tolkien.txt} classe les lignes du fichier tolkien.txt par
+        ordre alphabétique.
+
+\end{itemize}
+
+\section{Tubes (niveau $**$)}
+
+La sortie standard d'une commande peut être reliée à (redirigée vers) l'entrée
+standard d'une autre commande par un $tube$ (ou $pipe$ en anglais).
+La seconde commande peut alors utiliser comme  point de départ de son
+traitement les résultats fournis par la première commande. Ce schéma de
+coordination est appelé un schéma $producteur/consommateur$ et sera revu
+longuement lorsque vous suivrez les cours de \textsc{Systèmes Centralisés}.
+
+L'utilisation d'un tube permet de transmettre un flot de données entre deux
+commandes sans avoir à passer par un fichier intermédiaire : les données
+transmises peuvent être conservées dans un tampon, en mémoire vive.
+
+La mise en place d'un tube est définie à l'aide du caractère \verb!|! obtenu
+en appuyant simultanément sur les touches «Alt Gr» et «-»/«6».
+
+\cmd{ls -l | more} : relie la sortie de  \verb!ls -l! à l'entrée de
+\verb!more!. La liste des fichiers du répertoire courant sera traitée par
+\verb!more!, c'est-à-dire affichée page à page (bien utile quand le nombre de
+fichiers contenus dans un répertoire est important).
+
+\section{Compression (niveau $*$)}
+Lorsqu'une archive (ou un fichier quelconque) est trop volumineuse, on
+peut la compresser.
+
+\begin{itemize}
+  \item \cmd{gzip rep.tar} : remplace rep.tar par rep.tar.gz compressé,
+  \item \cmd{gunzip rep.tar.gz} réalise l'opération inverse.
+\end{itemize}
+
+Si vous désirez produire ou récupérer des archives du monde
+\textsc{Windows} vous pouvez utiliser les commandes :
+\begin{itemize}
+  \item \cmd{zip -r9 rep.zip rep} : qui crée l'archive compressée rep.zip à
+        partir du répertoire rep,
+  \item \cmd{unzip rep.zip} qui réalise l'opération inverse.
+\end{itemize}
+
+\
+
+L'option \cmd{-r9} sélectionne une compression maximale ; vous pourrez tester
+l'option \cmd{-r1} pour voir la différence.
+
+\begin{maw}
+
+\begin{itemize}
+  \item compresser et décompressez l'archive produite précédemment,
+  \item comparer les tailles avec \cmd{ls -l}
+\end{itemize}
+
+\end{maw}
+
+\section{Commandes récursives (niveau $**$)}
+
+Les principales commandes de manipulation de l'arborescence des
+fichiers possèdent une option récursive \verb!-R! qui s'appliquent à un
+répertoire et à tous ses sous-répertoires :
+
+\begin{itemize}
+
+  \item \cmd{ls -R} : liste récursivement dans un parcours «en
+        largeur» un répertoire et ses sous-répertoires,\\
+  \item \cmd{cp -R rep1 rep2} : fait une copie récursive du répertoire
+        rep1
+        \begin{itemize}
+            \item  dans un nouveau répertoire de chemin d'accès rep2, si rep2
+                   n'existe pas,
+            \item dans un sous-répertoire de nom rep1, dans le répertoire rep2
+                  s'il existe déjà!\\
+          \end{itemize}
+  \item \cmd{rm -R rep} : détruit tout le répertoire rep et son contenu
+        récursivement! Utiliser avec prudence ou avec l'option \verb!-i!.
+\end{itemize}
+
+\
+
+\begin{maw}
+
+Expérimenter les options récursives sur l'archive.
+
+\end{maw}
+
+\begin{comment}
+\begin{danger}
+Pour la suite du sujet, tapez la commande suivante dans un terminal
+\begin{verbatim}
+echo $SHELL
+\end{verbatim}
+Si le résultat est \verb+/bin/tcsh+, les sections \ref{alias_tcsh}, \ref{tcsh}, \ref{cshrc} et
+\ref{grep} terminent le sujet.
+
+Si le résultat est \verb+/bin/bash+, les sections \ref{alias_bash}, \ref{bash}, \ref{bashrc} et
+\ref{grep} terminent le sujet.
+ 
+\end{danger}
+\end{comment}
+
+\begin{comment}
+\section{Alias (cas de \cmd{tcsh}) (niveau $*$)}
+\label{alias_tcsh}
+
+La commande \texttt{alias} permet de d'abréger l'écriture
+en renommant une fonction ou une expression plus complexe. Par
+exemple :
+\begin{verbatim}
+alias ll 'ls -l'
+alias del 'rm -i'
+\end{verbatim} 
+
+Le deuxième \texttt{alias} permet d'utiliser systématiquement la
+version sécurisée de la commande \texttt{rm} qui demande confirmation
+avant suppression de chaque fichier concerné.
+
+La liste des alias définis est consultable en tapant simplement la
+commande \texttt{alias} sans argument :
+\begin{verbatim}
+alias
+\end{verbatim}
+
+Vous pouvez définir un alias sur une commande en utilisant le nom initial de
+la commande ; cela modifiera l'effet de la commande~:
+
+\begin{verbatim}
+alias mv 'mv -i'
+alias cp 'cp -i'
+\end{verbatim} 
+
+Avec ces alias, lorsque vous déplacerez ou copierez des fichiers/répertoires,
+il y aura une demande de confirmation en cas de conflit ce qui évitera
+quelques pertes.
+
+Pour pouvoir utiliser la commande initiale, sans l'effet de l'alias, vous
+devrez la faire précéder d'un \verb+\+.
+
+\begin{verbatim}
+\mv fic1 fic2
+\end{verbatim}
+
+\begin{maw}
+Définir des alias et expérimenter leur effet.
+\end{maw}
+
+\paragraph{Remarque :} la portée d'un alias, c'est à dire l'environnement dans
+lequel l'alias est défini, est le \shell{} courant autrement dit, en
+simplifiant, le terminal courant.
+Vous pouvez le constater en manipulant deux terminaux et
+en vérifiant que les alias de l'un ne sont pas connus de l'autre (à moins
+bien sûr, de définir les mêmes alias dans les deux terminaux).
+
+On verra à la section \ref{cshrc} comment rendre les alias « permanents ». 
+
+\section{Variables d'environnement (cas de \cmd{tcsh})}
+\label{tcsh}
+
+L'interprète de commandes permet de définir des variables d'environnement,
+c'est-à-dire d'associer des noms à des chaînes de caractères. Cette facilité
+permet de configurer simplement le comportement de l'interprète de commandes
+en associant des valeurs particulières à des variables prédéfinies. Par
+exemple, la variable d'environnement \cmd{history} indique le nombre maximum de
+commandes tapées dans le \shell{} qui sont mémorisées et accessibles par
+les flèches haut/bas.
+
+Au cours de ce TP nous étudierons les variables locales dont la portée
+est l'interprète \shell{} dans lequel elles ont été définies.
+
+\begin{itemize}
+  \item \cmd{set} liste les variables locales et leur valeur,
+  \item \cmd{echo \$$variable$} : affiche la valeur d'une  variable,
+  \item \cmd{set variable = chaîne} :  modifie la valeur d'une variable
+        locale (ou en crée une  nouvelle). 
+\end{itemize}
+
+\begin{maw}
+
+\begin{itemize}
+  \item utiliser la commande \cmd{set}, puis la commande \cmd{echo} pour
+        consulter les variables déjà définies,
+  \item modifier la variable \cmd{history} en lui donnant la valeur 2 et
+        vérifier que le nombre de commandes mémorisées est 2,
+  \item modifier après l'avoir consultée la variable \texttt{prompt} qui
+        définit l'«invite» de l'interpréteur \shell{} :
+        \begin{itemize}
+          \item  essayez \texttt{set prompt =    "Bonjour :"} ,
+          \item regardez l'action de \%Cn et \%T dans la chaîne ($n$ désigne
+                un entier), 
+        \end{itemize}
+  \item constater que cette modification n'a pas d'influence sur d'autres
+        occurences de \shell{} s'exécutant dans d'autres fenêtres.
+%        \footnote{les variables à portée globale seront abordées au TP suivant}
+\end{itemize}
+
+\end{maw}
+
+\section{Fichiers d'initialisation de \cmd{tcsh}}
+\label{cshrc}
+
+Le répertoire de connexion de votre compte contient des fichiers
+« cachés », dont le nom commence par un point. Ils sont listés par la
+commande
+
+\verb+    ls -a+
+
+Lors de la connexion d'un utilisateur, l'interprète de commandes
+exécute les instructions contenues dans le fichier \cmd{.login}. Ces
+instructions ne sont donc exécutées qu'une seule fois.
+
+Les commandes  du fichier \cmd{.cshrc} sont exécutées chaque fois qu'un
+interprète \textsc{C-shell} est lancé.
+
+Lors de la déconnexion c'est le fichier \cmd{.logout} qui est pris en compte.
+
+Dans ces fichiers, on peut :
+
+\begin{itemize}
+  \item définir des alias,
+  \item modifier des chemins d'accès,
+  \item configurer des programmes,
+  \item \ldots
+\end{itemize}
+
+Pour prendre en compte les modifications effectuées dans les fichiers de
+configuration, vous pouvez :
+
+\begin{itemize}
+  \item soit vous déconnecter puis vous reconnecter sur la machine, dans le
+        cas des fichiers \cmd{.logout} et \cmd{.login},
+  \item soit lancer un nouveau \textsc{C-shell} (commande \cmd{tcsh}),
+  \item soit utiliser la commande \cmd{source}  qui exécute les instructions
+        contenues dans un fichier (\cmd{source .login} ou \cmd{source .cshrc}).
+\end{itemize}
+
+\
+
+\begin{maw}
+\begin{itemize}
+  \item éditer le fichier \cmd{.cshrc} pour introduire des alias ou
+        modifier la variable prompt,
+  \item exécuter la commande \cmd{source .cshrc} et constater les
+        changements,
+  \item faire la même constatation dans tout nouveau terminal exécutant
+        un \shell.
+\end{itemize}
+\end{maw}
+
+\newpage
+\end{comment}
+
+\section{Alias %(cas de \cmd{bash})
+(niveau $*$)}
+\label{alias_bash}
+
+La commande \texttt{alias} permet de d'abréger l'écriture
+en renommant une fonction ou une expression plus complexe. Par
+exemple :
+\begin{verbatim}
+alias ll="ls -l"
+alias del="rm -i"
+\end{verbatim} 
+
+Le deuxième \texttt{alias} permet d'utiliser systématiquement la
+version sécurisée de la commande \texttt{rm} qui demande confirmation
+avant suppression de chaque fichier concerné.
+
+La liste des alias définis est consultable en tapant simplement la
+commande \texttt{alias} sans argument :
+\begin{verbatim}
+alias
+\end{verbatim}
+
+Vous pouvez définir un alias sur une commande en utilisant le nom initial de
+la commande ; cela modifiera l'effet de la commande~:
+
+\begin{verbatim}
+alias mv="mv -i"
+alias cp="cp -i"
+\end{verbatim} 
+
+Avec ces alias, lorsque vous déplacerez ou copierez des fichiers/répertoires,
+il y aura une demande de confirmation en cas de conflit ce qui évitera
+quelques pertes.
+
+Pour pouvoir utiliser la commande initiale, sans l'effet de l'alias, vous
+devrez la faire précéder d'un \verb+\+.
+
+\begin{verbatim}
+\mv fic1 fic2
+\end{verbatim}
+
+\begin{maw}
+Définir des alias et expérimenter leur effet.
+\end{maw}
+
+\paragraph{Remarque :} la portée d'un alias, c'est à dire l'environnement dans
+lequel l'alias est défini, est le \shell{} courant autrement dit, en
+simplifiant, le terminal courant.
+Vous pouvez le constater en manipulant deux terminaux et
+en vérifiant que les alias de l'un ne sont pas connus de l'autre (à moins
+bien sûr, de définir les mêmes alias dans les deux terminaux).
+
+On verra à la section \ref{bashrc} comment rendre les alias « permanents ». 
+
+
+\section{Variables d'environnement %(cas de \cmd{bash})
+(niveau $*$)}
+\label{bash}
+L'interprète de commandes permet de définir des variables d'environnement,
+c'est-à-dire d'associer des noms à des chaînes de caractères. Cette facilité
+permet de configurer simplement le comportement de l'interprète de commandes
+en associant des valeurs particulières à des variables prédéfinies. Par
+exemple, la variable d'environnement \cmd{PWD} contient la valeur du
+répertoire courant.
+
+Au cours de ce TP nous étudierons les variables locales dont la portée
+est l'interprète \shell{} dans lequel elles ont été définies.
+
+\begin{itemize}
+  \item \cmd{env} liste les variables locales et leur valeur,
+  \item \cmd{echo \$$variable$} : affiche la valeur d'une  variable,
+  \item \cmd{variable=chaîne} :  modifie la valeur d'une variable
+        locale (ou en crée une  nouvelle). 
+\end{itemize}
+
+\begin{maw}
+
+\begin{itemize}
+  \item utiliser la commande \cmd{env}, puis la commande \cmd{echo} pour
+        consulter les variables déjà définies,
+  \item consulter la valeur de la variable \cmd{HISTSIZE}, qui indique le
+        nombre maximum de commandes tapées dans le \shell{} mémorisées et
+        accessibles par les flèches haut/bas 
+  \item donner lui  la valeur 2 et vérifier que le nombre de commandes
+        mémorisées est 2,
+  \item modifier après l'avoir consultée la variable \texttt{PS1} (prompt) qui
+        définit l'«invite» de l'interpréteur \shell{} :
+        \begin{itemize}
+          \item essayez \texttt{export PS1="Bonjour :"} ,
+          \item regardez l'action de \verb+\u+, \verb+\w+, \verb+\W+ et
+                \verb+\!+ dans la chaîne (en changeant de répertoire pour
+                \verb+\w+ et \verb+\W+),
+        \end{itemize}
+  \item constater que cette modification n'a pas d'influence sur d'autres
+        occurences de \shell{} s'exécutant dans d'autres fenêtres.
+%        \footnote{les variables à portée globale seront abordées au TP suivant}
+\end{itemize}
+
+\end{maw}
+
+\section{Fichiers d'initialisation de \cmd{bash} (niveau $*$)}
+\label{bashrc}
+
+Le répertoire de connexion de votre compte contient des fichiers
+d'initialisation « cachés », dont le nom commence par un point :
+\cmd{.bashrc}, \cmd{.bash\_login}, \cmd{.bash\_logout}.
+
+Ils sont listés par la commande
+
+\verb+    ls -a+
+
+\textbf{Ils n'existent pas obligatoirement par défaut.}
+
+Lors de la connexion d'un utilisateur, l'interprète de commandes
+exécute les instructions contenues dans le fichier \cmd{.bash\_login}. Ces
+instructions ne sont donc exécutées qu'une seule fois.
+
+Les commandes du fichier \cmd{.bashrc} sont exécutées chaque fois qu'un
+interprète \textsc{shell} \cmd{bash} est lancé (ouverture d'un terminal).
+
+Lors de la déconnexion c'est le fichier \cmd{.bash\_logout} qui est pris en compte.
+
+Dans ces fichiers, on peut :
+
+\begin{itemize}
+  \item définir des alias,
+  \item modifier des chemins d'accès,
+  \item configurer des programmes,
+  \item \ldots
+\end{itemize}
+Pour prendre en compte les modifications effectuées dans les fichiers de
+configuration, vous pouvez :
+
+\begin{itemize}
+  \item soit vous déconnecter puis vous reconnecter sur la machine, dans le
+        cas des fichiers \cmd{.bash\_logout} et \cmd{.bash\_login},
+  \item soit lancer un nouveau \textsc{shell} (commande \cmd{bash}),
+  \item soit utiliser la commande \cmd{source} qui exécute les instructions
+        contenues dans un fichier (\cmd{source .bash\_login} ou \cmd{source
+        .bashrc}).
+\end{itemize}
+
+\
+
+\begin{maw}
+\begin{itemize}
+  \item éditer le fichier \cmd{.bashrc} pour introduire des alias ou
+        modifier la variable prompt,
+  \item exécuter la commande \cmd{source .bashrc} et constater les
+        changements,
+  \item faire la même constatation dans tout nouveau terminal.
+\end{itemize}
+\end{maw}
+
+\newpage
+
+\section{Deux commandes \shell{} bien utiles (niveau $**$)}
+\label{grep}
+
+\cmd{grep [options] exp [f1 ...]}
+\begin{quote}
+  Affiche toutes les lignes des fichiers f1...  contenant l'expression
+  régulière \cmd{exp}. Si la commande porte sur plusieurs fichiers, chaque
+  ligne affichée est précédée du nom de fichier la contenant.
+
+  Quelques options intéressantes :
+  \begin{itemize}
+    \item[$\bullet$] \verb+ -i + rend la recherche insensible à la «casse" des
+                     lettres (minuscules ou MAJUSCULES)
+    \item[$\bullet$] \verb+ -n + indique la ligne où l'expression a été
+                     trouvée
+    \item[$\bullet$] \verb+ -l + ne donne que le nom des fichiers où la
+                     recherche a été fructueuse (utile par exemple pour éditer
+                     les fichiers qui contiennent l'expression recherchée)
+  \end{itemize}
+
+\begin{verbatim}
+  grep alias $HOME/.bashrc
+  grep begin *.tex
+  grep -in The tolkien.txt
+\end{verbatim}
+
+\paragraph{Remarques :} 
+\begin{itemize}
+  \item il convient, bien entendu, se placer dans un répertoire
+        qui contient les « bons » fichiers,
+  \item la variable globale \verb+HOME+ (que nous reverrons au dernier TP)
+        contient le chemin de votre répertoire de connexion.
+  \item \texttt{exp} peut contenir des métacaractères permettant de décrire
+        des motifs de recherche. Ces métacaractères sont spécifiques à la
+        commande \texttt{grep} et sont différents de ceux du \shell.
+\end{itemize}
+%Ces exemples ne montrent pas toutes les possibilités de cette commande ;
+%nous vous rappelons que pour des informations supplémentaires, il est très
+%utile d'utiliser la commande \cmd{man}.
+\end{quote}
+
+\cmd{find repertoires expression...}
+\begin{quote}
+  Parcourt récursivement les fichiers des répertoires spécifiés et évalue,
+  pour chaque fichier l'expression de gauche à droite.  L'expression permet
+  soit de définir des critères de sélection, soit d'effectuer des opérations
+  (affichages, exécution de commandes) sur les fichiers vérifiant les critères
+  de sélection précédents.
+
+\begin{verbatim}
+  find . -name '*.txt' -print
+\end{verbatim}
+affiche (option \cmd{-print}) tous les fichiers de l'arborescence du répertoire
+courant (\textbf{.}) qui ont comme suffixe \cmd{*.txt} (option \cmd{-name
+'*.txt'}). 
+
+\begin{verbatim}
+  find $HOME -name '*.txt' -print -exec grep -i '^the'  {} \;
+\end{verbatim}
+trouve tous les fichiers de l'arborescence de votre répertoire de connexion
+(\$HOME) dont le suffixe est \cmd{*.txt} et pour ces fichiers, affiche leur
+nom puis, affiche les lignes contenant l'expression \cmd{the} en début de
+ligne (option \cmd{-exec} avec la commande \cmd{grep -i '\^{}the'}) et s'en va
+faire le café.
+
+\paragraph{Remarques :}
+
+\begin{itemize}
+  \item "\{\}" désigne le nom des fichiers trouvés précédemment par le
+        \cmd{find},
+  \item le ";" (précédé de son \verb+\+) marque la fin du bloc \cmd{-exec},
+  \item dans le dernier exemple, les affichages du \cmd{-print} et celui du
+        \cmd{grep} sont effectués à la suite l'un de l'autre.
+\end{itemize}
+\end{quote}
+
+Une dernière utilisation de la commande \cmd{find} avec en prime un tube et la
+commande \cmd{xargs} :
+
+\begin{verbatim}
+  find $HOME -name '*.txt' -print | xargs grep -i '^the'
+\end{verbatim}
+
+Cette commande donne le même résultat que la précédente et on se passe des
+parenthèses et de l'antislash-point virgule. Elle fonctionne comme suit :
+
+\begin{itemize}
+  \item le flux résultat de find est en entrée de la commande \cmd{xargs},
+  \item celle-ci exécute autant de fois la commande en argument (ici 
+        \cmd{grep}) qu'il y a d'éléments en entrée,
+  \item chacun de ces éléments devenant le dernier argument de la commande
+        \cmd{grep}.
+\end{itemize}
+
+\section{CQFAR (Ce Qu'il Faut Avoir Retenu)}
+
+À la fin de cette séance de TP vous devez:
+\begin{enumerate}
+  \item savoir récupérer une archive,
+  \item savoir archiver et désarchiver le contenu d'un répertoire ou un
+        ensemble de fichiers,
+  \item savoir copier, déplacer, renommer, supprimer des fichiers et des
+        répertoires,
+  \item savoir compresser et décompresser un fichier,
+  \item savoir utiliser les caractères jokers,
+%  \item savoir rediriger la sortie standard,
+%  \item savoir coupler des commandes au moyen de tubes,
+  \item savoir modifier une variable locale du \shell, et créer des
+        \verb!alias!,
+  \item savoir modifier le fichier \verb!.bashrc! et prendre
+        en compte ces modifications.
+%  \item savoir utiliser \verb!grep! et  \verb!find! dans des cas simples.
+\end{enumerate}
+
+\end{document}

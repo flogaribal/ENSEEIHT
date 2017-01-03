@@ -1,0 +1,113 @@
+module decoder6to64(e[5..0],s[63..0])
+	decoder5to32(e[4..0],sI[31..0]);
+		s[31..0] = sI[31..0]*/e[5];
+		s[63..32] = sI[31..0]*e[5];
+end module
+
+
+
+module addsub32 (a[31..0], b[31..0], sub : s[31..0],V,C)
+	b1[31..0] = b[31..0]*/sub + /b[31..0]*sub;
+	adder32(a[31..0], b1[31..0], sub : s[31..0], cout);
+	C = /sub*cout+sub*/cout;
+	V = /sub*/a[31]*/b[31]*s[31] + /sub*a[31]*b[31]*/s[31] + sub*/a[31]*b[31]*s[31] + sub*a[31]*/b[31]*/s[31];
+end module
+
+
+
+module barrelshifter32(r,nb[4..0],e[31..0] : s[31..0])
+	shift1(r,nb[0],e[31..0] : s1[31..0]);
+	shift2(r,nb[1],s1[31..0] : s2[31..0]);
+	shift4(r,nb[2],s2[31..0] : s3[31..0]);
+	shift8(r,nb[3],s3[31..0] : s4[31..0]);
+	shift16(r,nb[4],s4[31..0] : s[31..0]);
+end module
+
+
+
+module umul32x32(a[31..0], b[31..0]: s[63..0])
+	umul32x16(a[31..0], b[15..0] : s1[47..0]);
+	umul32x16(a[31..0], b[31..16] : s2[47..0]);
+	s[15..0] = s1[15..0];
+	s1[63..48] = 0;
+	adder16(s1[31..16],s2[15..0],0 : s[31..16],cout);
+	adder32(s1[63..32], s2[47..16],cout : s[63..32],c);
+end module
+
+
+module fixadd_24(a[31..0],b[31..0] : s[31..0], v)
+	addsub32(a[31..0],b[31..0],0 : s[31..0],v,c);
+end module
+
+
+
+
+module fixsub_24_8(a[31..0],b[31..0] : s[31..0], v)
+	addsub32(a[31..0],b[31..0],1 : s[31..0],v,c);
+end module
+
+
+
+module zero8(a[7..0] : z)
+	z = /a[7]*/a[6]*/a[5]*/a[4]*/a[3]*/a[2]*/a[1]*/a[0];
+end module
+
+
+
+
+module zero16(a[15..0] : z)
+	zero8(a[15..8], z1);
+	zero8(a[7..0], z2);
+	z = z1*z2;
+end module
+
+
+
+
+module zero32(a[31..0] : z)
+	zero16(a[31..16], z1);
+	zero16(a[15..0], z2);
+	z = z1*z2;
+end module
+
+
+
+module ual(a[31..0],b[31..0],cmd[5..0] : s[31..0],N,Z,V,C)
+	decoder6to64(cmd[5..0],decode[63..0]);
+	
+	addsub32(a[31..0],b[31..0], decode[4]: add[31..0], vAddSub,cAddSub);
+	s[31..0] = add[31..0] : decode[0] ;
+	s[31..0] = add[31..0] : decode[4] ;
+	
+	sand[31..0] = a[31..0]*b[31..0];
+	s[31..0] = sand[31..0] : decode[1];
+	
+	sor[31..0] = a[31..0]+b[31..0];
+	s[31..0] = sor[31..0] : decode[2];
+	
+	sxor[31..0] = a[31..0]*/b[31..0] + /a[31..0]*b[31..0];
+	s[31..0] = sxor[31..0] : decode[3];
+	
+	barrelshifter32(decode[13], b[4..0],a[31..0] : shiftr[31..0]);
+	s[31..0] = shiftr[31..0] : decode[13];
+	s[31..0] = shiftr[31..0] : decode[14];
+	
+	umul32x32(a[31..0],b[31..0] : mul[63..0]);
+	s[31..0] = mul[31..0] : decode[26];
+	
+	fixadd_24(a[31..0],b[31..0] : fixAdd[31..0], vFixAdd);
+	s[31..0] = fixAdd[31..0] : decode[5];
+	
+	fixsub_24_8(a[31..0],b[31..0] : fixSub[31..0], vFixSub);
+	s[31..0] = fixSub[31..0] : decode[6];
+	
+	N = s[31]*decode[6] + s[31]*decode[5] + s[31]*decode[4] + s[31]*decode[0];
+	
+	zero32(s[31..0], Z);
+	
+	zero32(mul[63..32] : zeroMul);
+	C = /zeroMul*decode[26] + cAddSub*decode[0] + cAddSub*decode[4];
+	
+	V = vAddSub*decode[0] + vAddSub*decode[4] + vFixAdd*decode[5] + vFixAdd*decode[6];
+	
+end module 

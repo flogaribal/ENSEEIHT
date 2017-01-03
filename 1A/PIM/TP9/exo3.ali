@@ -1,0 +1,69 @@
+V "GNAT Lib v4.9"
+M P W=b
+P ZX
+
+RN
+RV NO_IO
+RV NO_RECURSION
+RV SPARK_05
+
+U exo3%b		exo3.adb		22dcb7ea NE OO SU IL
+W ada%s			ada.ads			ada.ali
+W ada.integer_text_io%s	a-inteio.ads		a-inteio.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+
+D ada.ads		20070406091342 3ffc8e18
+D a-except.ads		20140129161953 f86a4103
+D a-finali.ads		20111121113555 52ecdc1b
+D a-inteio.ads		20070406091342 f64b89a4
+D a-ioexce.ads		20140225151544 e4a01f64
+D a-stream.ads		20140122164720 1a984740
+D a-tags.ads		20111212115430 6c0509d0
+D a-textio.ads		20140129155348 386df5d4
+D a-tiinio.ads		20090409150019 aa04e5d6
+D a-unccon.ads		20070406091342 f9eb8f06
+D exo3.adb		20151106164443 ecfacb9a
+D interfac.ads		20140225151838 69adb1b9
+D i-cstrea.ads		20130412125801 8128536b
+D system.ads		20141119215827 90249111
+D s-crtl.ads		20140225151544 840e6817
+D s-exctab.ads		20140225151139 54135002
+D s-ficobl.ads		20120709130952 55a71d43
+D s-finmas.ads		20140225151139 814daec4
+D s-finroo.ads		20120426095924 4ff27390
+D s-parame.ads		20140225151139 ab8cb46a
+D s-pooglo.ads		20110804083314 542f33d0
+D s-soflin.ads		20140225151139 aa763b52
+D s-stache.ads		20140225151139 a37c21ec
+D s-stalib.ads		20140225151139 a891183f
+D s-stoele.ads		20140225151139 2dc34a04
+D s-stoele.adb		20140225151139 ed88f8fb
+D s-stopoo.ads		20131010103753 b16154c2
+D s-traent.ads		20140225151139 b5116092
+D s-unstyp.ads		20140225151139 510692af
+D s-wchcon.ads		20140225151139 1b7d22d2
+X 1 ada.ads
+16K9*Ada 19e8 11|10r6 11r5 12r6 13r5
+X 4 a-inteio.ads
+18K13*Integer_Text_IO[9|45] 11|12w10 13r9
+X 8 a-textio.ads
+49K13*Text_IO 471e16 11|10w10 11r9
+166U14*New_Line 11|36s17 74s17 84s5
+X 9 a-tiinio.ads
+65U14*Put 11|33s17[4|18] 72s25[4|18]
+X 11 exo3.adb
+15U11*exo3 15b11 87l5 87t9
+28U15 affiche2_aux 28b15 28>28 28>39 28>50 28>62 34s17 37s17 41l9 41t21 54s9
+28i28 a{integer} 31r12 33r24 34r30 37r30
+28i39 m{integer} 31r17 34r32 37r34
+28i50 b{integer} 32r16 33r28 34r34
+28i62 n{integer} 32r21 34r38 37r38
+51U15 affiche2 51b15 51>24 51>39 55l9 55t17 86s5
+51i24 m{integer} 54r24
+51i39 n{integer} 54r28
+66U15 affiche 66b15 66>23 66>39 76l9 76t16 82s5
+66i23 m{integer} 68r21
+66i39 n{integer} 70r30
+68i13 a{integer} 72r32
+70i21 b{integer} 72r36
+

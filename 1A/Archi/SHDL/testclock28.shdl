@@ -1,0 +1,9 @@
+module testclock28 (mclk:s[27..0], ld[7..0])
+	
+	clock28(0, mclk : s[27..0]);
+	ld[7..0] = s[27..20];
+	
+end module
+
+
+// Fréquence du signal mclk/2^i

@@ -1,0 +1,267 @@
+_________________________________________
+
+COMPTEUR INTERRUPTION BTN[3]
+_________________________________________
+
+SSEGS = 0xA0000000
+STACK = 0x150 
+ba prog
+
+handler:	push %r1
+		ld [compteur], %r1
+		inc %r1
+		st %r1,[compteur]
+		pop %r1
+		reti 
+
+prog: 	set STACK, %sp			// Init pile
+	set SSEGS, %r2			// Init 7 segs
+      	setq 0b1111, %r4			// Activation 7 segs
+       st %r4, [%r2+1] 			// Activation 7 segs	
+
+	ld [compteur],%r3
+	st %r3,[%r2]
+	ba prog
+
+compteur: .word 0
+
+
+_________________________________________
+
+COMPTEUR INTERRUPTION PWM
+_________________________________________
+
+
+SSEGS = 0xA0000000
+STACK = 0x150 
+PWM = 0xC0000000
+
+
+ba prog
+
+handler:	push %r1
+		ld [compteur], %r1
+		inc %r1
+		st %r1,[compteur]
+		pop %r1
+		reti 
+
+prog: 	set STACK, %sp			// Init pile
+	set SSEGS, %r2			// Init 7 segs
+      	setq 0b1111, %r4			// Activation 7 segs
+      	st %r4, [%r2+1] 			// Activation 7 segs
+	
+	set PWM, %r3				// Init PWM
+	set 19531,%r5				// Affectation P
+	st %r5,[%r3]
+
+	ld [compteur],%r1
+	st %r1,[%r2]
+	ba prog
+
+compteur: .word 0
+
+
+
+_________________________________________
+
+CHRONOMETRE EXACT
+_________________________________________
+
+
+
+SSWITCH = 0x90000000
+SSEGS = 0xA0000000
+STACK = 0x150
+PWM = 0xC0000000 
+
+ba prog
+
+handler :	push %r1
+		ld [temps],%r1
+		inc %r1
+		st %r1,[temps]	
+		pop %r1
+		reti
+
+prog: 		set STACK, %sp			// Init pile
+	  	set SSEGS, %r2			// Init 7 segs
+		set SSWITCH, %r3			// Init switches
+      	 	setq 0b1111, %r4			// Activation 7 segs
+       	st %r4, [%r2+1] 			// Activation 7 segs		
+      		clr %r7				// Clear %r7 -> compteur
+
+		set PWM, %r8				// Init PWM
+		set 19531,%r5				// Affectation P
+		st %r5,[%r8]
+
+stop: set 0b01, %r1
+      call swtest
+      bz go
+      set 0b10,%r1
+      call swtest
+      bz suiteStop
+      ba stop
+
+suiteStop: 	set 0,%r7
+	    	st %r7,[%r2]
+		ba stop
+
+go: 	set 0,%r1
+	call swtest
+	bz stop
+	add %r7,%r20,%r7
+	st %r7,[%r2]
+	call delay
+	ba go
+
+
+
+
+
+swtest: 	push %r5
+		ld [%r3+%r0],%r5 		// lecture switches
+	  	and %r5, 0b11,%r5		// Isolation des deux derniers switch
+	  	and %r1, 0b11,%r6		// Isolation des deux bits de poifs faibles de %r1
+         	cmp %r5,%r6			// Comparaison des deux bits avec les deux bits de poids faibles 	de %r1
+		pop %r5
+		ret
+
+delay: 	push %r1
+		push %r2
+		ld [temps],%r1
+		add %r1,10,%r1
+		
+loop:	 	ld [temps],%r2
+		cmp %r2, %r1
+		bl loop
+	 
+retourne: 	pop %r2
+		pop %r1
+	   	ret 
+
+
+temps: .word 0
+
+
+
+_________________________________________
+
+MULTI-TACHEs
+_________________________________________
+
+SSEGS = 0xA0000000
+TABSP = 0x102
+STACK0 = 0x160 
+STACK1 = 0x200
+PWM = 0xC0000000
+LEDS = 0xB0000000
+NUMPROG = 0x101
+
+ba prog
+
+handler:	push %r1
+		push %r2
+		push %r3
+		push %r4
+		push %r5
+		push %r6
+		push %r7
+		push %r8
+		push %r9
+		push %r28
+
+		ld [NUMPROG], %r1		// Récupération du numéro du prog
+		set TABSP, %r2		// Récupération du tableau pointeurs de pile
+		st %sp,[%r2+%r1]		// Stockage du pointeur de pile courant dans le tableau
+		
+
+		ld [temps],%r4
+		inc %r4
+		st %r4,[temps]	
+
+
+
+		sub %r20,%r1,%r1		// Modification du num du programme
+		st %r1,[NUMPROG]	
+		ld [%r2+%r1], %sp 		// Modification du pointeur de pile
+			
+		pop %r28
+		pop %r9
+		pop %r8
+		pop %r7
+		pop %r6
+		pop %r5
+		pop %r4
+		pop %r3
+		pop %r2
+		pop %r1
+		reti 
+
+
+
+prog:	set STACK1 ,%sp	
+	set prog10,%r1
+	push %r1
+	push %r0
+	push %r0
+	push %r0
+	push %r0
+	push %r0
+	push %r0
+	push %r0
+	push %r0
+	push %r0
+	push %r0
+	push %r0
+
+	set TABSP, %r1
+	st %sp,[%r20+%r1]
+
+	st %r0,[NUMPROG]
+
+
+
+	set PWM, %r3				// Init PWM
+	set 19531,%r5				// Affectation P
+	st %r5,[%r3]				//
+
+	set STACK0 ,%sp			// Init pile
+	ba prog00
+
+prog00:	set SSEGS, %r2			// Init 7 segs
+	      	setq 0b1111, %r4			// Activation 7 segs
+	      	st %r4, [%r2+1] 			// Activation 7 segs
+prog01:	ld [compteur1], %r1
+		inc %r1
+		st %r1,[compteur1]
+		st %r1,[%r2]
+		call delay
+		ba prog01
+
+prog10:	set LEDS, %r6				// Init LEDS
+prog11:	ld [compteur2], %r1
+		inc %r1
+		st %r1,[compteur2]
+		st %r1,[%r6]
+		call delay
+		ba prog11
+
+
+delay: 	push %r1
+		push %r2
+		ld [temps],%r1
+		add %r1,10,%r1
+		
+loop:	 	ld [temps],%r2
+		cmp %r2, %r1
+		bl loop
+	 
+retourne: 	pop %r2
+		pop %r1
+	   	ret 
+
+
+temps: .word 0
+compteur1: .word 0
+compteur2: .word 0

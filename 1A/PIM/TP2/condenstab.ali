@@ -1,0 +1,62 @@
+V "GNAT Lib v2015"
+M P W=b
+P ZX
+
+RN
+RV NO_DIRECT_BOOLEAN_OPERATORS
+RV NO_IO
+RV SPARK_05
+
+U condenstab%b		condenstab.adb		0d9b612f NE OO SU IL
+W ada%s			ada.ads			ada.ali
+W ada.integer_text_io%s	a-inteio.ads		a-inteio.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+
+D ada.ads		20150506105328 3ffc8e18 ada%s
+D a-except.ads		20150506105328 5250cb69 ada.exceptions%s
+D a-inteio.ads		20150506105332 f64b89a4 ada.integer_text_io%s
+D a-ioexce.ads		20150506105327 e4a01f64 ada.io_exceptions%s
+D a-stream.ads		20150506105329 119b8fb3 ada.streams%s
+D a-tags.ads		20150506105332 dc4d0634 ada.tags%s
+D a-textio.ads		20150506105332 386df5d4 ada.text_io%s
+D a-tiinio.ads		20150506105328 aa04e5d6 ada.text_io.integer_io%s
+D a-unccon.ads		20150506105331 f9eb8f06 ada.unchecked_conversion%s
+D condenstab.adb	20151009145954 c3bd1d5f condenstab%b
+D interfac.ads		20150506105327 6033a23f interfaces%s
+D i-cstrea.ads		20150506105327 e53d8b8e interfaces.c_streams%s
+D system.ads		20150506105329 1d274481 system%s
+D s-crtl.ads		20150506105326 0ebbdb71 system.crtl%s
+D s-exctab.ads		20150506105331 54135002 system.exception_table%s
+D s-ficobl.ads		20150506105333 078245e4 system.file_control_block%s
+D s-parame.ads		20150506105331 7e2a0d7f system.parameters%s
+D s-soflin.ads		20150506105328 aa763b52 system.soft_links%s
+D s-stache.ads		20150506105332 a37c21ec system.stack_checking%s
+D s-stalib.ads		20150506105331 fa0a3617 system.standard_library%s
+D s-stoele.ads		20150506105332 2dc34a04 system.storage_elements%s
+D s-traent.ads		20150506105327 005bf670 system.traceback_entries%s
+D s-unstyp.ads		20150506105330 9d58a4c0 system.unsigned_types%s
+D s-wchcon.ads		20150506105330 1b7d22d2 system.wch_con%s
+X 1 ada.ads
+16K9*Ada 19e8 10|29r6 30r5 31r6 32r5
+X 3 a-inteio.ads
+18K13*Integer_Text_IO[8|46] 10|31w10 32r9
+X 7 a-textio.ads
+49K13*Text_IO 471e16 10|29w10 30r9
+206U14*Get 10|77s21
+208U14*Put 10|102s21
+242U14*Put 10|61s25 63s25 74s21 76s21 101s21
+X 8 a-tiinio.ads
+56U14*Get 10|64s25[3|18]
+66U14*Put 10|62s25[3|18] 75s21[3|18]
+X 10 condenstab.adb
+34U11*condenstab 34b11 105l5 105t15
+38i5 NMAX{integer} 41r31 62r29 66r69
+41A10 TAB_CHAR(character)<integer> 44r14
+44a5 un_tab{41A10} 77m25 77r25 83r24 84m24 84r42 102r25
+45i5 nb_elements{integer} 64m29 65r44 66r35 66r55 73r43 82r43
+46i5 indEcr{integer} 52m4 84r31 85m24 85r34
+47i5 new_nb_elements{integer} 65m25 87m24 87r43 100r43
+73i21 I{integer} 75r25 77r32
+82i21 I{integer} 83r31 84r49
+100i21 I{integer} 102r32
+

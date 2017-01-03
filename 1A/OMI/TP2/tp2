@@ -1,0 +1,91 @@
+(* Ouverture d'une section *)
+Section Induction.
+
+(* Déclaration de variables prop *)
+Variable A : Set.
+
+Inductive list : Set :=
+  Nil : list
+| Cons : A -> list -> list.
+Fixpoint append (l1 l2 : list) {struct l1} : list :=
+match l1 with
+  Nil => l2
+| (Cons t1 q1) => (Cons t1 (append q1 l2))
+end.
+
+Theorem Thm_2b : forall (x : list), (append x Nil) = x.
+intro x.
+elim x.
+simpl.
+reflexivity.
+
+intros t q third.
+simpl.
+rewrite third.
+reflexivity.
+Qed.
+
+Theorem Thm_2c : forall (x y z : list),
+                 (append x (append y z)) = (append (append x y) z).
+
+intros B C D.
+elim B.
+simpl.
+reflexivity.
+
+intros E F G.
+simpl.
+rewrite G.
+reflexivity.
+Qed.
+
+
+Variable rev : list -> list.
+Axiom rev_Nil : (rev Nil) = Nil.
+Axiom rev_Cons : forall (x: A), forall  (y : list), rev (Cons x y) = append (rev y) (Cons x Nil).
+
+Lemma comm_rev_append : forall (x y : list),
+(rev (append x y)) = (append (rev y) (rev x)).
+
+intros.
+elim x.
+simpl.
+rewrite rev_Nil.
+rewrite Thm_2b.
+reflexivity.
+intros B C D.
+simpl.
+
+rewrite rev_Cons.
+rewrite D.
+rewrite <- Thm_2c.
+rewrite rev_Cons.
+reflexivity.
+Qed.
+
+
+Theorem Thm_3 : forall (x : list), (rev (rev x)) = x.
+intros x.
+elim x.
+rewrite rev_Nil.
+rewrite rev_Nil.
+reflexivity.
+
+intros B C D.
+rewrite rev_Cons.
+rewrite comm_rev_append.
+rewrite rev_Cons.
+
+rewrite <- Thm_2c.
+rewrite rev_Nil.
+simpl.
+rewrite D.
+reflexivity.
+Qed.
+
+
+
+
+
+
+End Induction.

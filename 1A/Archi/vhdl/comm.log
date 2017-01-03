@@ -1,0 +1,8 @@
+set	monitor[2]	1
+wait	1
+set	monitor[2]	0
+wait	1
+set	monitor[1]	1
+wait	1
+set	monitor[0]	1
+wait	1

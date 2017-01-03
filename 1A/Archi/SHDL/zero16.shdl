@@ -1,0 +1,5 @@
+module zero16(a[15..0] : z)
+	zero8(a[15..8], z1);
+	zero8(a[7..0], z2);
+	z = z1*z2;
+end module

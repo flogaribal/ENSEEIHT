@@ -1,0 +1,12 @@
+Exercice 3 :  
+
+On remarque les deux estimateurs fonctionnent bien à condition que l'angle soit assez important.
+Si l'angle est trop petit l'estimateur peut ne pas créer le cercle du bon côté c'est à dire que si les points sont sur la partie droite du cercle l'estimateur
+peut penser que c'est le bord gauche et donc dessiner le cercle sur le mauvais côté.
+
+
+Exercie 4 :
+
+Pour le script de l'exercice 1, le cercle est relativement bien situé mais par contre il est un peu décalé/attiré vers les données aberrantes.
+
+Pour le script de l'exercice 2, les données aberrantes faussent totalement l'estimateurs ce qui le rend completement inefficace.

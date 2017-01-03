@@ -1,0 +1,6 @@
+module adder4 (a[3..0], b[3..0], cin : s[3..0], cout)
+	fulladder(a[0],b[0],cin : s[0], cout0);
+	fulladder(a[1],b[1],cout0 : s[1], cout1);
+    fulladder(a[2],b[2], cout1 : s[2], cout2);
+    fulladder(a[3],b[3], cout2 : s[3], cout);
+end module

@@ -1,0 +1,82 @@
+module fifo16x8 (rst, clk, put,get, din[7..0]: dout[7..0],empty,full,lastFull,lastEmpty)
+
+
+	rams_dual_asyn_read16x8(clk, put, wrAddr[3..0], rdAddr[3..0], din[7..0]: doutWr[7..0], doutRd[7..0]);
+	
+	ordrIncrPut = put*/full;
+	ordrIncrGet = get*/empty;
+
+	count4(rst,clk, ordrIncrPut: wrAddr[3..0]);
+	count4(rst,clk, ordrIncrGet: rdAddr[3..0]);
+
+
+	adder4(wrAddr[3..0],0b0001,0: resultLastFull[3..0],cout1);
+	ucmp4(resultLastFull[3..0],rdAddr[3..0]: sup1, lastFull);
+
+	adder4(rdAddr[3..0],0b0001,0: resultLastEmpty[3..0],cout2);
+	ucmp4(resultLastEmpty[3..0],wrAddr[3..0]: sup2, lastEmpty);
+
+
+	
+	betats[1..0] := detats[1..0];
+	detats[1..0] =   empty* /get*/put*0b00
+				   + empty* get*0b00 
+	
+				   + empty* put*/get* 0b01
+				   
+				   + /empty*/full* put*get*0b01
+				   + /empty*/full* /put*/get*0b01
+				   + /empty*/full* put*/lastFull*/get*0b01
+				   + /empty*/full* get*/lastEmpty*/put*0b01
+				   
+				   
+				   + /empty*/full* put*lastFull*/get*0b11
+				   
+				   + /empty*/full* get*lastEmpty*/put*0b00
+				   
+				   + full* put*0b11
+				   + full* /put*/get*0b11
+				   
+				   + full* /put*get*0b01;
+	
+	betats[1..0].clk = clk;
+	betats[1..0].rst = rst;
+	
+	empty = /betats[1] * /betats[0];
+	full = betats[1] * betats[0];
+
+
+	dout[7..0] = get*doutRd[7..0];
+
+end module
+
+
+
+
+
+
+module rotation(rst, clk, a, b : sens)
+	
+	betats[1..0] := detats[1..0];
+	betats[1..0].clk = clk;
+	betats[1..0].rst = rst;
+	detats[1..0] = a1* a*b*0b11
+	             + a1* /a*/b*0b00
+                 + b1* a*/b*0b10
+                 + b1 */a*b*0b01
+                 + c1 */a*/b*0b00
+                 + c1 *a*b*0b11
+                 + d1 */a*b*0b01
+                 + d1 *a*/b*0b10;				 
+	
+	sens = a1*/a*/b 
+	     + b1*/a*b
+		 + c1*a*b
+		 + d1*a*/b;
+	
+	a1 = /betats[1]*betats[0];
+	b1 = betats[1]*betats[0];
+	c1 = betats[1]*/betats[0];
+	d1 = /betats[1]*/betats[0];
+
+end module 

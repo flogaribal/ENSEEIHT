@@ -1,0 +1,535 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  Auteur :  Ronan Guivarc'h             
+%  Création :  01/09/04              
+%  Modifications : Ronan Guivarc'h (mozilla -> firefox 22/09/05)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[a4paper,11pt]{article}
+
+\usepackage{../tp_utf8}
+
+%----- commandes locales %------------------------------------------------------
+\newcommand{\netscape}{\textsc{Firefox}\xspace}
+\newcommand{\openwin}{\textsc{Java Desktop System}\xspace}
+\newcommand{\term}{\textsc{Terminal}\xspace}
+\newcommand{\unix}{\textsc{unix}\xspace}
+\newcommand{\linux}{\textsc{linux}\xspace}
+\newcommand{\ubuntu}{\textsc{ubuntu}\xspace}
+\newcommand{\gnome}{\textsc{xfce}\xspace}
+\newcommand{\shell}{\textsc{shell}\xspace}
+
+%====[ PAGE DE TITRE ]==========================================================
+\title{Prise de contact}
+\numero{TP n° 1}
+\date{2013--2014}
+\discipline{Utilisation des Ordinateurs}
+\promotion{ENSEEIHT --- 1\iere Année Informatique}
+
+
+%====[ DEBUT DU DOCUMENT ]======================================================
+
+\begin{document}
+
+%---------------%------------------------------ corps du document
+
+\maketitle
+
+\section*{Objectifs}
+
+Les objectifs de ce premier rendez-vous officiel avec la machine sont :
+
+\begin{enumerate}
+  \item apprendre à connaître
+        le système d'exploitation \linux avec une distribution \ubuntu
+        et l'environnement \gnome,
+  \item se familiariser avec la notion de compte, de \term et
+        d'interpréteur \shell,
+  \item manipuler quelques commandes de base,
+  \item lancer le navigateur \netscape et consulter son mail par
+        l'intermédiaire de l'outil de messagerie \textsc{Webmail}.
+\end{enumerate}
+
+\section*{Recommandations préliminaires}
+
+\begin{itemize}
+  \item Ne \textbf{jamais} éteindre les PC mais
+        \textbf{toujours} penser à se déconnecter,
+  \item Il est nécessaire de :
+        \begin{itemize}
+          \item se sentir responsable de \textit{son} compte,
+          \item se sentir responsable du matériel commun,
+          \item ne pas confondre salle d'ordinateurs et salle de jeux vidéo.
+        \end{itemize} 
+  \item Il est interdit de :
+        \begin{itemize}
+          \item manger, boire, fumer, ... dans les salles des machines
+                (l'interdiction de fumer s'applique d'ailleurs à tout le
+                bâtiment),
+          \item toucher les interrupteurs (marche/arrêt),
+          \item installer des programmes que vous n'avez pas écrits vous-même
+                ou qui n'ont pas été fournis par les enseignants ou les
+                ingénieurs systèmes.
+        \end{itemize}
+\end{itemize}
+
+
+\section{Connexion / Déconnexion}
+
+\subsection{Connexion}
+
+Chaque utilisateur (\textit{user}) d'un PC a un nom de compte
+qui permet son identification par la machine et un mot de passe qui évite la
+connexion de personnes non autorisées.
+
+Le nom de votre compte est {\sl pnom} où {\sl p} est la première lettre de
+votre prénom et {\sl nom} est votre nom (ou une partie de votre nom). 
+Ces sigles permettent de vous associer le même compte 
+pendant toute votre scolarité.
+Ce nom de compte, ainsi que le mot de passe associé, vous ont été
+donnés lors de votre inscription (si vous les avez oubliés, voyez
+avec votre enseignant de TP).
+
+Pour travailler sur un PC (se connecter ou se \emph{loguer}), il suffit
+\begin{itemize}
+  \item de réveiller l'écran (appuyer sur \RET, touche marquée « \cmd{Entrée} »
+       ou déplacer la souris),
+  \item de cliquer sur l'icône \fbox{\cmd{Se connecter}}
+  \item d'entrer son nom de compte, 
+  \item taper son mot de passe (qui n'apparaît pas en clair à l'écran).
+\end{itemize}
+
+% \begin{commandes}
+%    login: \underline{pnom\RET}
+% \\ password:  \hspace{4em}\textnormal{Bien sûr, le mot de passe n'apparaît pas
+% sur l'écran !}
+% \end{commandes}
+
+Les machines étant en réseau, vous pouvez vous connecter sur n'importe quelle
+machine accessible aux élèves de 1\iere année.
+
+%Pour travailler sous l'environnement \gnome, cliquez sur \textsc{Options},
+%puis \textsc{Session} et enfin \textsc{Java Desktop System, version 3}
+%avant de valider votre connexion.
+
+Lorsque le nom et le mot de passe sont saisis sans erreur, vous êtes connecté
+et l'environnement utilisateur multifenêtré \gnome est lancé. 
+
+\subsection{Déconnexion}
+
+Pour se déconnecter, il vous faut cliquer sur l'icône 
+\includegraphics{system-shutdown-panel}
+en haut à droite de la barre horizontale.
+
+\begin{danger}
+  \textbf{Ne jamais utiliser l'interrupteur marche/arrêt physique sur
+  l'ordinateur !}
+\end{danger}
+
+\begin{maw}
+\begin{enumerate}
+  \item connectez-vous,
+  \item déconnectez-vous, puis reconnectez-vous.
+\end{enumerate}
+\end{maw}
+
+\section{L'environnement XFCE}
+
+\subsection{Quelques mots}
+
+\gnome est un environnement multi-fenêtres et multi-écrans. Vous découvrirez
+petit à petit nombre de ses fonctionnalités.
+
+\subsection{Lancement d'un \term}
+
+Une application que vous utiliserez fréquemment (cf la partie \ref{shell}) est
+un \term. Pour l'exécuter, il faut cliquer sur l'icône en forme
+d'écran noir qui apparaît lorsque vous placer le curseur de la souris sur le
+bord bas de l'écran. 
+
+%sur la barre de menu du haut\footnote{Si cette icône n'est pas
+%présente, rajoutez-là en glissant le raccourci \textsc{Terminal} du Menu
+%(\cmd{Applications} \(\rightarrow\) \cmd{Accessoires}) sur la barre de menu.}
+%ou d'appuyer conjointement sur les 3 touches \cmd{"Ctrl" + "Alt" +
+%"t"}\footnote{Un premier raccourci clavier.}.
+
+Une fenêtre s'ouvre dans laquelle vous pouvez taper des commandes (cf. la
+partie \ref{shell}) à condition de positionner la souris sur cette fenêtre
+et de la rendre ``active". Par défaut, il faut cliquer sur la fenêtre pour la
+rendre active, mais vous pourrez avec le temps personnaliser ces comportements
+et actions.
+
+\subsection{Fermeture d'un \term}
+\label{fermeture}
+
+Pour arrêter une application quelconque, nous vous conseillons
+d'utiliser la commande adéquate dans le menu de l'application.
+Généralement la commande d'arrêt se trouve dans le menu \textsc{Fichier}
+(ou \textsc{File}).
+
+Pour l'application \term, c'est dans le menu \textsc{Fichier}, la commande
+\textsc{fermer la fenêtre}.
+
+Cette procédure est valable quelle que soit l'application et permet entre autre
+une sauvegarde des informations liées à l'application que l'on termine.
+
+\section{L'interpréteur \shell à partir d'un terminal et la gestion de fichiers}
+
+\subsection{Le minimum à savoir sur le \shell}
+
+Quand vous ouvrez un terminal, celui-ci exécute un interpréteur de commande
+\unix que l'on appelle un \shell\footnote{Le sujet du TP3 fournit quelques
+détails sur le fonctionnement de l'interpréteur de commandes}.
+
+Dans ce terminal, vous allez taper des commandes que le \shell
+va interpréter. Une commande ne sera interprétée par le \shell que lorsque
+vous l'aurez validée en tapant sur {\RET} (touche marquée \cmd{Entrée}).
+
+Si l'interprétation est correcte, cela va déclencher l'appel
+\begin{itemize}
+  \item soit, à une commande interne au \shell (affectation de variables
+        d'environnement, \cmd{cd}),
+  \item soit, à un programme installé ou application (\cmd{ls}, \cmd{evince},
+        \netscape),
+  \item soit, à un programme que vous aurez écrit.
+\end{itemize}
+
+Sinon un message d'erreur s'affichera.
+
+\subsection{L'organisation de votre répertoire UNIX}
+\label{shell}
+
+Les systèmes d'exploitation actuels (dont \unix) organisent les fichiers
+sous forme d'une arborescence. Cette arborescence a une racine,
+des noeuds non terminaux (\textbf{répertoires}) et des noeuds terminaux
+(\textbf{fichiers}) ; la racine de cette hiérarchie
+est un répertoire particulier dénoté \verb+/+ sous \unix.
+
+Un noeud de l'arborescence est désigné par le chemin (suite de noeuds)
+reliant la racine à ce noeud. Par exemple \verb+/a/b/c+ désigne le fichier
+\verb+c+, situé dans le répertoire \verb+b+, lui même situé dans le répertoire
+\verb+a+, situé sous la racine.  \verb+/a/b/c+ est le \textbf{chemin absolu} du
+fichier \verb+c+.
+
+Afin d'alléger la désignation des fichiers, il est possible de définir un
+préfixe qui sera sytématiquement ajouté aux noms de fichiers ne commençant pas
+par \verb+/+. Ce préfixe est appelé \textbf{répertoire courant}.
+
+Votre \textbf{répertoire de connexion} est le répertoire à partir duquel vous allez
+travailler ; il fait partie de cette arborescence. Nous utiliserons aussi le
+terme de \textbf{votre racine} ou \textbf{votre home} (en franglais !)
+pour désigner ce répertoire. Il est aussi désigné par le caractère
+\textasciitilde (tilde).
+
+%Quand vous ouvrez un \shell, le répertoire courant est votre répertoire de
+%connexion.
+
+\subsection{Quelques commandes pour manipuler votre répertoire}
+
+Nous allons découvrir quelques commandes indispensables pour gérer votre
+arborescence.
+
+\begin{itemize}
+  \item \textbf{ls}, pour \emph{LiSt}, permet de lister le contenu d'un
+        répertoire,
+  \item \textbf{mkdir}, pour \emph{MaKe DIRectory}, crée un nouveau
+        répertoire (\textit{directory} en anglais). Elle permet ainsi
+        d'augmenter la profondeur de l'arborescence,
+  \item \textbf{pwd}, pour \emph{Print Working Directory}, affiche le nom du
+        répertoire de travail ou répertoire courant,
+  \item \textbf{cd}, pour \emph{Change Directory}, permet de changer le
+        répertoire courant,
+  \item \textbf{man}, pour\emph{MANuel}, affiche à l'écran le manuel des
+        commandes répertoriées, i.e. comment utiliser ces commandes.
+\end{itemize}
+
+\begin{maw}[Exemples et exercices]
+
+\
+
+Ouvrez un terminal et tapez la suite de commandes suivantes en prenant le
+temps d'analyser leur résultat (le texte délimité par (* ... *) est du
+commentaire et ne doit pas être tapé !)~:
+
+\begin{commandes}
+   pwd     \camlcomment{pour vérifier que l'on commence à votre
+                    répertoire de connexion ; il doit être de la forme
+                    /home/pnom}\\
+   ls      \camlcomment{liste le contenu de votre répertoire de
+                    connexion} \\
+   mkdir ProgFonc   \camlcomment{crée le répertoire de nom ProgFonc à votre
+                    répertoire de connexion}\\
+   ls      \camlcomment{ProgFonc doit apparaître dans la liste}\\
+   mkdir UtilisationDesOrdinateurs\\
+   ls\\
+   cd ProgFonc \camlcomment{descend dans le répertoire ProgFonc qui devient le
+                    répertoire courant}\\
+   ls      \camlcomment{le contenu du répertoire ProgFonc est vide}\\
+   cd      \camlcomment{permet de remonter à votre répertoire
+                     de connexion}\\
+   cd UtilisationDesOrdinateurs    \camlcomment{descend dans le répertoire
+   UtilisationDesOrdinateurs}\\
+   mkdir TP      \camlcomment{crée le répertoire TP dans le répertoire
+   UtilisationDesOrdinateurs}\\
+   ls\\
+   cd TP         \camlcomment{descend dans le répertoire TP}\\
+   pwd           \camlcomment{affiche l'endroit où on se trouve}\\
+   cd ..         \camlcomment{remonte au père du répertoire courant}\\
+   pwd\\
+   cd            \camlcomment{on se place au répertoire de connexion}\\
+\end{commandes}
+\end{maw}
+
+\begin{maw}[Exercice]
+accédez au manuel des commandes que vous venez de taper
+\begin{commandes}
+   man pwd       \camlcomment{affiche le manuel de la commande pwd}\\
+   man ls        \camlcomment{affiche le manuel de la commande ls}\\
+   man mkdir     \camlcomment{affiche le manuel de la commande mkdir}\\
+%   man cd        \camlcomment{affiche le manuel de la commande cd}\\
+\end{commandes}
+\end{maw}
+
+Commandes utiles pour naviguer dans le manuel~:
+\begin{itemize}
+  \item \textbf{q} (quit) pour quitter le manuel
+  \item \textbf{f} (forward) pour descendre d'une page
+  \item \textbf{b} (back) pour remonter d'une page
+  \item \textbf{/texte\_recherché} pour rechercher un motif
+        \begin{itemize}
+          \item[\(\rightarrow\)] \textbf{n} (next) pour aller à la prochaine occurence du motif
+        \end{itemize}
+\end{itemize}
+\vspace{0.3cm}
+\begin{maw}[Exercice]
+dessinez l'arborescence que vous venez de créer.
+\end{maw}
+
+\begin{maw}[Conseil]
+Tapez des commandes ça prend du temps (surtout quand les noms sont longs !)
+\begin{itemize}
+  \item Utilisez les flèches \textbf{haut/bas} pour parcourir l'historique des
+        commandes déjà tapées,
+  \item Utilisez la touche \textbf{Tab} (tabulation) pour compléter un nom de
+        commande, un nom de répertoire, un nom de fichier.
+\end{itemize}
+\end{maw}
+
+\newpage
+\section{Le navigateur \netscape}
+
+\subsection{Comment exécuter \netscape}
+
+%\paragraph{À partir de la barre de menu \openwin}
+%
+%\ 
+%
+%Cliquez avec la souris sur l'icône \textbf{ À COMPLETER}
+
+\paragraph{À partir d'un \shell}
+
+\
+
+Dans un terminal, tapez
+\begin{commandes}
+firefox
+\end{commandes}
+
+Cela va exécuter l'application \netscape qui sera votre navigateur
+sous \unix.
+
+%Lors de la première exécution, une fenêtre de configuration s'ouvre,
+%choisissez de faire de \netscape votre navigateur par défaut.
+
+% \subsection{Comment arrêter \netscape}
+% 
+% Comme il a été signalé précédemment (cf \ref{fermeture}), une application
+% se ferme proprement par une action adéquate.
+% 
+% %Pour \netscape, dans le menu \textsc{Fichier}, c'est l'action
+% %\textsc{Quitter}.
+% Pour \netscape, dans le menu \textsc{File}, c'est l'action
+% \textsc{Quit}.
+% 
+% Ceci permettra d'arrêter \textbf{proprement} l'application \netscape et
+% évitera d'avoir des surprises la prochaine fois que vous l'exécuterez.
+% 
+\subsection{Application en tâche de fond}
+
+Si vous avez exécuté \netscape à partir d'un \shell comme décrit précédemment,
+vous remarquez que ce \shell est en attente de la terminaison de
+l'application. Vous ne pouvez pas l'utiliser pour taper d'autres commandes
+tant que \netscape fonctionne.
+
+Deux solutions~:
+
+\begin{enumerate}
+  \item soit, vous arrêtez le programme \netscape et vous le relancez en le
+        mettant en \textit{tâche de fond} en rajoutant à la commande un \&~:
+        \begin{commandes}
+          firefox \&
+        \end{commandes}
+        Cela va ``détacher" l'application du \shell et permettra de saisir de
+        nouvelles commandes dans le \shell.
+  \item soit, dans le terminal où vous avez exécuté \netscape, vous appuyez en
+        même temps sur les deux touches Control et z. Cette séquence de
+        touches va suspendre (et non arrêter) \netscape. À ce moment vous ne
+        pouvez plus utiliser \netscape mais le \shell est à nouveau
+        disponible. Pour réactiver \netscape, tapez dans le terminal la
+        commande
+        \begin{commandes}
+          bg
+        \end{commandes}
+        Elle met l'application en tâche de fond (\cmd{bg} est pour
+        \emph{BackGround}).
+
+        Vous pouvez maintenant utiliser à la fois le \shell et l'application
+        \netscape.
+\end{enumerate}
+
+\begin{danger}
+  \textbf{La mise en tâche de fond est à éviter pour les commandes non
+  graphiques (s'exécutant dans un terminal).}
+\end{danger}
+
+\subsection{L'outil de messagerie \textsc{Webmail}}
+
+Dans la zone d'adresse web de \netscape, tapez l'adresse suivante
+
+\begin{verbatim}
+https://rcmail.inp-toulouse.fr
+\end{verbatim}
+
+% Cette adresse est une adresse sécurisée et la sécurité se fait par
+% l'intermédiaire d'un certificat.  Lors du premier accès, afin de ne plus avoir
+% à vérifier le certificat par la suite, choisissez \textbf{Accept this
+% certificate permanently} (premier choix proposé).
+% 
+% Une deuxième fenêtre de sécurité s'ouvre, vous indiquant que vous allez
+% consulter une page sécurisée. Cliquez \textsc{OK}.
+
+Cette adresse vous amène sur la page d'accueil de la messagerie
+\textsc{Webmail}. Par l'intermédiaire de cet outil, vous pourrez
+accéder à votre mail quel que soit l'ordinateur (même en dehors de l'enseeiht).
+
+La page d'accueil vous demande un login et un password : ils sont identiques
+par défaut à votre login et à votre password de connexion.
+
+% Il y a possibilité de faire mémoriser à \netscape ces informations.
+% Nous vous déconseillons cependant de le faire (choix \textbf{Jamais pour ce
+% site} proposé par \netscape) et ceci pour prendre de bonnes habitudes de
+% sécurité.
+
+Une fois reconnu par \textsc{Webmail}, vous avez accès aux mails que vous avez
+reçus.
+% ; normalement vous devez avoir dans votre boîte de réception au moins 
+% un mail de votre enseignant de TP.
+
+\begin{maw}[Exercices]
+
+\begin{enumerate}
+% \item répondez à votre enseignant pour acquitter la réception de son message,
+  \item envoyez-vous un message,
+  \item envoyez un message à un de vos camarades de TP,
+%  \item le message de votre enseignant contient un fichier texte attaché :
+%        sauvegardez-le dans votre répertoire de connexion. Vous pouvez le
+%        visualiser grâce à la commande \cmd{more}~:
+%        \begin{commandes}
+%        more tolkien.txt
+%        \end{commandes}
+  \item envoyer un mail à votre enseignant en précisant votre groupe de TP.
+
+       \
+
+\end{enumerate}
+\end{maw}
+
+\subsection{Comment sauvegarder un \textit{Favori, Marque-page (Bookmark)}}
+
+Plutôt que de retaper à chaque fois l'adresse d'accueil de \textsc{Webmail},
+il est fortement conseillé de la sauvegarder dans les \textit{Favoris} de
+\netscape. Pour cela, dans le menu %\textsc{Bookmarks},
+\textsc{Marque-pages}, 
+choisissez l'action %\textsc{bookmark this page}
+\textsc{Marquez cette page}.
+%et \textsc{OK}.
+Vous pourrez ensuite organiser vos favoris à votre convenance.
+
+\subsection{Autre façon d'exécuter \netscape}
+
+Vous pouvez exécuter le navigateur web directement en cliquant sur l'icône
+correspondante dans la barre de menu du haut (petit renard orange entourant un
+globe bleu).
+
+\section{Les Documents "Utilisation des Ordinateurs"}
+
+Sur le \textsc{Portail} de l'ENSEEIHT se trouvent
+des pages liées aux enseignements. En particulier, le module Utilisation des
+Ordinateurs~:
+
+\begin{enumerate}
+  \item allez sur la page \verb+ http://www.enseeiht.fr+,
+  \item Cliquez sur \verb+Portail ENT+ dans le menu \textbf{accès rapide} à
+        droite,
+  \item acceptez le certificat bien que \netscape indique un échec de la
+        connexion sécurisée (acceptez d'ajouter une exception, obtenez le
+        certificat et confirmez l'exception de sécurité),
+  \item identifiez-vous (login, password),
+  \item si c'est votre première connexion, complétez votre profil.
+\end{enumerate}
+
+Vous êtes maintenant dans le \textsc{Portail ENSEEIHT} à partir duquel vous
+pouvez par exemple accéder aux documents présents sur votre compte à
+l'ENSEEIHT.
+
+Intéressons-nous à l'onglet \textsc{Mes Cours}.
+
+\begin{enumerate}
+  \item cliquez sur l'onglet \textsc{Mes Cours},
+  \item suivez le chemin ``Cours du département
+        Informatique", ``1ère année", ``Utilisation des Ordinateurs",
+  \item inscrivez-vous.
+\end{enumerate}
+
+Le cours Utilisation des Ordinateurs  est défini par un outil de gestion de cours qui
+se nomme \textsc{Moodle} que vous aurez l'occasion de manipuler très souvent
+au cours de votre scolarité.
+
+Pour le cours présent, vous avez à disposition les sujets de TP ainsi que les
+fichiers utiles à leur réalisation.
+
+Pour les prochaines séances, le sujet ne sera pas distribué sous forme
+papier et il faudra le récupérer sur cette page.
+
+Il vous est donc conseillé de sauvegarder aussi la page du \textsc{Portail}
+dans vos favoris.
+
+Cette procédure de connexion au Portail ou au Webmail pourra être reproduite
+de partout (chez vous, cyber-café, autre école, ...). Cela permet d'avoir un
+environnement ``nomade".
+
+
+\section{CQFAR (Ce Qu'il Faut Avoir Retenu)}
+
+À la fin de ce premier TP vous devez~:
+
+\begin{enumerate}
+  \item savoir vous connecter et vous déconnecter,
+  \item être familier avec les termes : système d'exploitation \linux,
+        environnement graphique \gnome, interpréteur \shell,
+  \item pouvoir ouvrir un terminal,
+  \item savoir utiliser quelques commandes \cmd{man}, \cmd{ls}, \cmd{mkdir},
+        \cmd{cd}, \cmd{pwd}, \cmd{more}, \cmd{bg},
+  \item savoir ouvrir le navigateur \netscape en tâche de fond,
+  \item être capable de lire votre mail et d'envoyer des messages,
+  \item se connecter au Portail et accéder aux documents de cours.
+  %\item savoir gérer la queue d'impression par \cmd{lpstat} et \cmd{cancel}.
+\end{enumerate}
+
+Si l'un de ces objectifs n'est pas atteint, entraînez-vous d'ici le prochain
+TP et n'hésitez pas à contacter votre enseignant en cas de blocage
+persistant. La procédure la plus simple est de le contacter par mail.
+
+%---------------%------------------------------ fin du document
+\end{document}

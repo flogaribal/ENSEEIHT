@@ -1,0 +1,25 @@
+module rotation(rst, clk, a, b : sens)
+	
+	betats[1..0] := detats[1..0];
+	betats[1..0].clk = clk;
+	betats[1..0].rst = rst;
+	detats[1..0] = a1* a*b*0b11
+	             + a1* /a*/b*0b00
+                 + b1* a*/b*0b10
+                 + b1 */a*b*0b01
+                 + c1 */a*/b*0b00
+                 + c1 *a*b*0b11
+                 + d1 */a*b*0b01
+                 + d1 *a*/b*0b10;				 
+	
+	sens = a1*/a*/b 
+	     + b1*/a*b
+		 + c1*a*b
+		 + d1*a*/b;
+	
+	a1 = /betats[1]*betats[0];
+	b1 = betats[1]*betats[0];
+	c1 = betats[1]*/betats[0];
+	d1 = /betats[1]*/betats[0];
+
+end module 

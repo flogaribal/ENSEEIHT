@@ -1,0 +1,655 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{../tp_utf8}
+
+\title{Droits, \cmd{ssh} et variables d'environnement}
+\date{2013--2014}
+\numero{TP n° 4}
+\promotion{1\iere année Informatique et Mathématiques Appliquées}
+\discipline{Utilisation des Ordinateurs}
+
+\newcommand{\unix}{\textsc{Unix}}
+\newcommand{\shell}{\textsc{Shell}}
+
+\begin{document}
+
+\maketitle
+
+\section*{Objectifs}
+
+\begin{itemize}
+  \item notion de processus, commandes \cmd{ps}, \cmd{kill},
+  \item comprendre et manipuler la notion de droits sous \textsc{Unix},
+  \item se connecter à distance et lancer des applications sur d'autres
+        ordinateurs,
+  \item connaître les variables globales d'environnement les plus importantes.
+\end{itemize}
+
+\section{Processus Unix}
+
+Sous \unix, l'activité d'exécution d'un programme par le processeur est
+représentée par un processus. 
+Le contrôle de ces traitements en cours d'exécution est possible au moyen~:
+
+\begin{itemize}
+  \item de commandes \unix : \cmd{ps} (pour lister les processus existants),
+        \cmd{kill} (pour transmettre des signaux à un processus, en
+        particulier tuer un processus),
+  \item de commandes spécifiques au \shell{} : \cmd{jobs}, \cmd{fg},
+        \cmd{bg} \ldots
+\end{itemize}
+
+\subsection{La commande \cmd{ps}}
+
+La commande \cmd{ps} permet de donner des informations à propos des processus 
+existants, notamment : 
+\begin{itemize}
+  \item \cmd{PID} : identifiant (unique) du processus, permettant de le
+        désigner, 
+  \item état : actif, suspendu \ldots,
+  \item commande exécutée par le processus.
+\end{itemize}
+Sans option, cela concerne les processus qui ont été lancés à partir du
+terminal.
+
+\begin{maw}
+\begin{itemize}
+  \item dans un terminal, tapez \cmd{ps},
+  \item dans ce même terminal, tapez \cmd{evince \&},
+  \item retapez \cmd{ps}.
+\end{itemize}
+\end{maw}
+
+Cette commande \cmd{ps} dispose de nombreuses options parmi lesquelles on
+trouve \cmd{ps -e} et \cmd{ps -f} (ou combinées \cmd{ps -ef}).
+
+\begin{itemize}
+  \item \cmd{ps -e} permet de lister l'ensemble des processus actifs de
+        l'ordinateur,
+  \item \cmd{ps -f} affiche les processus sous un format long.
+\end{itemize}
+
+Dans ce format long, quelques informations peuvent être utiles~:
+
+\begin{itemize}
+  \item le propriétaire du processus (a priori si vous êtes seul sur la
+        machine (voir \ref{connexion}), il n'y a que le super-utilisateur
+        \cmd{root} et vous),
+  \item \cmd{PID} du processus père, c'est-à-dire du processus ayant lancé le
+        processus considéré, et lui ayant ainsi transmis la plupart des
+        éléments de son environnement d'exécution (variables,
+        entrées/sorties\ldots). Tout processus a un père, sauf le processus
+        initial, appelé \cmd{init}, de \cmd{PID} 1.
+\end{itemize}
+ 
+\begin{maw}
+\begin{itemize}
+  \item expérimentez les différentes options,
+  \item comment lister l'ensemble des processus dont vous êtes propriétaire ?
+        (deux solutions : utilisation de \cmd{grep} ou option supplémentaire)
+\end{itemize}
+\end{maw}
+
+La commande \cmd{top}, disponible sur la plupart des \unix, fournit une liste
+des processus analogue à celle donnée par la commande \cmd{ps}, où les
+informations relatives à la consommation des ressources (mémoire vive, temps
+processeur\ldots) sont rafraîchies et classées à intervalles réguliers.
+
+\subsection{la commande \cmd{kill}}
+
+Quelques fois, une application (par exemple graphique) refuse de répondre et en
+particulier de s'arrêter, même en tuant la fenêtre (icône de la fenêtre avec
+la croix).
+
+Une façon de l'arrêter à coup sûr est de tuer le
+processus correspondant. Pour cela, il faut utiliser la commande \cmd{kill} avec
+comme paramètre l'identificateur du processus à tuer (le \cmd{PID}), d'où
+l'utilité de connaître ce processus avec la commande \cmd{ps}.
+
+\begin{maw}
+\begin{itemize}
+  \item dans un terminal, tapez \cmd{evince \&},
+  \item retapez \cmd{ps -ef} et repérez le \cmd{PID} du processus
+        \cmd{evince},
+  \item tapez \cmd{kill -9 PID}, cette commande enverra le signal \cmd{KILL}
+        au processus, ce qui le forcera à s'arrêter.
+\end{itemize}
+\end{maw}
+
+\subsection{Processus en avant-plan et en arrière-plan}
+
+Un processus peut être exécuté en arrière-plan. Dans ce cas, il s'éxécute en
+parallèle avec le processus père, et n'interagit pas avec le terminal
+(souvenez-vous du TP1 !).
+En particulier, il est possible de lancer une commande en arrière plan à
+partir du \shell, en la faisant suivre d'un \cmd{\&}. Ainsi~:
+
+\begin{verbatim}
+> evince &
+>
+\end{verbatim}
+
+lance \cmd{evince}, et passe à l'attente de la ligne de commande suivante,
+sans attendre la fin de la commande \cmd{evince}.
+
+Il est possible, sur la plupart des \shell, de changer le mode d'exécution
+d'un processus. Avec les \cmd{C-shell}, par exemple~:
+
+\begin{itemize}
+  \item la commande \cmd{jobs} permet de connaitre la liste des processus qui
+        ne sont pas en avant-plan. Il faut noter que les identifiants de jobs
+        de cette liste sont spécifiques au shell, et n'ont pas de rapport avec
+        les \cmd{PID} fournis par la commande \cmd{ps}, 
+  \item la commande \cmd{fg \%n} permet de poursuivre l'exécution du job
+        \cmd{n} en avant-plan, 
+  \item la commande \cmd{bg \%n} permet de poursuivre l'exécution du job
+        \cmd{n} en arrière-plan.
+\end{itemize}
+
+\subsection{Suspension et reprise d'un processus}
+
+Un processus en avant-plan peut être suspendu, c'est-à-dire que son exécution
+est provisoirement arrêtée, mais pourra être reprise par la suite
+(à partir de l'état atteint au moment de l'arrêt).
+
+\begin{itemize}
+  \item la frappe de \cmd{Ctrl-Z} permet de suspendre le processus en
+        avant-plan, 
+  \item les commandes \cmd{fg} ou \cmd{bg} permettent de reprendre l'exécution
+        d'un processus suspendu, en avant-plan ou en arrière-plan. 
+\end{itemize}
+
+Vous verrez plus en détail les processus et les signaux au second semestre
+dans le cours de \textsc{Systèmes Centralisés}.
+
+\section{Droits d'accès et modification}
+
+\subsection{Description des droits d'accès}
+
+Nous avons vu que la commande \cmd{ls} permet de lister les
+fichiers d'un répertoire. Cependant, cette commande possède
+plusieurs modes (%\cmd{ls -h} ou 
+\cmd{man ls}), notamment un mode
+«~long~» qui permet d'afficher de nombreux détails sur les
+fichiers : leurs droits d'accès, leur taille en octets, l'heure de dernière modification
+et le nom. Il s'agit de l'option \cmd{-l} ({\em long}) :
+\begin{verbatim}
+> ls -l
+total 4
+drwxr-x---   2 camichel    in           512 Jul 29 09:54 CaML/
+-rw-r-----   1 camichel    in           437 Jul 29 10:00 tolkien.txt
+\end{verbatim}
+
+Intéressons-nous à la suite de lettres et de tirets sur la
+gauche : elle donne le type de fichier ainsi que ses droits
+d'accès. Cette séquence de dix caractères est classiquement
+séparée en quatre groupes :
+\begin{center}
+\begin{tabular}{cccc}
+ \cmd{-} & \cmd{rw-} & \cmd{r--} & \cmd{r--} \\
+ {\footnotesize Type de} & \multicolumn{3}{c}{\footnotesize Droits}\\
+ {\footnotesize fichier} & {\footnotesize\tt u} & {\footnotesize\tt g} & {\footnotesize\tt o}\\
+\end{tabular}
+\end{center}
+
+\subsubsection*{Type de fichier}
+
+Le premier caractère renseigne le type de fichier :
+\begin{itemize}
+ \item \cmd{-} (tiret) : fichier normal (fichier texte, \ldots) ;
+ \item \cmd{d} ({\em {\bf d}irectory}) : répertoire ;
+ \item \cmd{l} ({\em {\bf l}ink}) : lien symbolique (\cmd{man ln}) ;
+ \item etc\ldots (\cmd{man ls} pour en savoir plus).
+\end{itemize}
+
+
+\subsubsection*{Les droits}
+
+Les neuf caractères restants sont séparés en trois groupes
+de trois caractères~:
+\begin{itemize}
+ \item \cmd{u} : le premier groupe précise les droits du
+                 propriétaire ({\em {\bf u}ser}) du fichier~;
+ \item \cmd{g} : le deuxième groupe précise les droits des
+                 autres utilisateurs du groupe\footnote{En
+                 {\sc unix}, tout utilisateur fait partie d'au moins 
+                 un groupe d'utilisateurs.}
+                 ({\em {\bf g}roup}) du propriétaire~;
+ \item \cmd{o} : le troisième groupe précise les droits des
+                 autres utilisateurs extérieurs ({\em {\bf
+                 o}thers}) au groupe.
+\end{itemize}\noindent\underline{Remarque :} Il existe un super-utilisateur
+(\cmd{root}), administrateur de l'ordinateur, qui possède tous les
+droits et n'est donc pas concerné par ces restrictions.
+
+\bigskip
+
+Chaque groupe de trois caractères est construit de façon identique~:
+\begin{itemize}
+ \item le premier caractère précise s'il y a droit de
+       lecture ({\em {\bf r}ead}) ou non, respectivement \cmd{r} ou
+       \cmd{-} ;
+ \item le deuxième caractère précise s'il y a droit
+       d'écriture ({\em {\bf w}rite}) ou non, respectivement
+       \cmd{w} ou \cmd{-} ;
+ \item le troisième caractère précise s'il y a droit
+       d'exécution\footnote{{\sc important :} Ce droit est
+       indispensable pour pouvoir entrer dans un répertoire avec
+       la commande \cmd{cd}.} ({\em e{\bf x}ecute}) ou non,
+       respectivement \cmd{x} ou \cmd{-}.
+\end{itemize}
+
+\subsection{Modifications des droits : \cmd{chmod}}
+\label{droits}
+Pour modifier les droits des fichiers {\bf dont vous êtes le
+propriétaire}\footnote{On rappelle que le propriétaire d'un fichier,
+ainsi que son groupe,
+est visible dans l'affichage long de \cmd{ls} (\cmd{ls -l}).}, il faut
+utiliser la commande \cmd{chmod} dont la syntaxe est :
+
+\smallskip
+
+\hspace*{2cm} \cmd{chmod} [\cmd{-R}] \verb+<+{\em Droits}\verb+>+
+\verb+<+{\em Fichiers}\verb+>+
+
+\smallskip
+
+L'argument {\em Droits} a deux écritures possibles :
+\begin{itemize}
+ \item la notation octale : chaque caractère de droit est
+       représenté par un bit qui est à 1 si le droit est
+       accordé et à 0 sinon. Chaque groupe est alors représenté
+       \begin{itemize}
+         \item soit par un nombre binaire sur trois bits, le caractère de
+               droit en lecture étant le bit de poids fort,
+         \item soit par la représentation de ce nombre en décimal (compris,
+               donc, entre 0 et 7).
+       \end{itemize}
+
+       \noindent\underline{Exemple :}
+
+       \begin{tabular}{ccccccccccc}
+          \cmd{r}&\cmd{w}&\cmd{-}&~
+         &\cmd{r}&\cmd{-}&\cmd{-}&~
+         &\cmd{r}&\cmd{-}&\cmd{-}\\
+          1&1&0&~
+         &1&0&0&~
+         &1&0&0\\
+          \multicolumn{3}{c}{6} &~
+         &\multicolumn{3}{c}{4} &~
+         &\multicolumn{3}{c}{4} \\
+        \end{tabular}
+ \item la notation «~additive~» : au lieu de remplacer complètement
+       les droits comme avec la notation octale, il est possible d'ajouter
+       (ou d'enlever) certains droits localement. La notation utilisée
+       est la suivante (principaux choix, faire \cmd{man chmod} pour
+       plus de détails) :
+
+       \hspace*{2cm}
+       [\cmd{u}$|$\cmd{g}$|$\cmd{o}$|$\cmd{a}](\cmd{+}$|$\cmd{-}|\cmd{=})(\cmd{r}$|$\cmd{w}$|$\cmd{x})
+
+       \begin{itemize}
+         \item le premier caractère (optionnel) précise dans quel
+               groupe d'uti\-li\-sa\-teurs la modification sera faite :
+               s'il n'est pas précisé, la modification se fera pour tous
+               (groupe \cmd{a}, {\em {\bf a}ll}) ; le caractère \cmd{a}
+               indique que la modification est effectuée pour les trois
+               groupes (\cmd{u}, \cmd{g} et \cmd{o})
+         \item le deuxième caractère indique s'il faut ajouter
+               (\cmd{+}), enlever (\cmd{-}) ou affecter (\cmd{=}) le droit ;
+         \item le troisième caractère précise quel type de droit
+               modifier : lecture (\cmd{r}), écriture (\cmd{w}) ou
+               exécution (\cmd{x}). Le caractère \cmd{X} existe
+               également et peut être très utile avec l'option
+               \cmd{-R} de \cmd{chmod} (\cmd{man chmod} pour plus de
+               détails).
+       \end{itemize}
+\end{itemize}
+L'option \cmd{-R} (pour {\em {\bf R}ecursive}) permet d'appliquer
+la modification de droits dans tous les fichiers (fichiers
+classiques, répertoires, liens symboliques\ldots) de tous les
+sous-répertoires des répertoires présents dans {\em
+Fichiers}.
+
+\begin{maw}[Travail]
+Effectuez la séquence suivante :
+\begin{verbatim}
+> cd UtilisationDesOrdinateurs
+> mkdir test
+> chmod 700 test
+> ls -l
+> chmod -x test
+> ls -l
+> cd test
+> chmod +x test
+> ls -l
+> cd test
+\end{verbatim}
+Que constatez-vous ? Comment l'expliquer ?
+\end{maw}
+
+\section{Connexion à un autre ordinateur}
+\label{connexion}
+
+\subsection{Indépendance du point de connexion}
+
+Il est possible de se connecter à distance ({\em remote} en
+anglais) à un autre ordinateur. %Dans le cadre des enseignements
+%qui vous sont donnés à l'ENSEEIHT, une telle utilisation sera
+%rare, mais il est bon de connaître cette fonctionnalité.
+
+Le système de gestion des utilisateurs n'étant pas local,
+vous pouvez vous connecter depuis votre ordinateur {\bf à n'importe
+quel ordinateur du deuxième étage} : vous
+retrouvez alors votre compte comme si vous étiez connecté
+«~physiquement~» sur l'ordinateur (il n'y a en fait
+quasiment aucune différence entre ces deux types de connexion)
+et vous pouvez lancer des commandes normalement.
+
+\subsubsection{Les commandes de connexion à distance}
+
+Il existe plusieurs commandes pour effectuer cette connexion :
+\begin{itemize}
+ \item \cmd{telnet} : c'est un interpréteur de commandes en
+       soi\footnote{Le \shell{} est un interpréteur de commandes.},
+       mais il est souvent utilisé pour effectuer une connexion
+       simple ;
+ \item \cmd{ssh} ({\em {\bf S}ecure {\bf S}ession {\bf H}ost}) est
+       l'une des plus utilisées.
+\end{itemize}
+
+\paragraph{Syntaxe}
+
+Leur syntaxe de base est la suivante : \verb+<+{\em
+commande}\verb+>+ \verb+<+{\em nomOrdinateur}\verb+>+ où {\em
+commande} désigne l'une des quatre commandes. Le nom d'un ordinateur
+est indiqué sur le dessus ou sur la façade de l'unité~centrale.
+
+\subsubsection{Sécurité des commandes}
+
+L'une des caractéristiques importantes de \cmd{ssh} 
+est que \cmd{ssh} effectue des connexions
+\underline{sécurisées}, c'est-à-dire que les transmissions
+sont cryptées. De plus, \cmd{ssh} demande toujours
+l'authentification, alors que ce n'est pas toujours le cas pour
+les autres commandes.
+
+\fbox{\centerline{\sc L'utilisation de \cmd{ssh} est fortement
+encouragée.}}
+
+\subsection{La commande \cmd{ssh}}
+
+\subsubsection{Syntaxe}
+
+Comme vu plus haut, la syntaxe de base est donc \cmd{ssh}
+{\em nomOrdinateur}. Pour une syntaxe plus détaillée, se référer
+aux pages \cmd{man} (\cmd{man ssh}).
+
+\begin{maw}
+Connectez-vous à un ordinateur quelconque.
+\end{maw}
+
+\subsubsection{Stockage de la clé cryptée de connexion}
+
+Lors de votre première connexion par \cmd{ssh} à un ordinateur, vous
+aurez le message du type suivant :
+\begin{verbatim}
+The authenticity of host '...' can't be established.
+RSA key fingerprint in md5 is: xx:xx:xx:xx:xx:xx:xx:xx:xx:xx...
+Are you sure you want to continue connecting(yes/no)?
+\end{verbatim}
+Tapez \cmd{yes} (en entier) et continuez.
+
+Chaque machine est identifiée par une clé.
+À la première connexion, on enregistre une empreinte de la clé. 
+
+À chaque connexion ultérieure, on compare ce que la machine nous présente avec
+ce que l'on a enregistré. Cela permet de détecter si une machine a été
+remplacée par une autre.
+
+
+\subsubsection{Déconnexion}
+
+Pour finir la connection sécurisée et donc revenir sur votre ordinateur de
+départ la commande est
+
+\begin{verbatim}
+exit
+\end{verbatim}
+
+\subsection{Autres types de connexion à distance}
+
+À noter qu'il existe des possibilités de transfert de
+fichiers avec :
+\begin{itemize}
+ \item \cmd{ftp} ({\em {\bf F}ile {\bf T}ransfer {\bf P}rotocol})
+       et sa version sécurisée \cmd{sftp} ({\em {\bf S}ecure
+       FTP}) qui fonctionnent comme des interpréteurs de
+       commandes ;
+ \item \cmd{scp} ({\em {\bf S}ecure {\bf C}o{\bf p}y}) qui
+       a une syntaxe analogue (bien qu'un peu plus complexe) que
+       \cmd{cp} et qui permet d'effectuer des copies de façon
+       directe.\\ \underline{N.B. :} \cmd{scp} utilise \cmd{ssh}.
+\end{itemize}
+
+% \section{Savoir qui est là\ldots}
+
+\subsection{Qui est sur «~mon~» ordinateur ?}
+
+Un point important : plusieurs utilisateurs peuvent être
+connectés {\bf sur le même ordinateur en même temps} (personne
+assise devant l'ordinateur, \cmd{ssh}\ldots).
+
+Une fois connecté sur un ordinateur, vous avez alors la
+possibilité de voir qui est connecté sur cet ordinateur : pour
+cela vous disposez de trois commandes~: \cmd{w}, \cmd{who} et
+\cmd{finger} (sans aucun paramètre).
+
+\begin{maw}
+ Connectez-vous sur un ordinateur quelconque et essayez ces trois
+ commandes.
+\end{maw}
+
+% \subsection{Y a-t-il quelqu'un ?}
+% 
+% Vous pouvez également avoir une vue d'ensemble du réseau en
+% utilisant la commande \cmd{rusers}. Si vous voyez un même login
+% plusieurs fois, cela signifie que cet utilisateur a plusieurs
+% connexions ($\simeq$ terminaux en général) sur cet ordinateur. Habituellement
+% la commande \cmd{rusers} met du temps à se terminer ; si vous voulez
+% l'arrêter, tapez \cmd{Ctrl-C}.
+
+% \subsection{La commande \cmd{finger}}
+% 
+% Nous venons de voir la commande \cmd{finger} sans paramètre. En
+% réalité, cette commande permet de faire la correspondance
+% entre login et nom réel (\cmd{man finger} pour la syntaxe).
+% 
+% \begin{maw}
+% 
+% \
+% 
+%  \begin{Question}
+%   Cherchez le nom réel d'un login de votre choix.
+%  \end{Question}
+%  \begin{Question}
+%   Cherchez tous les logins dont le nom ou le prénom contiennent
+%   votre prénom.
+%  \end{Question}
+%  \begin{Question}
+%   En utilisant \cmd{rusers} et \cmd{finger}, déterminez les
+%   personnes réelles connectées sur trois ordinateurs de votre
+%   choix.
+%  \end{Question}
+% \end{maw}
+
+
+\subsection{L'affichage à distance d'applications graphiques}
+
+Lorsque vous vous connectez sur un ordinateur distant, vous pouvez
+lancer n'importe quelle application comme si vous étiez sur
+votre propre ordinateur\ldots à un détail près : l'affichage
+graphique.
+
+Par défaut, l'affichage graphique se fait sur l'ordinateur depuis
+lequelle vous avez appelé l'application, qui ---~si vous vous êtes
+connecté à distance~--- n'est pas la vôtre. Autrement dit,
+l'application aura bien été lancée mais vous ne verrez rien !%
+\footnote{Nous parlons ici d'affichage de fenêtres graphiques.
+L'affichage dit «~en mode texte~» (dans le terminal) n'est pas
+affecté.}
+
+\begin{comment}
+Les flux de données graphiques ne sont pas, par défaut,
+automatiquement transmis à travers la connexion à l'ordinateur
+distante. Il faut explicitement l'autoriser.
+\end{comment}
+
+\paragraph{Autoriser le flux de données graphiques avec \cmd{ssh}}
+
+\
+
+Dans le cas où l'option n'est pas activée, l'autorisation de flux graphique
+se fait en ajoutant l'option~\cmd{-X} à la commande \cmd{ssh}~:
+
+\noindent \verb+> ssh -X+ {\em nomOrdinateur}
+
+% Il s'avère que sur les ordinateurs de l'ENSEEIHT, cette option est déjà activée.
+% Avec un \cmd{ssh} simple, le flux est redirigé automatiquement vers
+% l'ordinateur source. Attention, généralement l'option n'est pas activée.
+% 
+\begin{maw}
+ Exécutez \cmd{evince} sur un autre ordinateur que le vôtre.
+\end{maw}
+
+
+\section{Les variables d'environnement}
+
+Votre environnement de travail est en partie défini par un
+certain nombre de variables utilisées par le \shell ; ce
+sont les variables d'environnement. Nous allons en étudier
+quelques-unes.
+
+\subsection{Quelques variables d'environnement}
+
+Quelques petits points :
+\begin{itemize}
+ \item les variables d'environnement sont conventionnellement en
+       \cmd{MAJUSCULES} ;
+ \item le \cmd{\$} qui précède la variable signifie que l'on
+       en prend la valeur.
+\end{itemize}
+
+Voici quelques variables parmi les plus importantes :
+\begin{itemize}
+ \item \cmd{HOME}    : cette variable contient le chemin absolu de
+                       votre répertoire de connexion et ne doit pas être
+                       modifiée ;
+ \item \cmd{PATH}    : cette variable contient une liste de répertoires dans
+                       lesquels chercher les fichiers désignés par des chemins
+                       relatifs (dont les commandes vues jusqu'à présent) ;
+% \item \cmd{DISPLAY} : cette variable contient l'adresse de
+%                       l'endroit où effectuer les affichages
+%                       graphiques.
+\end{itemize}
+Ainsi, \cmd{cd} (appel sans paramètre) est équivalent à
+\cmd{cd \$HOME}.
+
+\subsection{Manipuler les variables d'environnement}
+
+Vous avez à votre disposition
+\begin{itemize}
+\item \cmd{echo} qui permet afficher une chaîne et en particulier les
+variables d'environnement :
+\begin{verbatim}
+> echo $PATH
+> echo $HOME
+\end{verbatim}
+
+\smallskip
+\
+Noter la présence du \cmd{\$}. (Essayez \cmd{echo PATH} pour
+voir la différence)
+\item l'affectation \cmd{=} qui permet de modifier une variable :
+\begin{verbatim}
+> PATH=${PATH}:/usr/local/bin/
+\end{verbatim}
+\item \cmd{export} qui permet de rendre visibles les valeurs des variables
+d'environnement à des shells ou commandes consécutifs au shell courant :
+\begin{verbatim}
+> export PATH
+\end{verbatim}
+\item souvent l'affectation et l'exportation se font en une seule commande :
+\begin{verbatim}
+> export PATH=${PATH}:/usr/local/bin/
+\end{verbatim}
+\end{itemize}
+
+% Par contre, il est déconseillé de modifier la variable \cmd{HOME}.
+
+\subsection{Retour sur \cmd{PATH}}
+
+\subsubsection{La commande \cmd{which}}
+Une commande intéressante est la commande \cmd{which} qui permet
+de retrouver l'endroit où se situe un exécutable {\bf à
+condition que le chemin cherché fasse partie des chemins
+spécifiés dans \cmd{PATH}} (c'est-à-dire si vous pouvez
+l'exécuter sans donner le chemin complet).
+
+\subsubsection{\cmd{source}}
+
+\cmd{source} {\em Fichier} exécute toutes les commandes
+\shell{} incluses dans le fichier {\em Fichier}.
+
+\begin{maw}
+
+\begin{itemize}
+ \item rechercher le chemin de \cmd{chmod}, \cmd{matlab}\ldots et
+       \cmd{which},
+ \item effectuez la séquence suivante :
+\begin{verbatim}
+> cd UtilisationDesOrdinateurs
+> mkdir test
+> cp ~guivarch/pub/helloworld ~/UtilisationDesOrdinateurs/test
+> helloworld
+> ./test/helloworld
+> export PATH=${HOME}/UtilisationDesOrdinateurs/test:$PATH
+> echo $PATH
+> helloworld
+> which helloworld
+\end{verbatim}
+Que constatez-vous ? Comment l'expliquer ?
+\end{itemize}
+\end{maw}
+
+\paragraph{Dernières remarques :}
+\
+\begin{itemize}
+ \item la commande \cmd{mkdir test} peut indiquer que le répertoire \cmd{test}
+       existe déjà si vous avez suivi correctement les instructions de
+       l'exercice de la section \ref{droits},
+ \item le raccourci \verb+~+ est équivalent à votre répertoire de connexion~;
+       du coup, \verb+~+ permet de donner facilement un chemin relatif à
+       un répertoire de connexion.
+ \item la commande \cmd{cp \~{}guivarch/pub/helloworld
+ \~{}/UtilisationDesOrdinateurs/test} veut dire :\\
+       copier le fichier \cmd{helloworld} qui est sur le compte \cmd{guivarch}
+       dans le répertoire \cmd{pub} vers le répertoire\\
+       \cmd{UtilisationDesOrdinateurs/test} de votre compte.
+\end{itemize}
+
+\section{CQFAR (Ce Qu'il Faut Avoir Retenu)}
+
+\begin{itemize}
+ \item savoir identifier les processus en cours d'exécution,
+ \item savoir tuer le processus associé à une application qui ne répond plus,
+ \item savoir déchiffrer les droits d'un fichier \unix,
+ \item savoir modifier les droits d'un fichier \unix,
+ \item savoir se connecter à distance sur un autre ordinateur (\cmd{ssh}),
+ \item savoir afficher une application graphique lancée à distance depuis
+       un autre ordinateur,
+ \item connaître les variables d'environnement \cmd{HOME} et
+       \cmd{PATH} ; savoir modifier cette dernière.
+\end{itemize}
+
+\end{document}

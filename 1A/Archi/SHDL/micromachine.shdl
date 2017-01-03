@@ -1,0 +1,66 @@
+module micromachine(rst, clk, areg[4..0], breg[4..0], dreg[4..0], cmd_ual[5..0], oe_num[1..0], 
+					write, monitor[31..0], switch[7..0], swClk : 
+									dbus[31..0], N, Z, V, C, ir[31..0], break, leds[7..0])
+
+	// Controle de bus en ecriture
+	decoder2to4(oe_num[1..0] : oe[3..0]);
+
+	// Gestion adresses 
+	decoder4to16(abus[31..28] : cs[15..0]);
+
+	// RAM 
+	tmpAddr[8..0] = abus[8..0];
+	wr = write * cs[0];
+	rams_asyn_read512x32(clk, wr, tmpAddr[8..0], dbus[31..0] : dbus_ram[31..0]);
+			
+	// Reg8 		
+		// LED
+		enLED = write * cs[11];
+		reg8(rst, clk, enLED, dbus[7..0] : leds[7..0]);
+		
+		// SWITCHES
+		reg8(rst, swClk, 1, switch[7..0] : qSwitch[7..0]);
+		reg8ext32[7..0] = qSwitch[7..0];
+		reg8ext32[31..8] = 0;
+	
+
+	// Registres
+	dbus[31..0] = dbus_ual[31..0] : oe[1] ;
+	cond_dbus_RAM = oe[2]*cs[0];
+	dbus[31..0] = dbus_ram[31..0] : cond_dbus_RAM;
+	dbus[31..0] = monitor[31..0] : oe[3];
+	cond_dbus_SWITCH = oe[2]*cs[9];
+	dbus[31..0] = reg8ext32[31..0] : cond_dbus_SWITCH;
+	 
+	 
+	registres(rst, clk, areg[4..0], breg[4..0], dreg[4..0] : dbus[31..0], abus[31..0], bbus[31..0], ir[31..0], break);
+
+
+	// UAL 
+	ual(abus[31..0],bbus[31..0],cmd_ual[5..0] : dbus_ual[31..0],eVC,eN,eZ,N_ual,Z_ual,V_ual,C_ual);
+
+	N := N_ual;
+	N.clk = clk;
+	N.rst = rst;
+	N.ena = eN;
+
+	Z := Z_ual;
+	Z.clk = clk;
+	Z.rst = rst;
+	Z.ena = eZ;
+
+	V := V_ual;
+	V.clk = clk;
+	V.rst = rst;
+	V.ena = eVC;
+
+	C := C_ual;
+	C.clk = clk;
+	C.rst = rst;
+	C.ena = eVC;
+
+
+
+	
+	
+end module

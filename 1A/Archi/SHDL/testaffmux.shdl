@@ -1,0 +1,6 @@
+module testaffmux(mclk,data[15..0]: an[3..0],ssg[6..0])
+	clock28(0,mclk,s[27..0]);
+	affmux(s[15], data[15..0] : a[3..0], seg[6..0]);
+	an[3..0] = /a[3..0];
+	ssg[6..0] = /seg[6..0];
+end module

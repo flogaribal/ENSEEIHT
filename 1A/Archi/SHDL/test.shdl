@@ -1,0 +1,4 @@
+module test(d4,d3,d2,d1,de4,de3,de2,de1 : err[2..0])
+	emetteur(d4,d3,d2,d1 : dd4,dd3,dd2,cd3,dd1,cd2,cd1);
+	recepteur(de4,de3,de2,c3,de1,c2,c1 : err, d4,d3,d2,d1, err[2..0]);
+end module

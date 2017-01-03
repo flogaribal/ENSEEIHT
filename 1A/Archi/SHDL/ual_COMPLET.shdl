@@ -1,0 +1,39 @@
+module ual(a[31..0],b[31..0],cmd[5..0] : s[31..0],N,Z,V,C)
+	decoder6to64(cmd[5..0],decode[63..0]);
+	
+	addsub32(a[31..0],b[31..0], decode[4]: add[31..0], vAddSub,cAddSub);
+	s[31..0] = add[31..0] : decode[0] ;
+	s[31..0] = add[31..0] : decode[4] ;
+	
+	sand[31..0] = a[31..0]*b[31..0];
+	s[31..0] = sand[31..0] : decode[1];
+	
+	sor[31..0] = a[31..0]+b[31..0];
+	s[31..0] = sor[31..0] : decode[2];
+	
+	sxor[31..0] = a[31..0]*/b[31..0] + /a[31..0]*b[31..0];
+	s[31..0] = sxor[31..0] : decode[3];
+	
+	barrelshifter32(decode[13], b[4..0],a[31..0] : shiftr[31..0]);
+	s[31..0] = shiftr[31..0] : decode[13];
+	s[31..0] = shiftr[31..0] : decode[14];
+	
+	umul32x32(a[31..0],b[31..0] : mul[63..0]);
+	s[31..0] = mul[31..0] : decode[26];
+	
+	fixadd_24(a[31..0],b[31..0] : fixAdd[31..0], vFixAdd);
+	s[31..0] = fixAdd[31..0] : decode[5];
+	
+	fixsub_24_8(a[31..0],b[31..0] : fixSub[31..0], vFixSub);
+	s[31..0] = fixSub[31..0] : decode[6];
+	
+	N = s[31]*decode[6] + s[31]*decode[5] + s[31]*decode[4] + s[31]*decode[0];
+	
+	zero32(s[31..0], Z);
+	
+	zero32(mul[63..32] : zeroMul);
+	C = /zeroMul*decode[26] + cAddSub*decode[0] + cAddSub*decode[4];
+	
+	V = vAddSub*decode[0] + vAddSub*decode[4] + vFixAdd*decode[5] + vFixAdd*decode[6];
+	
+end module 

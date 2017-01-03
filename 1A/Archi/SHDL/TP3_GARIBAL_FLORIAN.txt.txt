@@ -1,0 +1,141 @@
+module maximum(rst, h, val[3..0] : max[3..0])
+	ucmp4(val[3..0], max[3..0] : sup,eq);
+	d[3..0] = sup*val[3..0] + /sup*max[3..0];
+	max[3..0] := d[3..0];
+	max[3..0].rst = rst;
+	max[3..0].clk = h;
+end module
+
+
+
+
+//module count2(rst, h, en : s[1..0])
+//	d[1] = /en*s[1] + en*s[0]*/s[1] + en*/s[0]*s[1];
+//	d[0] = /en*s[0] + en*/s[0];
+//	s[1..0] := d[1..0];
+//	s[1..0].rst = rst;
+//	s[1..0].clk = h;
+//end module
+
+
+module count2(rst, h, en : s[1..0])
+	t[0] = en;
+	t[1] = en*s[0];
+	s[1..0] := t[1..0]*/s[1..0] + /t[1..0]*s[1..0];
+	s[1..0].rst = rst;
+	s[1..0].clk = h;
+end module
+
+
+
+
+
+
+
+
+module count4(rst, h, en : s[3..0])
+	t[0] = en;
+	t[1] = en*s[0];
+	t[2] = en*s[0]*s[1];
+	t[3] = en*s[0]*s[1]*s[2];
+	s[3..0] := t[3..0]*/s[3..0] + /t[3..0]*s[3..0];
+	s[3..0].rst = rst;
+	s[3..0].clk = h;
+	
+end module
+
+
+
+
+
+module clock4(rst, h : s[3..0])
+	s[0].clk = /h;
+	s[1].clk = /s[0];
+	s[2].clk = /s[1];
+	s[3].clk = /s[2];
+	
+	s[3] := /s[3];
+	s[2] := /s[2];
+	s[1] := /s[1];
+	s[0] := /s[0];
+	
+	s[3].rst = rst;
+	s[2].rst = rst;
+	s[1].rst = rst;
+	s[0].rst = rst;
+	
+	
+	
+end module
+
+
+
+
+
+module clock28(rst, h : s[27..0])
+	clock4(rst, h : s[3..0]);
+	clock4(rst, s[3] : s[7..4]);
+	clock4(rst, s[7] : s[11..8]);
+	clock4(rst, s[11] : s[15..12]);
+	clock4(rst, s[15] : s[19..16]);
+	clock4(rst, s[19] : s[23..20]);
+	clock4(rst, s[23] : s[27..24]);
+
+end module
+
+
+
+
+
+
+module dec7segsH(x[3..0] : seg[6..0])
+	decoder4to16(x[3..0],sI[15..0]);
+	
+   seg[0] = sI[0]+sI[2]+sI[3]+sI[5]+sI[6]+sI[7]+sI[8]+sI[9]+sI[10]+sI[12]+sI[14]+sI[15];
+   seg[1] = sI[0]+sI[1]+sI[2]+sI[3]+sI[4]+sI[7]+sI[8]+sI[9]+sI[10]+sI[13];
+   seg[2] = sI[0]+sI[1]+sI[3]+sI[4]+sI[5]+sI[6]+sI[7]+sI[8]+sI[9]+sI[10]+sI[13];
+   seg[3] = sI[0]+sI[2]+sI[3]+sI[5]+sI[6]+sI[8]+sI[9]+sI[11]+sI[12]+sI[13]+sI[14];
+   seg[4] = sI[0]+sI[2]+sI[5]+sI[6]+sI[8]+sI[10]+sI[11]+sI[12]+sI[13]+sI[14];
+   seg[5] = sI[0]+sI[4]+sI[5]+sI[6]+sI[8]+sI[9]+sI[10]+sI[11]+sI[12]+sI[14];
+   seg[6] = sI[2]+sI[3]+sI[4]+sI[5]+sI[6]+sI[8]+sI[9]+sI[10]+sI[11]+sI[12]+sI[13]+sI[14];
+end module   
+
+
+
+
+
+module testclock28 (mclk:s[27..0], ld[7..0])
+	
+	clock28(0, mclk : s[27..0]);
+	ld[7..0] = s[27..20];
+	
+end module
+
+
+// Fréquence du signal mclk/2^i
+
+
+
+
+
+
+
+module affmux(h, data[15..0] : anodes[3..0], segs[6..0])
+	
+	clock28(0, h: s[27..0]);
+	decoder2to4(s[1..0] : anodes[3..0]);
+	
+	x[3..0] = data[3..0]*anodes[0] + data[7..4]*anodes[1] + data[11..8]* anodes[2] + data[15..12]*anodes[3];
+	
+	dec7segsH(x[3..0] : segs[6..0]);
+	
+end module
+
+
+
+
+
+module testaffmux(mclk,data[15..0]: an[3..0],ssg[6..0])
+	affmux(mclk, data[15..0] : an[3..0], seg[6..0]);
+	ssg[6..0] = /seg[6..0];
+end module

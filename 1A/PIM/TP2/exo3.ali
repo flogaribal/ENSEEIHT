@@ -1,0 +1,58 @@
+V "GNAT Lib v2015"
+M P W=b
+P ZX
+
+RN
+RV NO_DIRECT_BOOLEAN_OPERATORS
+RV NO_IO
+RV SPARK_05
+
+U exo3%b		exo3.adb		0dcefb04 NE OO SU IL
+W ada%s			ada.ads			ada.ali
+W ada.integer_text_io%s	a-inteio.ads		a-inteio.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+
+D ada.ads		20150506105328 3ffc8e18 ada%s
+D a-except.ads		20150506105328 5250cb69 ada.exceptions%s
+D a-inteio.ads		20150506105332 f64b89a4 ada.integer_text_io%s
+D a-ioexce.ads		20150506105327 e4a01f64 ada.io_exceptions%s
+D a-stream.ads		20150506105329 119b8fb3 ada.streams%s
+D a-tags.ads		20150506105332 dc4d0634 ada.tags%s
+D a-textio.ads		20150506105332 386df5d4 ada.text_io%s
+D a-tiinio.ads		20150506105328 aa04e5d6 ada.text_io.integer_io%s
+D a-unccon.ads		20150506105331 f9eb8f06 ada.unchecked_conversion%s
+D exo3.adb		20151007144529 c3e88774 exo3%b
+D interfac.ads		20150506105327 6033a23f interfaces%s
+D i-cstrea.ads		20150506105327 e53d8b8e interfaces.c_streams%s
+D system.ads		20150506105329 1d274481 system%s
+D s-crtl.ads		20150506105326 0ebbdb71 system.crtl%s
+D s-exctab.ads		20150506105331 54135002 system.exception_table%s
+D s-ficobl.ads		20150506105333 078245e4 system.file_control_block%s
+D s-parame.ads		20150506105331 7e2a0d7f system.parameters%s
+D s-soflin.ads		20150506105328 aa763b52 system.soft_links%s
+D s-stache.ads		20150506105332 a37c21ec system.stack_checking%s
+D s-stalib.ads		20150506105331 fa0a3617 system.standard_library%s
+D s-stoele.ads		20150506105332 2dc34a04 system.storage_elements%s
+D s-traent.ads		20150506105327 005bf670 system.traceback_entries%s
+D s-unstyp.ads		20150506105330 9d58a4c0 system.unsigned_types%s
+D s-wchcon.ads		20150506105330 1b7d22d2 system.wch_con%s
+X 1 ada.ads
+16K9*Ada 19e8 10|18r6 19r5 20r6 21r5
+X 3 a-inteio.ads
+18K13*Integer_Text_IO[8|46] 10|20w10 21r9
+X 7 a-textio.ads
+49K13*Text_IO 471e16 10|18w10 19r9
+242U14*Put 10|42s25 44s25 54s21 56s21 75s21
+X 8 a-tiinio.ads
+56U14*Get 10|45s25[3|18] 57s21[3|18]
+66U14*Put 10|43s25[3|18] 55s21[3|18] 76s21[3|18]
+X 10 exo3.adb
+23U11*exo3 23b11 79l5 79t9
+26i5 NMAX{integer} 29r34 43r29
+29A10 TAB_ENTIERS(integer)<integer> 32r14
+32a5 un_tab{29A10} 57m25 57r25 65m21 65r34 76r25
+33i5 nb_elements{integer} 45m29 46r35 46r55 53r43 64r43 74r43
+53i21 I{integer} 55r25 57r32
+64i21 I{integer} 65r28 65r41
+74i21 I{integer} 76r32
+

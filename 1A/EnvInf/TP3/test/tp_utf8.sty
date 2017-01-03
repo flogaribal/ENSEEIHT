@@ -1,0 +1,270 @@
+%%%%% Identification Part %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{tp_utf8}[1995/09/04 1.0 macros pour la rédaction de textes de tp]
+
+%%%% Package loading %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\RequirePackage{calc}
+\RequirePackage{ntheorem}
+\RequirePackage{fancyhdr}
+\RequirePackage{ifthen}
+\RequirePackage{xspace}
+\RequirePackage{graphics}
+\RequirePackage{graphicx}
+\RequirePackage{comment}
+\RequirePackage{moreverb}
+\RequirePackage{array}
+\RequirePackage{fancybox}
+\RequirePackage{epsf}
+\RequirePackage{latexsym}
+\RequirePackage{float}
+\RequirePackage{listings}
+\RequirePackage{hyperref}
+\RequirePackage[french]{babel}
+\RequirePackage{ucs}
+\RequirePackage[utf8x]{inputenc}
+\RequirePackage[dvips]{xy}
+\RequirePackage[dvips]{xypic}
+\RequirePackage{algorithmic}
+\RequirePackage{algorithm}
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+\RequirePackage{mathrsfs}
+\RequirePackage{boxedminipage}
+
+%%%%% Declaration of options %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\pagestyle{fancyplain}
+\newcommand{\tp@lfoot}{}
+\newcommand{\tp@cfoot}{{\textrm{\thepage}}}
+\newcommand{\tp@rfoot}{}
+
+%%%% Modification de la page %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\addtolength{\headheight}{\baselineskip}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\addtolength{\textwidth}{4.5cm}
+\addtolength{\headwidth}{4.5cm}
+\addtolength{\oddsidemargin}{-2cm}
+\setlength{\textheight}{22.5cm}
+\setlength{\topmargin}{-1.5cm}
+
+%%%% Définitions %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Page de titre
+\renewcommand{\@title}{}
+\newcommand{\@shorttitle}{}
+\newcommand{\@numero}{}
+\renewcommand{\@date}{}
+\newcommand{\@discipline}{}
+\newcommand{\@promotion}{}
+
+\renewcommand{\title}[1]
+  {\renewcommand{\@title}{{#1}}}
+\newcommand{\shorttitle}[1]
+  {\renewcommand{\@shorttitle}{{#1}}}
+\newcommand{\numero}[1]
+  {\renewcommand{\@numero}{{#1}}}
+\renewcommand{\date}[1]
+  {\renewcommand{\@date}{{#1}}}
+\newcommand{\discipline}[1]
+  {\renewcommand{\@discipline}{{#1}}}
+\newcommand{\promotion}[1]
+  {\renewcommand{\@promotion}{{#1}}}
+
+\renewcommand{\maketitle}
+  {\par\begin{center}
+    
+        \scalebox{0.5}{\includegraphics{/home/guivarch/.TeX/logo}}
+    \vspace*{1.0em}\par
+    \LARGE\bf \@title
+  \end{center}%
+  \thispagestyle{plain}
+  \addvspace{2em}}
+
+% Afficher une commande ou une séquence de touches
+\newcommand{\cmd}[1]
+  {\textnormal{\texttt{#1}}}
+
+% Environnement pour définir un ensemble de commandes
+\newenvironment{commandes}{%
+  \bgroup\small
+  \begin{list}{}{%
+    \partopsep 0pt%
+    \topsep 4pt plus1pt minus1pt%
+    \partopsep 2pt plus1pt minus1pt%
+    \leftmargin 2em%
+%    \rightmargin\leftmargin%
+  }%
+    \item
+    \normalfont\ttfamily\small%
+}{%
+  \end{list}%
+  \egroup
+}
+
+
+% Affiche une touche dans une boîte
+% Le deuxième paramètre permet de définir les différentes hauteurs
+\newlength{\old@fboxsep}
+\newcommand{\smallfbox}[2][1pt]
+  {\setlength{\old@fboxsep}{\fboxsep}%
+    \setlength{\fboxsep}{#1}%
+    \fbox{#2}%
+    \setlength{\fboxsep}{\old@fboxsep}}
+\newcommand{\touche}[2][]
+  {\hspace{.5pt}%
+    \smallfbox{\makebox[0pt][l]{\phantom{\cmd{#1}}}\cmd{#2}}%
+    \hspace{.5pt}}
+
+% Afficher la touche return
+\newcommand{\RET}
+    {\setlength{\unitlength}{1ex}%
+    \touche{\begin{picture}(2.2,1.6)(-0.1,-0.4)
+          \put(2,1){\line(0,-1){1}}
+          \put(2,0){\vector(-1,0){2}} 
+        \end{picture}}}
+
+% Affiche la touche ESCAPE
+\newcommand{\ES}
+    {\touche{\textsc{ESC}}}
+
+% Affiche un backspace
+\newcommand{\BS}
+%  {\touche{$\leftarrow$}}
+  {\touche{{\textsc{bs}}}}
+
+
+% Afficher un caractère de contrôle
+\newcommand{\CTRL}[1]
+  {\touche{{\texttt\^}\uppercase{#1}}}
+
+
+% Afficher une expression (entre < >)
+\newcommand{\RegExp}[1]
+  {\cmd{<#1>}}
+
+%%% Environnement pour les exercices
+\theoremstyle{plain}
+\newtheorem{Exercice}{{\makebox[0pt][r]{$\rhd$\hspace*{1ex}}Exercice}}
+%\newtheorem{Exercice}{Exercice}
+\newtheorem{Question}{Question}[Exercice]
+\newtheorem{Exemple}{Exemple}
+\theoremstyle{break}
+\newtheorem{EXERCICE}[Exercice]{\makebox[0pt][r]{$\rhd$\hspace*{1ex}}Exercice}
+\newcounter{exercice}
+\newcounter{question}[exercice]
+\renewcommand{\theexercice}{\arabic{exercice}}
+\renewcommand{\thequestion}{\theexercice.\arabic{question}}
+
+{\theorembodyfont{\normalfont\itshape} 
+ \theoremstyle{nonumberbreak}
+ \theoremseparator{ :}
+ \newtheorem{remarque}{Remarque}
+ \newtheorem{remarques}{Remarques}
+}
+%%% Environnement pour le travail à faire
+\floatstyle{boxed}
+\newfloat{Travail}{h}{}
+\floatname{Travail}{Travail}
+
+% Commentaire avec un identificateur
+\newcommand{\adacomment}[2][.65]
+  {\hfill\parbox{#1\linewidth}{{\rm --\,-- \ \em #2}}}
+\newcommand{\camlcomment}[2][.65]
+  {\hfill\parbox{#1\linewidth}{{\rm (\,* \ \em #2 \rm\ *\,)}}}
+\newcommand{\shellcomment}[2][.65]
+  {\hfill\parbox{#1\linewidth}{{\cmd{\#} \rm\em #2}}}
+\newcommand{\vicomment}[2][.65]
+  {\hfill\parbox{#1\linewidth}{{\cmd{"} \rm\em #2}}}
+
+
+\DeclareFontFamily{U}{manfnt}{}
+\DeclareFontShape{U}{manfnt}{m}{n}{
+   <10> <10.95> <12> <14.4> <17.28>  <20.74> <24.88> manfnt   }{}
+
+\newcommand\manfamily{\usefont{U}{manfnt}{m}{n}}
+\DeclareTextFontCommand{\textman}{\manfamily}
+
+\newlength{\dangerlabel}
+\settowidth{\dangerlabel}{\textman{\LARGE\symbol{'177}}}
+\newenvironment{danger}[1][Attention]{%
+ \begin{Sbox}\begin{minipage}{\textwidth} \textbf{#1 :}
+%{%
+%  \begin{list}{\textman{\symbol{'177}}}{%
+%    \labelwidth\dangerlabel% 
+%    \labelsep 0pt%
+%    \leftmargin\labelwidth%
+%    \topsep 3pt plus1pt minus1pt%
+%    \partopsep 3pt plus1pt minus1pt%
+%  }
+%  \item
+}{%
+\end{minipage}\end{Sbox}\hspace{-\dangerlabel}\hspace{-1.0em}\textman{\LARGE\symbol{'177}}\hspace{1em}\fbox{\TheSbox}
+%  \end{list}
+}
+
+\newlength{\mawwidth}
+\setlength{\mawwidth}{\textwidth}
+%\addtolength{\mawwidth}{-1.2cm}
+\newenvironment{maw}[1][Travail à effectuer]{%
+ \begin{Sbox}\begin{minipage}{\mawwidth} \textbf{ #1 :}
+%{%
+%  \begin{list}{\textman{\symbol{'177}}}{%
+%    \labelwidth\dangerlabel% 
+%    \labelsep 0pt%
+%    \leftmargin\labelwidth%
+%    \topsep 3pt plus1pt minus1pt%
+%    \partopsep 3pt plus1pt minus1pt%
+%  }
+%  \item
+}{%
+\end{minipage}\end{Sbox}\hspace{-0.85cm}\hspace{-1em}\scalebox{0.08}{\includegraphics{/home/guivarch/.TeX/maw}}\hspace{1em}\fbox{\TheSbox}
+%  \end{list}
+}
+%%%% Special commands for package and class files %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\AtBeginDocument
+  {%
+    \lhead{\fancyplain
+        {{\scriptsize \emph{\@promotion}\\[-2pt] \textsc{\@discipline}}}
+        {\textsc{\small \@discipline}}}
+    \chead{}
+    \rhead{\fancyplain
+        {{\scriptsize \@date\\[-2pt] \@numero}}
+        {{\small \textbf{\@shorttitle}}}}
+    \lfoot{\tp@lfoot}
+    \cfoot{\tp@cfoot}
+    \rfoot{\tp@rfoot}
+  }
+
+%macros
+
+\def\N{\mathbf{N}}
+\def\Z{\mathbf{Z}}
+\def\Q{\mathbf{Q}}
+\def\R{\mathbf{R}}
+\def\C{\mathbf{C}}
+\def\K{\mathbf{K}}
+\def\L{\mathrm{L}}
+\def\H{\mathrm{H}}
+\def\W{\mathrm{W}}
+\def\iy{\infty}
+\def\d{\mathrm{d}}
+\def\t{\ \!^t\!}
+\def\veps{\varepsilon}
+\def\vphi{\varphi}
+\def\la{\langle}
+\def\ra{\rangle}
+\def\noi{\noindent}
+\def\cf{\emph{cf.}}
+\def\ie{\emph{i.e.}}
+\renewcommand{\tilde}{\widetilde}
+\renewcommand{\hat}{\widehat}
+\def\caml{\textsc{CaML}}
+\def\arendre{\noindent{\textbf{Ceci termine la partie obligatoire des exercices
+à réaliser en s\'eance. Les suivants
+sont \`a rendre \`a votre enseignant pour correction}}}
+\newcommand{\seme}{$^{\textrm{\tiny ème}}$}

@@ -1,0 +1,3 @@
+module fixadd_24(a[31..0],b[31..0] : s[31..0], v)
+	addsub32(a[31..0],b[31..0],0 : s[31..0],v,c);
+end module

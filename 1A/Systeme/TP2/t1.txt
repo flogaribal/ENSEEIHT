@@ -1,0 +1,43 @@
+Je suis le père : 16563 
+Processus fils n°1 : 16568 de père 16563
+Je suis le père : 16563 
+Code de retour du processus 1 : 1
+Processus fils n°2 : 16578 de père 16563
+Je suis le père : 16563 
+Code de retour du processus 1 : 1
+Code de retour du processus 2 : 2
+Processus fils n°3 : 16598 de père 16563
+Je suis le père : 16563 
+Code de retour du processus 1 : 1
+Code de retour du processus 2 : 2
+Code de retour du processus 3 : 3
+Processus fils n°4 : 16622 de père 16563
+Je suis le père : 16563 
+Code de retour du processus 1 : 1
+Code de retour du processus 2 : 2
+Code de retour du processus 3 : 3
+Code de retour du processus 4 : 4
+Processus fils n°5 : 16656 de père 16563
+Je suis le père : 16563 
+Code de retour du processus 1 : 1
+Code de retour du processus 2 : 2
+Code de retour du processus 3 : 3
+Code de retour du processus 4 : 4
+Code de retour du processus 5 : 5
+Processus fils n°6 : 16702 de père 16563
+Je suis le père : 16563 
+Code de retour du processus 1 : 1
+Code de retour du processus 2 : 2
+Code de retour du processus 3 : 3
+Code de retour du processus 4 : 4
+Code de retour du processus 5 : 5
+Code de retour du processus 6 : 6
+Processus fils n°7 : 16750 de père 16563
+Je suis le père : 16563 
+Code de retour du processus 1 : 1
+Code de retour du processus 2 : 2
+Code de retour du processus 3 : 3
+Code de retour du processus 4 : 4
+Code de retour du processus 5 : 5
+Code de retour du processus 6 : 6
+Code de retour du processus 7 : 7

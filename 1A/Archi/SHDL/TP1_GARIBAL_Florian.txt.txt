@@ -1,0 +1,67 @@
+module fulladder(a,b,cin:s,cout)
+     s = a*/b*/cin+/a*b*/cin+/a*/b*cin+a*b*cin ;
+	 cout = a*b+b*cin+a*cin ; 
+end module
+
+
+
+
+
+module decoder2to4(e[1..0]:s[3..0])
+	s[0] = /e[1]*/e[0];
+	s[1] = /e[1]*e[0];
+	s[2] = e[1]*/e[0];
+	s[3] = e[1]*e[0];
+end module
+
+
+
+
+
+module decoder3to8(e[2..0],s[7..0])
+	decoder2to4(e[1..0],sI[3..0]);
+		s[3..0] = sI[3..0]*/e[2];
+		s[7..4] = sI[3..0]*e[2];
+end module
+
+
+
+module decoder4to16(e[3..0],s[15..0])
+	decoder3to8(e[2..0],sI[7..0]);
+		s[7..0] = sI[7..0]*/e[3];
+		s[15..8] = sI[7..0]*e[3];
+end module
+
+
+
+
+module decoder5to32(e[4..0],s[31..0])
+	decoder4to16(e[3..0],sI[15..0]);
+		s[15..0] = sI[15..0]*/e[4];
+		s[31..16] = sI[15..0]*e[4];
+end module
+
+
+
+module decoder6to64(e[5..0],s[63..0])
+	decoder5to32(e[4..0],sI[31..0]);
+		s[31..0] = sI[31..0]*/e[5];
+		s[63..32] = sI[31..0]*e[5];
+end module
+
+
+
+
+
+module dec7segsH(x[3..0] : seg[6..0])
+	decode4to16(x[3..0],sI[15..0]),;
+	
+   seg[0] = sI[0]+sI[2]+sI[3]+sI[5]+sI[6]+sI[7]+sI[8]+sI[9]+sI[10]+sI[12]+sI[14]+sI[15];
+   //seg[0] = /x[3]*x[1] + /x[3]*/x[2]*/x[0] + x[2]*x[1] + x[1]*/x[0] + /x[3]*x[2]*x[0]  + x[3]*/x[2]*x[1] + x[3]*/x[1]*/x[3];
+   seg[1] = sI[0]+sI[1]+sI[2]+sI[3]+sI[4]+sI[7]+sI[8]+sI[9]+sI[10]+sI[13];
+   seg[2] = sI[0]+sI[1]+sI[3]+sI[4]+sI[5]+sI[6]+sI[7]+sI[8]+sI[9]+sI[10]+sI[13];
+   seg[3] = sI[0]+sI[2]+sI[3]+sI[5]+sI[6]+sI[8]+sI[9]+sI[11]+sI[12]+sI[13]+sI[14];
+   seg[4] = sI[0]+sI[2]+sI[5]+sI[6]+sI[8]+sI[10]+sI[11]+sI[12]+sI[13]+sI[14];
+   //seg[5] = sI[0]+sI[4]+sI[5]+sI[6]+sI[8]+sI[9]+sI[10]+sI[11]+sI[12]+sI[13]+sI[14];
+   //seg[6] =sI[0]+sI[2]+sI[3]+sI[5]+sI[6]+sI[8]+sI[9]+sI[11]+sI[12]+sI[13]+sI[14];
+end module   

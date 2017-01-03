@@ -1,0 +1,173 @@
+(* e_in_liste : 'a -> 'a liste -> bool
+ * Teste si l'élément e appartient à la liste 
+ *      True si l'élément appartient à la liste
+ *      False sinon 
+ * Paramètre e : l'élément à rechercher dans la liste
+ *       liste : la liste à parcourir
+ * Résultat : True si l'élément à été trouvé
+ *            False sinon
+ *)
+let rec e_in_liste e liste = 
+    match liste with
+    | [] -> false
+    |tete::_ when tete = e -> true 
+    |_::queue -> e_in_liste e queue;;
+
+(* TESTS *)
+e_in_liste 1 [2;4;3;5;6;9;7;4;1] = true;;
+e_in_liste 6 [] = false;;
+e_in_liste 'a' ['b';'k';'o';'t';'a'] = true;;
+e_in_liste true [false; false; true ; false] = true;;
+
+
+
+
+
+(* EXO 2 *)
+
+
+
+(* set_of_list : 'a list -> 'a list
+ * Crée un ensemble à partir d'une liste en éliminant les doublons
+ * Paramètres liste : 'a liste liste d'éléments
+ * Resultat : un ensemble d'éléments uniques
+ *)
+let rec set_of_list liste = 
+    match liste with 
+    | [] -> []
+    | tete::queue when e_in_liste tete queue -> set_of_list queue
+    | tete::queue -> tete::set_of_list queue;;
+
+(* TESTS *)
+set_of_list [1;2;3;4;5;6;7;8;9;8;4;5;6;3;2;1];;
+set_of_list ['a';'b';'c';'d';'e';'f';'g';'a';'b';'g'];;
+set_of_list [] = [] ;;
+
+
+
+
+(* EXO 4 *)
+
+(* add : 'a -> 'a liste -> 'a liste
+ * Ajoute un élément à l'ensemble fourni en paramètre
+ * Paramètre e : l'élément à ajouter si il n'est pas déjà présent dans
+ * l'ensemble
+ *    ensemble : l'ensemble fourni, ne contient aucun doublon
+ * Résultat : l'ensemble auquel on a rajouté l'élément fourni en paramètre si il
+ * était pas déjà présent
+ *)
+let add e ensemble = 
+    if e_in_liste e ensemble then
+        ensemble
+    else 
+        e::ensemble;;
+
+
+(* EXO 5 *)
+
+(* union : 'a liste -> 'a liste -> 'a liste
+ * Réalise l'union de deux ensembles 
+ * Paramètre ens1 : Premier ensemble, ne doit contenir aucun doublon
+ *           ens2 : Deuxième ensemble, ne doit contenir aucun doublon
+ * Résultat : L'union des deux ensembles fournis en paramètres, ne contiendra
+ * aucun doublon 
+ *)
+let rec union ens1 ens2 = 
+    match ens1 with
+    |[] -> ens2
+    |tete::queue -> union queue (add tete ens2);;
+
+
+(* TESTS *)
+union [1;2;3;4;5] [4;5;6;7;8;1;9];;
+union [] ['a'] = ['a'];;
+union ['a'] ['b'];;
+union ['a';'b';'c';'d';'e'] ['f';'g';'a';'c';'p'];;
+
+
+
+
+
+
+(* EXO 6 *)
+
+(* remove : 'a -> 'a liste -> 'a liste
+ * Enlève l'élément de l'ensemble si il est présent sinon renvoi la même liste
+ * Paramètre e  : l'élément à enlever
+ *     ensemble : l'ensemble à parcourir
+ * Résultat : Si l'élément était présente, l'ensemble auquel on a enlevé cet
+ *            élément
+ *            Sinon la même liste que fourni en paramètre
+ *)
+let rec remove e ensemble = 
+    match ensemble with
+    |[]-> []
+    |tete::queue when tete = e -> queue 
+    |tete::queue -> tete::remove e queue;;
+
+(* TESTS *)
+remove 1 [2;3;4;5;6;1];;
+remove 1 [2;3;4;5;6];;
+remove 'a' ['b';'g';'h';'a';'g']
+
+
+
+
+
+(* EXO 7 *) 
+
+(* minus 'a liste -> 'a liste -> 'a liste
+ * Réalise la différence ensembliste de deux ensembles
+ * Paramètres ens1 : Premier ensemble, ne doit pas contenir de doublon
+ *            ens2 : Deuxième ensemble, ne doit pas contenir de doublon
+ * Résultat : la différence ensembliste des deux ensembles
+ *)
+let rec minus ens1 ens2 = 
+    match ens2 with 
+    |[] -> ens1 
+    |tete::queue -> minus (remove tete ens1) queue;;
+
+(* TESTS *)
+minus [1;2;3;4;5;6] [1;2;3;4;5]=[6];;
+minus [] ['a'] = [];;
+minus [1;2;3;4] [5;6;7;8] = [1;2;3;4];;
+
+
+
+
+
+(* EXO 8 *)
+
+(* image_of : ('a -> 'b) -> 'a liste -> 'a liste
+ * Applique à tous les éléments d'un ensemble la fonction f passée en paramètre
+ * Paramètre f : la fonction à appliquer
+ *    ensemble : L'ensemble, ne doit pas contenir de doublon
+ * Résultat : L'ensemble auquel a été appliqué la fonction f 
+ *)
+let rec image_of f ensemble = 
+        match ensemble with 
+        |[] -> [] 
+        |tete::queue -> set_of_list ((f tete)::(image_of f queue));;
+
+
+(* TESTS *) 
+let f x = 2*x;;
+image_of f [1;2;3;4;5;6] = [2;4;6;8;10;12];;
+image_of (fun x -> 'a') ['b';'c';'d';'f';'g'] = ['a'];;
+
+
+
+
+
+
+(* EXO 9 et 10 *)
+
+(* union_indexee : 'a liste liste -> 'a liste
+ * Réalise l'union de plusieurs ensembles fourni dans un ensemble d'ensembles
+ * Paramètre ensEns : L'ensemble d'ensembles 
+ * Résultat l'union de tous les ensembles présent dans le paramètre
+ *)
+let rec union_indexee ensEns = 
+    match ensEns with
+    |[] -> []
+    |tete::queue -> union tete (union_indexee queue);;

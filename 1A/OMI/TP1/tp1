@@ -1,0 +1,122 @@
+(* Ouverture d’une section *)
+Section CalculPropositionnel.
+(* Le tiers-exclu est nécessaire pour certaines preuves de théorèmes non constructifs *)
+Require Import Classical.
+(* Déclaration de variables propositionnelles *)
+Variable phi psi E Y R : Prop.
+
+Theorem Thm_1 : phi -> ~~phi.
+unfold not.
+intro H.
+intro.
+cut phi.
+exact H0.
+exact H.
+Qed.
+
+Theorem Thm_2 : ~~phi -> phi.
+cut (phi \/ ~phi).
+intros.
+elim H.
+intro.
+exact H1.
+intro.
+contradiction.
+apply (classic phi).
+Qed.
+
+Theorem Thm_3 : (~psi -> ~phi) -> (phi -> psi).
+unfold not.
+intros.
+apply (NNPP psi).
+unfold not.
+intro.
+cut phi.
+cut (psi -> False).
+exact H.
+exact H1.
+exact H0.
+Qed.
+
+
+Theorem Thm_4 : (phi -> psi) -> (~psi -> ~phi).
+unfold not.
+intros.
+cut psi.
+exact H0.
+cut phi.
+exact H.
+exact H1.
+Qed.
+
+
+Theorem Thm_5 : ((E -> (Y \/ R)) /\ (Y -> R)) -> (~R -> ~E).
+unfold not.
+intros.
+cut R.
+exact H0.
+cut Y.
+cut ((E-> Y \/ R) /\ (Y->R)).
+intro.
+elim H2.
+intros. 
+cut Y.
+exact H4.
+exact H5.
+exact H.
+
+
+cut E.
+
+
+intuition.
+exact H1.
+Qed.
+
+
+End CalculPropositionnel.
+
+(* Ouverture d’une section *)
+Section CalculPredicats.
+(* Définition de 2 domaines pour les prédicats *)
+Variable A B : Type.
+
+Theorem Thm_6 : forall (phi psi : A -> Prop),
+(forall x : A, (phi x) /\ (psi x))
+-> (forall x : A, (phi x)) /\ (forall x : A, (psi x)).
+
+intros phi psi H .
+split.
+intro x.
+cut (phi x /\ psi x).
+intro H1.
+apply H1.
+apply H.
+apply H.
+Qed.
+
+
+Theorem Thm_7 : forall (phi : A -> B -> Prop),
+(exists x : A, forall y : B, (phi x y))
+-> forall y : B, exists x : A, (phi x y).
+
+intros phi H1 H2.
+elim H1.
+
+intro x.
+intro H3.
+exists x.
+apply H3.
+Qed.
+
+
+Theorem Thm_8 : forall (phi psi : A -> Prop),
+(exists x : A, (phi x) -> (psi x))
+-> (forall x : A, (phi x)) -> exists x : A, (psi x).
+intros.
+elim H.
+intros.
+exists x.
+
+
+End CalculPredicats.

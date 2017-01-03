@@ -1,0 +1,6 @@
+module ucmp2(a[1..0],b[1..0] : sup,eq)
+	ucmp1(a[0],b[0] : sup0, eq0);
+	ucmp1(a[1],b[1] : sup1, eq1);
+	sup = sup1 + eq1 * sup0;
+	eq = eq1 * eq0;
+end module

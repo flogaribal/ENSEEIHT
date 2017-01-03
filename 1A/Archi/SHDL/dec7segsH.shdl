@@ -1,0 +1,11 @@
+module dec7segsH(x[3..0] : seg[6..0])
+	decoder4to16(x[3..0],sI[15..0]);
+	
+   seg[0] = sI[0]+sI[2]+sI[3]+sI[5]+sI[6]+sI[7]+sI[8]+sI[9]+sI[10]+sI[12]+sI[14]+sI[15];
+   seg[1] = sI[0]+sI[1]+sI[2]+sI[3]+sI[4]+sI[7]+sI[8]+sI[9]+sI[10]+sI[13];
+   seg[2] = sI[0]+sI[1]+sI[3]+sI[4]+sI[5]+sI[6]+sI[7]+sI[8]+sI[9]+sI[10]+sI[11]+sI[13];
+   seg[3] = sI[0]+sI[2]+sI[3]+sI[5]+sI[6]+sI[8]+sI[9]+sI[11]+sI[12]+sI[13]+sI[14];
+   seg[4] = sI[0]+sI[2]+sI[6]+sI[8]+sI[10]+sI[11]+sI[12]+sI[13]+sI[14]+sI[15];
+   seg[5] = sI[0]+sI[4]+sI[5]+sI[6]+sI[8]+sI[9]+sI[10]+sI[11]+sI[12]+sI[14]+sI[15];
+   seg[6] = sI[2]+sI[3]+sI[4]+sI[5]+sI[6]+sI[8]+sI[9]+sI[10]+sI[11]+sI[13]+sI[14]+sI[15];
+end module   

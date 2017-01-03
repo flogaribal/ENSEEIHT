@@ -1,0 +1,393 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  Auteur : Pierre Martinon
+%  Création : 01/09/04
+%  Modifications : Patrick Sallé (annexe des formats - 15/09/05)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[a4paper,10pt]{article}
+
+\usepackage{../tp_utf8}
+
+\newcommand{\netscape}{\textsc{Firefox}\xspace}
+\newcommand{\unix}{\textsc{unix}}
+\newcommand{\linux}{\textsc{linux}}
+\newcommand{\shell}{\textsc{shell}}
+\newcommand{\downloadrep}{\texttt{\textasciitilde/Téléchargements }}
+
+\title{Manipulation de fichiers - Édition de texte}
+\numero{TP n° 2}
+\date{2013--2014}
+\discipline{Utilisation des Ordinateurs}
+\promotion{ENSEEIHT --- 1\iere Année Informatique}
+
+\begin{document}
+\maketitle
+%\tableofcontents
+
+\section*{Objectifs}
+\begin{itemize}
+  \item Manipulation de fichiers,
+  \item Imprimer un fichier texte sur une imprimante laser,
+  \item Un premier éditeur GVim.
+\end{itemize}
+
+
+\section{Manipulation de fichiers}
+
+\subsection{Fichier de texte brut - ASCII}
+
+Le format texte brut (ou ASCII) est un moyen rudimentaire de stocker du texte dans un fichier. 
+Ne comportant quasiment aucune option de mise en page, ce format
+n'est guère pratique pour éditer des documents.
+Il est par contre le format de base en programmation : les codes sources
+en Caml et ADA, par exemple, doivent être sauvegardés en texte brut.
+Il existe de nombreux éditeurs de texte brut, depuis les plus rudimentaires
+(type bloc-notes) jusqu'aux plus évolués, comme GVim ou Emacs, dont nous
+allons présenter les grandes lignes par la suite.
+
+\paragraph{Visualisation}
+
+\
+
+Tout d'abord, le format texte brut a ceci de particulier qu'il est directement
+``lisible'' : son contenu consiste simplement en une suite de codes ASCII
+correspondant à des caractères, et il est donc très simple à visualiser ou
+éditer.
+Pour afficher le contenu d'un fichier texte, vous pouvez utiliser, dans un
+terminal, par exemple
+les deux commandes basiques \cmd{cat} et \cmd{more}.
+
+\begin{maw}
+\begin{itemize}
+  \item Récupérez le fichier \texttt{tolkien.txt} sous Moodle ;\\
+        par défaut, le répertoire de Téléchargement \netscape (c'est à dire où
+        seront rangés les fichiers que vous téléchargerez) est le répertoire
+        \downloadrep (voir section 3.2 du sujet 1).\\
+        Ce fichier est au format texte brut nommé,
+  \item Affichez le contenu de ce fichier avec les commandes \cmd{cat} et
+        \cmd{more} ; pour cela, il faut vous assurer que vous êtes dans le bon
+        répertoire (rappel commande \cmd{ls} pour visualiser le contenu d'un
+        répertoire).
+\end{itemize}
+\end{maw}
+
+Ces deux commandes (\cmd{more} et \cmd{cat}) sont assez rudimentaires, et ne
+devraient être utilisées que pour visualiser/afficher des textes courts.
+Une autre commande de visualisation \cmd{less} ou un éditeur style GVim ou
+Emacs sera mieux adapté à la manipulation de fichiers plus volumineux.
+
+\emph{Remarque : le format texte brut n'impose pas d'extension particulière.
+Toutefois, les différents langages de programmation ont en général des
+extensions réservées (.adb pour l'ADA, .c pour le C, .ml pour Caml, .f pour Fortran77, etc), et
+l'extension .txt désigne souvent un fichier ASCII.}
+
+\pagebreak[4]
+
+\subsection{Fichier PostScript}
+\label{ps}
+
+Le format PostScript (une création d'Adobe) est un format destiné aux
+imprimantes laser. En effet les imprimantes laser ne sont pas conçues pour
+imprimer directement du texte brut elles travaillent plutôt sur des fichiers
+au format PostScript.
+
+Il s'agit d'un format dit ``binaire'', par opposition au texte ASCII, qui
+n'est pas lisible directement : si vous essayez d'afficher le contenu d'un
+document PostScript avec cat ou more, le résultat ne sera pas très probant !
+C'est pourquoi il existe des outils spécialisés pour manipuler ces fichiers.
+
+\emph{Note : les fichiers PostScript ont l'extension .ps (ou .eps pour les
+PostScript encapsulés, une version plus évoluée)}
+ 
+\subsubsection{Mise en forme avec a2ps}
+
+Il faut convertir un fichier texte brut avant de l'imprimer.
+La commande a2ps (ASCII to ps) permet de transformer un fichier texte brut
+(ASCII) en un fichier imprimable PostScript.
+
+\begin{commandes}
+a2ps -o toto.ps toto.txt
+\end{commandes}
+
+Cette commande crée le fichier PostScript toto.ps à partir du fichier texte
+toto.txt. 
+L'option -o (pour \textbf{o}utput) est suivie du nom du fichier PostScript
+généré par a2ps, mais il existe de nombreuses autres options, par exemple pour
+choisir l'orientation d'impression (paysage/portrait) ou le nombre de pages
+par feuille.
+La syntaxe pouvant changer suivant les versions d'a2ps, il est conseillé de
+consulter le manuel, par la commande :
+
+\begin{commandes}
+man a2ps
+\end{commandes}
+
+Rappel : commandes utiles pour naviguer dans le manuel :
+\begin{itemize}
+  \item \textbf{q} (quit) pour quitter le manuel
+  \item \textbf{f} (forward) pour descendre d'une page
+  \item \textbf{b} (back) pour remonter d'une page
+  \item \textbf{/texte\_recherché} pour rechercher un motif
+        \begin{itemize}
+          \item[\(\rightarrow\)] \textbf{n} (next) pour aller à la prochaine
+                                 occurence du motif
+        \end{itemize}
+\end{itemize}
+\vspace{0.3cm}
+
+\emph{Remarque : a2ps réalise également une mise en forme adaptée à la
+syntaxe, en fonction de l'extension du fichier à convertir. Vous pourrez en
+particulier le constater quand vous imprimerez vos listings ADA, Caml, C ou Fortran.}
+
+\emph{Remarque : a2ps ne se comporte pas très bien avec les fichiers
+comportant des accents codés en utf8, ce qui est normal puisque le codage utf8
+diffère du codage ASCII, en particulier pour les caractères accentués.
+Si en visualisant le PostScript, vous
+remarquez des caractères bizarres, utilisez \cmd{u2ps} (utf8 to ps)}
+
+\begin{commandes}
+u2ps -o toto.ps toto.txt
+\end{commandes}
+
+\begin{maw}
+\begin{itemize}
+  \item Convertissez le fichier \texttt{tolkien.txt} au format PostScript.
+\end{itemize}
+\end{maw}
+
+% \subsubsection{Visualisation avec GhostView (gv)}
+
+% GhostView permet de visualiser à l'écran un fichier au format PostScript (.ps
+% ou .eps).
+% Il n'est évidemment pas obligatoire de visualiser un fichier avant
+% de l'imprimer, mais c'est parfois plus sûr, et cela permet en tout cas de
+% consulter un document sans l'imprimer.
+% 
+% \begin{commandes}
+% gv toto.ps
+% \end{commandes}
+
+\subsubsection{Visualisation avec Evince (evince)}
+
+Evince permet de visualiser à l'écran un fichier au format PostScript (.ps
+ou .eps).
+Il n'est évidemment pas obligatoire de visualiser un fichier avant
+de l'imprimer, mais c'est parfois plus sûr, et cela permet en tout cas de
+consulter un document sans l'imprimer.
+
+\begin{commandes}
+evince toto.ps
+\end{commandes}
+
+\begin{maw}
+\begin{itemize}
+  \item Visualisez avec \cmd{evince} le fichier \texttt{tolkien.ps}
+        obtenu à l'étape précédente.
+% \item Il arrive que le rendu des polices PostScript ne soit pas très
+%       satisfaisant, ce qui peut s'améliorer en activant l'anti-aliasing.
+%       Utilisez le manuel de la commande gv pour trouver cette option, et
+%       constatez le résultat !
+\end{itemize}
+\end{maw}
+
+% \emph{Remarque : suivant les versions, gv peut parfois également ouvrir
+% directement les fichiers PDF (cf plus loin).}
+
+\subsubsection{Impression avec lp}
+
+La commande lp permet d'imprimer un fichier.
+
+\begin{commandes}
+lp toto.ps
+\end{commandes}
+
+L'utilisation de la commande est assez simple, mais comme d'habitude, \cmd{man
+lp} vous donnera toute une ri\-bambelle d'options plus ou moins utiles et/ou
+supportées...\\
+
+\emph{Remarques : les commandes \cmd{lpq} et \cmd{cancel} vous permettent
+respectivement de visualiser la
+file d'attente des impressions, et d'annuler une impression.
+}
+
+%\begin{danger}
+%\textbf{n'utilisez PAS lp pour imprimer des fichiers autre que PostScript (extension .ps ou .eps), en particulier des documents PDF ou des exécutables, ou vous obtiendrez des dizaines de pages de charabia hiéroglyphique. De grâce, n'essayez PAS de le faire pour vérifier, et tâchez d'annuler l'impression si cela devait vous arriver par inadvertance !}
+%\end{danger}
+
+\begin{maw}
+\begin{itemize}
+  \item Imprimez le fichier \texttt{tolkien.ps} et n'oubliez pas d'aller
+        récupérer votre impression.
+\end{itemize}
+\end{maw}
+
+\subsection{Fichier PDF}
+
+Le format PDF (Portable Document Format) est une création, tout comme le
+PostScript, des gens de chez Adobe.
+Comme son nom l'indique, il s'agit d'un format de document 
+utilisable sur différentes plate-formes.
+%, et en particulier lisible par
+%les différentes versions du célèbre Acrobat Reader.
+Le PDF est un format ``binaire'' (comme le PostScript), et il est de plus
+compressé, ce qui le rend encore plus illisible par des commandes de type cat
+ou more.
+
+\emph{Note : les fichiers PDF ont l'extension... .pdf}\\
+
+\cmd{evince} permet aussi de visualiser et d'imprimer des documents au format PDF.
+Pour imprimer, vous pouvez soit choisir l'impression depuis \cmd{evince}, soit
+imprimer directement le fichier PDF avec la commande \cmd{lp} (comme pour
+les PostScript).
+
+\begin{commandes}
+evince toto.pdf \&
+\end{commandes}
+
+Il existe une commande permettant de convertir du format PostScript
+au format PDF : ps2pdf\footnote{pour ``PS to PDF'', comme la commande a2ps}
+
+\begin{commandes}
+ps2pdf toto.ps
+\end{commandes}
+
+\begin{maw}
+\begin{itemize}
+  \item Convertissez le fichier tolkien.ps au format PDF,
+  \item Visualisez-le,
+  \item Comparez avec le .ps affiché par \textrm{evince}.
+\end{itemize}
+\end{maw}
+
+\newpage
+
+\section{L'éditeur de fichier \textsc{GVim}}
+
+Nous avons choisi comme \'editeur \textsc{GVim}.
+
+\textsc{Vim} est un \'editeur de texte, c'est-\`a-dire un logiciel
+permettant la manipulation de fichiers texte. Il est directement inspir\'e de
+vi (un \'editeur tr\`es r\'epandu sur les syst\`emes d'exploitation de type
+UNIX), dont il est le clone le plus populaire. Son nom signifie d'ailleurs Vi
+IMproved.
+
+\textsc{GVim} est l'interface utilisateur graphique moderne avec le
+support de la souris et des menus de \textsc{Vim}.
+
+\textsc{Vim} est un \'editeur modal. Cela signifie que l'on effectue
+diff\'erentes t\^aches dans diff\'erents modes, on s'int\'eresse ici au mode
+insertion et au mode normal. Le mode insertion vous permet d'\'ecrire dans le
+fichier.  
+\textsc{GVim} d\'emarre en mode Normal, aussi appel\'e mode Commande. Dans ce
+mode, il est par exemple possible de copier des lignes ou de les d\'eplacer
+gr\^ace \`a des raccourcis, de mettre du texte en forme, ou de se d\'eplacer
+dans le fichier.
+
+\paragraph{les fichiers de configuration}
+
+\
+
+\begin{maw}
+\begin{itemize}
+  \item Récupérez l'archive \cmd{gvim\_conf.tar} sous moodle et dé-archivez-la
+        (au moyen du gestionnaire d'archive graphique) dans votre
+        \textbf{répertoire racine}.
+  \item Deux fichiers de configuration \cmd{.vimrc} et \cmd{.gvimrc} 
+        %Nous avons placé à votre racines, deux fichiers de configuration
+        %\cmd{.vimrc} et \cmd{.gvimrc} qui
+        permettent d'avoir une base commune de configuration ; vous pourrez
+        les modifier lorsque vous serez plus à l'aise avec l'éditeur.
+  \item Pour vérifier qu'ils sont bien présents, tapez \cmd{ls -a}, commande
+        qui permet de lister aussi les fichiers cachés (commençant par ., voir
+        sujet 3) en vous plaçant dans votre \textbf{répertoire racine}.
+\end{itemize}
+\end{maw}
+
+\paragraph{quelques commandes basiques}
+
+\
+
+\begin{maw}
+\begin{enumerate}
+  \item Pour éditer le fichier \cmd{tolkien.txt} avec \textsc{GVim}, tapez :
+        \cmd{gvim tolkien.txt},
+  \item Le curseur se d\'eplace avec les touches fl\'ech\'ees ou les touches
+        hjkl.  h (gauche), j (bas), k (haut), l (droite),
+  \item Pour passer en mode insertion, tapez \cmd{i} ; l'insertion se fera à
+        l'endroit où est le curseur,
+  \item Pour sortir du mode insertion et passer au mode normal, tapez sur la
+        touche \cmd{<Echap>},
+  \item Pour sauvegarder vos modifications, placez-vous en mode normal et
+        tapez \cmd{:w <Entree>}
+  \item Pour quitter  l'éditeur, en mode normal, tapez \cmd{:q <Entree>} ; si
+        vous n'avez pas fait les sauvegardes, on vous invitera à les faire.
+\end{enumerate}
+\end{maw}
+
+\
+
+Nous avons sous Moodle quelques documents\footnote{de nombreux tutoriaux
+existent aussi sur le web} qui vous permettront de vous
+familiariser avec \textsc{GVim}.
+Il ne faudra pas hésiter à prendre un peu de temps
+pour découvrir toutes les facettes de cet éditeur, ce qui vous permettra de
+gagner \textbf{énormément} de temps par la suite lorsque vous commencerer à
+développer des programmes ou rédiger des rapports.
+
+\
+
+\begin{maw}
+Ouvrez un nouveau fichier nommé sourcery.txt, et copiez le texte suivant. Après
+avoir sauvegardé, utilisez les commandes
+\cmd{a2ps}, \cmd{evince} et \cmd{lp} pour mettre en forme, visualiser et
+finalement imprimer ce texte (extrait de \textbf{Sourcery}, par Terry
+Pratchett).
+\end{maw}
+
+\emph{There was a man and he had eight sons.\\
+Apart from that, he was nothing more than a comma on the page of History.
+It's sad, but that's all you can say about some people. But the eight son
+grew up and married and had eight sons, and because there is only one suitable
+profession for the eighth sons of an eighth son, he became a wizard.\\ And he
+became wise and powerful, or at any rate powerful, and wore a pointed hat and
+there it would have ended...\\
+Should have ended...\\
+But against the Lore of Magic and certainly against all reason - except the
+reasons of the heart, which are warm and messy and, well, unreasonable - he
+fled the halls of magic and fell in love and got married, not necessarily in
+that order.\\
+And he had seven sons, each one from the cradle at least as powerful as any
+wizard in the world.\\
+And then he had an eighth son...\\
+A wizard squared.  A source of magic.\\
+A sourcerer.
+}
+
+
+\section{Rédaction de Rapports}
+
+Pour la rédaction de vos rapports, le format ASCII ne suffira pas. Nous vous
+proposerons plus tard dans l'année une introduction à \LaTeX pour la rédaction
+des rapports.
+
+Vous pouvez aussi jeter un coup d'oeil à LibreOffice, 
+qui fonctionne essentiellement comme son homologue microsoftien,
+sauf qu'il est gratuit, multi-plateformes.
+N'hésitez pas à visiter \textbf{http://fr.libreoffice.org/} pour davantage de
+propagande !
+
+\textbf{Lancement de LibreOffice : } \cmd{libreoffice}
+
+\section{CQFAR (Ce Qu'il Faut Avoir Retenu)}
+
+À la fin de cette séance de TP vous devez:
+\begin{enumerate}
+  \item savoir manipuler les fichiers ASCII, PostScript et PDF,
+  \item pouvoir imprimer un fichier texte à l'aide des commandes \cmd{a2ps},
+        \cmd{evince} et \cmd{lp}.
+  \item commencer à utiliser l'éditeur \cmd{GVim}.
+\end{enumerate}
+
+\end{document}

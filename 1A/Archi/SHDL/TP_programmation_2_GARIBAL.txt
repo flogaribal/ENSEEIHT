@@ -1,0 +1,175 @@
+___________________________________
+	  
+CHRONOMETRE 
+___________________________________
+
+
+SSWITCH = 0x90000000
+SSEGS = 0xA0000000
+STACK = 0x150 
+.org 0
+
+prog: 		set STACK, %sp			// Init pile
+	  	set SSEGS, %r2			// Init 7 segs
+		set SSWITCH, %r3			// Init switches
+      	 	setq 0b1111, %r4			// Activation 7 segs
+       	st %r4, [%r2+1] 			// Activation 7 segs		
+      		clr %r7				// Clear %r7 -> compteur
+
+
+stop: set 0b01, %r1
+      call swtest
+      bz go
+      set 0b10,%r1
+      call swtest
+      bz suiteStop
+      ba stop
+
+suiteStop: 	set 0,%r7
+	    	st %r7,[%r2]
+		ba stop
+
+go: 	set 0,%r1
+	call swtest
+	bz stop
+	add %r7,%r20,%r7
+	st %r7,[%r2]
+	call delay
+	ba go
+
+
+
+
+
+swtest:  ld [%r3+%r0],%r5 			// lecture switches
+	  and %r5, 0b11,%r5			// Isolation des deux derniers switch
+	  and %r1, 0b11,%r6			// Isolation des deux bits de poifs faibles de %r1
+         cmp %r5,%r6			// Comparaison des deux bits avec les deux bits de poids faibles de %r1
+	  ret
+	
+delay: 	push %r8
+	 	set 104167,%r8
+
+loop:	 	cmp %r8,%r0 
+	 	beq retourne
+	 	sub %r8,1,%r8
+	 	ba loop
+	 
+retourne: 	pop %r8
+	   	ret 
+
+
+
+
+
+___________________________________
+	  
+CHRONOMETRE AVEC STOCKAGE (FONCTIONNE PRESQUE)
+___________________________________
+
+SSWITCH = 0x90000000
+SSEGS = 0xA0000000
+STACK = 0x150 
+.org 0
+
+prog: 		set STACK, %sp			// Init pile
+	  	set SSEGS, %r2			// Init 7 segs
+		set SSWITCH, %r3			// Init switches
+      	 	setq 0b1111, %r7			// Activation 7 segs
+       	st %r7, [%r2+1] 			// Activation 7 segs	
+		clr %r6 				// Clear %r6 -> TAB = NULL -> Aucune valeur dans le tableau
+	
+ 		clr %r7				// Clear %r7 -> T = 0 -> compteur
+		clr %r4				// Clear %r4 -> N = 0
+		clr %r5				// Clear %r5 -> I = 0 -> Aucune valeur à afficher
+		
+
+stop:	set 0b010, %r1			// boucle de reinit
+	call swtest 
+	bz boucleStop
+	
+	set 0b001,%r1				// transition to 'go'
+	call swtest
+	bz go
+
+	set 0b100, %r1			// transition to 'read'
+	call swtest
+	bnz stop
+	cmp %r4,%r0
+	bpos toRead
+	
+	
+	ba stop
+
+boucleStop:	clr %r7				// Clear %r7 -> T = 0 -> compteur
+		clr %r4				// Clear %r4 -> N = 0
+		clr %r5				// Clear %r5 -> I = 0 -> Aucune valeur à afficher
+		st %r7,[%r2]
+
+
+toRead: 	push %r7
+		ld  [%r6+%r5],%r7
+		add %r5,%r20,%r5
+		cmp %r4,%r5
+		bne read
+		set 0,%r5
+		st %r7,[%r2]
+		pop %r7	
+		ba read
+
+read:	set 0,%r1
+	call swtest
+	bz stop
+	ba read
+
+
+
+go:	set 0,%r1				// transition to 'stop'
+	call swtest
+	bz stop
+	
+	set 0b101,%r1				// transition to 'store'
+	call swtest
+	bz transitionStore
+	
+	add %r7,%r20,%r7			// Incrémentation
+	call delay				// Délai
+	st %r7,[%r2]				// Affichage du temps
+
+	ba go
+
+transitionStore:	st %r7,[%r6+%r4]
+			add %r4,%r20,%r4
+			ba store
+
+store: 	set 0b001,%r1				// transition to 'go'
+		call swtest
+		bz go
+
+		add %r7,%r20,%r7			// Incrémentation
+		call delay				// Délai
+		st %r7,[%r2]				// Affichage du temps
+
+		ba store				// boucle sur store
+	
+
+swtest:  	push %r5
+		push %r6
+		ld [%r3+%r0],%r5 			// lecture switches
+	  	and %r5, 0b111,%r5			// Isolation des deux derniers switch
+	  	and %r1, 0b111,%r6			// Isolation des deux bits de poifs faibles de %r1
+         	cmp %r5,%r6				// Comparaison deux bits avec les deux bits de poids faibles de %r1
+		pop %r5
+	 	pop %r6
+		ret
+
+delay: 	push %r8
+	 	set 104167,%r8
+
+loop:	 	cmp %r8,%r0 
+	 	beq retourne
+	 	sub %r8,1,%r8
+	 	ba loop
+	 
+retourne: 	pop %r8
+	   	ret 

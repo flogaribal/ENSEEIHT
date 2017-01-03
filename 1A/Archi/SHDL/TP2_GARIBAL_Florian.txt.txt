@@ -1,0 +1,168 @@
+module adder4 (a[3..0], b[3..0], cin : s[3..0], cout)
+	fulladder(a[0],b[0],cin : s[0], cout0);
+	fulladder(a[1],b[1],cout0 : s[1], cout1);
+    fulladder(a[2],b[2], cout1 : s[2], cout2);
+    fulladder(a[3],b[3], cout2 : s[3], cout);
+end module
+
+
+
+
+
+
+module adder8 (a[7..0], b[7..0], cin : s[7..0], cout)
+	adder4(a[3..0], b[3..0], cin : s[3..0], cout1);
+	adder4(a[7..4], b[7..4], cout1 : s[7..4], cout);
+end module
+
+
+
+
+
+
+module adder16 (a[15..0], b[15..0], cin : s[15..0], cout)
+	adder8(a[7..0], b[7..0], cin : s[7..0], cout1);
+	adder8(a[15..8], b[15..8], cout1 : s[15..8], cout);
+end module
+
+
+
+
+
+module adder32(a[31..0], b[31..0], cin : s[31..0], cout)
+	adder16(a[15..0], b[15..0], cin: s[15..0], cout0);
+	adder16(a[31..16], b[31..16], cout0: s[31..16], cout);
+end module
+
+
+
+
+
+
+
+module addsub32 (a[31..0], b[31..0], sub : s[31..0],V,C)
+	b1[31..0] = b[31..0]*/sub + /b[31..0]*sub;
+	adder32(a[31..0], b1[31..0], sub : s[31..0], cout);
+	C = /sub*cout+sub*/cout;
+	V = /sub*/a[31]*/b[31]*s[31] + /sub*a[31]*b[31]*/s[31] + sub*/a[31]*b[31]*s[31] + sub*a[31]*/b[31]*/s[31];
+end module
+
+
+
+
+
+
+
+
+module ucmp1(a,b : sup,eq)
+	sup = a*/b;
+	eq = a*b + /a*/b;
+end module
+
+
+
+
+
+
+module ucmp2(a[1..0],b[1..0] : sup,eq)
+	ucmp1(a[0],b[0] : sup0, eq0);
+	ucmp1(a[1],b[1] : sup1, eq1);
+	sup = sup1 + eq1 * sup0;
+	eq = eq1 * eq0;
+end module
+
+
+
+
+
+module ucmp4(a[3..0],b[3..0] : sup,eq)
+	ucmp2(a[3..2],b[3..2] : sup32, eq32);
+	ucmp2(a[1..0],b[1..0] : sup10, eq10);
+	sup = sup32 + eq32 * sup10;
+	eq = eq32* eq10;
+end module
+
+
+
+
+
+module ucmp8(a[7..0],b[7..0] : sup,eq)
+	ucmp4(a[7..4],b[7..4] : sup1, eq1);
+	ucmp4(a[3..0],b[3..0] : sup2, eq2);
+	sup = sup1 + eq1 * sup2;
+	eq = eq1* eq2;
+end module
+
+
+
+
+
+module ucmp16(a[15..0],b[15..0] : sup,eq)
+	ucmp8(a[15..8],b[15..8] : sup1, eq1);
+	ucmp8(a[7..0],b[7..0] : sup2, eq2);
+	sup = sup1 + eq1 * sup2;
+	eq = eq1* eq2;
+end module
+
+
+
+
+
+module shift1(r,en,e[31..0] : s[31..0])
+	s[31] = en*/r*e[30] + /en*e[31];
+	s[30..1] = /en*e[30..1] + en*r*e[31..2] + en*/r*e[29..0];
+	s[0] = en*r*e[1] + /en*e[0];
+end module
+
+
+
+
+
+
+module shift2(r,en,e[31..0] : s[31..0])
+	s[31..30] = en*/r*e[29..28] + /en*e[31..30];
+	s[29..2] = /en*e[29..2] + en*r*e[31..4] + en*/r*e[27..0];
+	s[1..0] = en*r*e[3..2] + /en*e[1..0];
+end module
+
+
+
+
+module shift4(r,en,e[31..0] : s[31..0])
+	s[31..28] = en*/r*e[27..24] + /en*e[31..28];
+	s[27..4] = /en*e[27..4] + en*r*e[31..8] + en*/r*e[23..0];
+	s[3..0] = en*r*e[6..3] + /en*e[3..0];
+end module
+
+
+
+
+
+
+module shift8(r,en,e[31..0] : s[31..0])
+	s[31..24] = en*/r*e[24..17] + /en*e[31..24];
+	s[23..8] = /en*e[23..8] + en*r*e[31..16] + en*/r*e[15..0];
+	s[7..0] = en*r*e[15..8] + /en*e[7..0];
+end module
+
+
+
+
+
+module shift16(r,en,e[31..0] : s[31..0])
+	s[31..16] = en*/r*e[15..0] + /en*e[31..16];
+	s[15..0] = en*r*e[31..16] + /en*e[15..0];
+end module
+
+
+
+
+
+
+module barrelshifter32(r,nb[4..0],e[31..0] : s[31..0])
+	shift1(r,nb[0],e[31..0] : s1[31..0]);
+	shift2(r,nb[1],s1[31..0] : s2[31..0]);
+	shift4(r,nb[2],s2[31..0] : s3[31..0]);
+	shift8(r,nb[3],s3[31..0] : s4[31..0]);
+	shift16(r,nb[4],s4[31..0] : s[31..0]);
+end module

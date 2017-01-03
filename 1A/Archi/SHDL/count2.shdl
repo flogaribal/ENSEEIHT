@@ -1,0 +1,16 @@
+//module count2(rst, h, en : s[1..0])
+//	d[1] = /en*s[1] + en*s[0]*/s[1] + en*/s[0]*s[1];
+//	d[0] = /en*s[0] + en*/s[0];
+//	s[1..0] := d[1..0];
+//	s[1..0].rst = rst;
+//	s[1..0].clk = h;
+//end module
+
+
+module count2(rst, h, en : s[1..0])
+	t[0] = en;
+	t[1] = en*s[0];
+	s[1..0] := t[1..0]*/s[1..0] + /t[1..0]*s[1..0];
+	s[1..0].rst = rst;
+	s[1..0].clk = h;
+end module

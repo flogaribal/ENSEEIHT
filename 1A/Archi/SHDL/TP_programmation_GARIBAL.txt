@@ -1,0 +1,218 @@
+___________________________________
+
+VALEUR ABSOLUE 
+___________________________________
+	prog: 
+		set -145,%r1
+		subcc %r1,%r0,%r0
+		bneg neg
+		add %r0,%r1,%r2
+		ba fin
+		neg:  sub %r0,%r1,%r2
+			ba fin
+
+	fin: ba fin
+	
+	
+
+DIVISON PAR 10
+
+prog :	set 25,%r1
+	clr %r2
+	mov %r1,%r3
+	cmp %r3,10
+	bl fin  
+
+loop: 
+	add %r2,%r20,%r2
+	subcc %r3,10,%r3
+	cmp %r3,10
+	bge loop
+	
+fin: 	ba fin
+		
+
+___________________________________
+
+INVERSION D'UN TABLEAU 
+___________________________________
+prog:	clr %r2 		// i = 0
+	set tab,%r1  		// %r1 pointe sur tab
+	
+comp: 	ld [%r1+%r2],%r4	// Lecture tab(i)
+	cmp %r4,%r0 		// tab(i) = 0 ?
+	beq egal		// SI tab(i) = 0 -> equ
+	add %r2,%r20,%r2	// i = i+1
+	ba comp		// Tour de boucle
+
+egal: sub %r2,%r20,%r2 	// i = i-1
+	clr %r3 		// J = 0
+
+cmp2 : 
+	cmp %r2,%r3 		// i cmp j
+	bl fin
+	ld [%r1+%r2],%r5 	// x = tab(i)
+	ld [%r1+%r3],%r6	// y = tab(j)
+	st %r6,[%r1+%r2]   // tab(i) = y
+	st %r5,[%r1+%r3] 	// tab(j) = x
+	sub %r2,%r20,%r2	// I = I-1
+	add %r3,%r20,%r3	// J = J+1
+	ba cmp2
+
+fin : ba fin
+
+
+.org 0x100
+tab: .word 1,2,3,4,5,6,7,8,9,0
+
+___________________________________
+
+COMPTAGE DU NOMBRE DE BITS A 1
+___________________________________
+
+prog: set 7,%r1
+      clr %r2
+
+loop: cmp %r1,0
+      beq fin
+      bge decalage
+      add %r2,%r20,%r2
+	ba decalage
+
+
+decalage : sll %r1,%r20,%r1
+	     ba loop
+fin: ba fin
+
+___________________________________
+
+DELAI 100ms + AFFICHEUR 7 seg
+___________________________________
+
+// 104167 additions entre regitres et constantes à faire
+
+STACK = 0x150 
+.org 0
+SSEGS = 0xA0000000
+
+// %r1 compteur à incrémenter
+// %r2 affich 7 segs
+// %r3 activation 7 segs 
+
+prog: set STACK, %sp	// Init pile
+      clr %r1			// Clear %r1
+      set SSEGS, %r2	// Init 7 segs
+      setq 0b1111, %r3	// Activation 7 segs
+      st %r3, [%r2+1] 	// Activation 7 segs
+      
+
+loop1: st %r1, [%r2+%r0]   // Ecriture sur 7 segs
+	call delay
+       cmp %r1,0xFFF
+       bg plusGrand
+       add %r1,%r20,%r1
+       ba loop1
+
+plusGrand: add %r0,%r0,%r1
+	     ba loop1
+
+
+delay: 	push %r1
+	 	set 104167,%r1
+
+loop:	 	cmp %r1,%r0 
+	 	beq retourne
+	 	sub %r1,1,%r1
+	 	ba loop
+	 
+retourne: 	pop %r1
+	   	ret 
+___________________________________		
+		
+TESTS AFFICHEUR
+___________________________________
+ 
+SSEGS = 0xA0000000
+
+set SSEGS, %r1
+setq 0b1111, %r2
+st %r2, [%r1+%r20] 
+set 0xABCD, %r2
+st %r2, [%r1+%r0] 
+
+___________________________________
+
+LECTURE DES SWITCH
+___________________________________
+
+SSWITCH = 0x90000000
+
+swtest:  set 2, %r1				
+	  set SSWITCH, %r2			// Init switches
+	  ld [%r2+%r0],%r3 			// lecture switches
+	  and %r3, 0b11,%r3			// Isolation des deux derniers switch
+	  and %r1, 0b11,%r4			// Isolation des deux bits de poifs faibles de %r1
+      cmp %r4,%r3				// Comparaison des deux bits avec les deux bits de poids faibles de %r1
+
+___________________________________
+	  
+CHRONOMETRE (MARCHE PAS PB DE REGISTRES)
+___________________________________
+SSWITCH = 0x90000000
+SSEGS = 0xA0000000
+STACK = 0x150 
+.org 0
+
+prog: 		set STACK, %sp			// Init pile
+	  	set SSEGS, %r2			// Init 7 segs
+		set SSWITCH, %r3			// Init switches
+      	 	setq 0b1111, %r4			// Activation 7 segs
+       	st %r4, [%r2+1] 			// Activation 7 segs		
+      		clr %r7				// Clear %r1	
+
+testEtatStop: add %r1, 0b01,%r1
+		 call swtest
+         	 beq go
+		 ba stop
+
+testEtatGo:  add %r1, 0b0,%r1
+		call swtest
+         	beq stop
+		ba go
+
+stop: add %r0,%r0,%r1
+      st %r1, [%r2+%r0]
+      ba testEtatStop
+	
+	  
+
+go : add %r7,%r20,%r7 
+     //call delay
+     st %r1, [%r2+%r0]
+     ba testEtatGo
+
+
+swtest:  push %r3				
+	  push %r5
+	  push %r6
+	  ld [%r3+%r0],%r5 			// lecture switches
+	  and %r5, 0b11,%r5			// Isolation des deux derniers switch
+	  and %r1, 0b11,%r6			// Isolation des deux bits de poifs faibles de %r1
+         cmp %r5,%r6			// Comparaison des deux bits avec les deux bits de poids faibles de %r1
+	  pop %r3				
+	  pop %r5
+	  pop %r6
+	  ret
+	
+
+
+delay: 	push %r1
+	 	set 104167,%r1
+
+loop:	 	cmp %r1,%r0 
+	 	beq retourne
+	 	sub %r1,1,%r1
+	 	ba loop
+	 
+retourne: 	pop %r1
+	   	ret 
