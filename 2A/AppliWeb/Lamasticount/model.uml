@@ -1,0 +1,95 @@
+@startuml
+class User {
+	-lastName	: String
+	-firstName	: String
+	-password	: String
+	-moneyOwed	: double
+	-moneyOwedToYou : double
+	--
+	-getters()
+	-setters()
+	-getBalance() 	: double
+}
+
+class List {
+	-name 		: String
+	-content	: StringBuilder
+	--
+	-getters()
+	-setters()
+}
+
+class Expense {
+	-name 		: String
+	-amount		: Double
+	-date 		: Date
+	-icon 		: Icon
+	-comment 	: String
+	--
+	-getters()
+	-setters()
+}
+
+class Invite {
+	-date		: Date
+	-status		: InviteStatus
+}
+
+
+class Message {
+	-date		: Date
+	-content	: String
+}
+
+class Count{
+	-countName 	: String
+	-currency 	: Currencies
+	--
+	-addExpense(Expense e)
+	-refund()
+}
+
+class Belong {
+	-role 		: Roles
+	--
+	-getters()
+	-setters()
+}
+
+enum Roles {
+	-WRITER
+	-READER
+}
+
+enum Currencies {
+	-EURO 		: "€"
+	-DOLLAR 	: "$"
+}
+
+enum InviteStatus {
+	-PENDING
+	-ACCEPTED
+	-DECLINED
+}
+
+User 	"*" 	-- 		"*" 	User : Friend
+List 	"*" 	-- 	"*" 	User
+(List, User).Belong 
+Count 	"*" 	-- 	"*" 	User
+Count 	"1" 	*-- 	"*"		Expense 
+Count 	"1" 	*-- 	"1" 	Messenger 	: 	messenger
+
+Messenger 	"*" 	*-- 	"1" 	Message 	: message
+
+Message	"1"	*--	"*"	User	:	sender
+
+Expense "*"		--		"1"		User : Paid by
+Expense "*"		--		"*"		User : Paid for
+
+Invite 	<|-- 	FriendInvite
+Invite 	"*" 	-- 	"1" 	User 	: 	sender
+Invite 	"*" 	-- 	"1" 	User 	: 	target
+
+Invite 	<|-- 	CountInvite
+CountInvite 	"1" 	-- 	"1" 	Count 	: 	count
+@enduml
