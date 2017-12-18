@@ -1,0 +1,16 @@
+test82 {
+   // Erreur de type : initialisation d'une variable de type tableau d'entier avec un tableau créé dynamiquement
+   int p[] = new int[2];
+   p = { 3, true};
+}======================
+======================
+======================
+Fichier analyé : ./tests/test82.bloc
+Bloc Version 0.0.1
+AST :{
+int[] p = new int[ 2 ];
+@{p} = { 3 ,true };
+}
+
+p     new int[ 2 ]
+Mal typé.

@@ -1,0 +1,30 @@
+test44 {
+   // Sans erreur : initialisation d'une variable de type paire d'entier avec une valeur séquence d'entiers de taille 2
+   // 	   	    lecture des deux composantes de la paire.
+   <int,int> p = { 1, 2};
+   int i = (fst p) + (snd p);
+}======================
+======================
+======================
+Fichier analyé : ./tests/test44.bloc
+Bloc Version 0.0.1
+AST :{
+< int, int> p = { 1 ,2 };
+int i = ((fst @{p}) + (snd @{p}));
+}
+
+p     { 1 ,2 }
+i     ((fst @{p}) + (snd @{p}))
+test44
+Correctement typé.
+PUSH 2
+LOADL 1
+LOADL 2
+STORE (2) 0[SB]
+PUSH 1
+LOAD (2) 0[SB]
+nullLOAD (2) 0[SB]
+nullSUBR IAdd
+STORE (1) 2[SB]
+HALT
+

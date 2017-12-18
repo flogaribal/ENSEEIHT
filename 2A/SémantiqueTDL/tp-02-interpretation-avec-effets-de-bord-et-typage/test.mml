@@ -1,0 +1,1 @@
+let a = ref 0 in let test = fun x -> (x+1) in a := 3 ; test (!a) 

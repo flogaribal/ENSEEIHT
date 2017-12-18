@@ -1,0 +1,70 @@
+---------------- MODULE canibales ----------------
+
+(* Le problème des canibales *)
+
+EXTENDS Naturals, FiniteSets
+
+VARIABLES
+  cannibalesG, cannibalesD, missionnairesG, missionnairesD, barque, tailleBarque, nbMissionnairesInit, nbCannibalesInit
+
+TypeInvariant ==
+  [] (/\ (barque = "G" \/ barque = "D")
+      /\ cannibalesG >= 0
+      /\ cannibalesG <= 3
+      /\ missionnairesG >= 0
+      /\ missionnairesG <= 3
+      /\ cannibalesD >= 0
+      /\ cannibalesD <= 3
+      /\ missionnairesD >= 0
+      /\ missionnairesD <= 3 
+      /\ cannibalesG + cannibalesD = 3
+      /\ missionnairesG + missionnairesD = 3) 
+    
+pasMiam1(pos) == 
+    IF pos = "G" THEN cannibalesG <= missionnairesG ELSE cannibalesD <= missionnairesD
+
+pasMiam ==
+  pasMiam1("G") /\ pasMiam1("D")
+
+ToujoursOk == []pasMiam
+
+Solution ==
+  [] (/\ cannibalesD = 3 
+      /\ missionnairesD = 3)
+   
+----------------------------------------------------------------
+
+Init ==
+  /\ cannibalesG =  3
+  /\ missionairesG = 3
+  /\ barque = "G"
+
+bougeGD(nbCannibales, nbMissionnaires) ==
+  /\ barque = "G"
+  /\ (nbCannibales > 0 \/ nbMissionnaires > 0)
+  /\ (nbCannibales + nbMissionnaires <= tailleBarque)
+  /\ cannibalesG' = cannibalesG - nbCannibales
+  /\ cannibalesD' = cannibalesD + nbCannibales
+  /\ missionnairesG' = missionnairesG - nbMissionnaires
+  /\ missionnairesD' = missionnairesD + nbMissionnaires
+  /\ barque' = "D"  
+  /\ pasMiam'
+
+bougeDG(nbCannibales, nbMissionnaires) ==
+  /\ barque = "D"
+  /\ (nbCannibales > 0 \/ nbMissionnaires > 0)
+  /\ (nbCannibales + nbMissionnaires <= tailleBarque)
+  /\ cannibalesD' = cannibalesD - nbCannibales
+  /\ cannibalesG' = cannibalesG + nbCannibales  
+  /\ missionnairesD' = missionnairesD - nbMissionnaires
+  /\ missionnairesG' = missionnairesG + nbMissionnaires
+  /\ barque' = "G"
+  /\ pasMiam'   
+
+Next == \E nbCannibales,nbMissionnaires \in {0,1,2,3} :
+          bougeGD(nbCannibales,nbMissionnaires) \/ bougeDG(nbCannibales,nbMissionnaires)
+        
+
+Spec == Init /\ [] [ Next ]_<<cannibalesG, cannibalesD, missionnairesG, missionnairesD, barque>>
+
+================================================================

@@ -1,0 +1,31 @@
+test16 {
+   // Sans erreur : utilisation d'une variable dans une condition.
+   int i = 1 ;
+   if (i == 1) {
+   }
+}======================
+======================
+======================
+Fichier analyé : ./tests/test16.bloc
+Bloc Version 0.0.1
+AST :{
+int i = 1;
+if ((@{i} == 1) ){
+}
+}
+
+i     1
+test16
+Correctement typé.
+PUSH 1
+LOADL 1
+STORE (1) 0[SB]
+LOAD (1) 0[SB]
+LOADL 1
+SUBR IEq
+JUMPIF (0) else_cond_1
+JUMP fin_cond_1
+else_cond_1:
+fin_cond_1:
+HALT
+

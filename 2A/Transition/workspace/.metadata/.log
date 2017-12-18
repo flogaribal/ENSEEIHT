@@ -1,0 +1,1893 @@
+!SESSION 2017-03-07 10:20:20.266 -----------------------------------------------
+eclipse.buildId=1.5.2
+java.version=1.8.0_121
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=fr_FR
+Command-line arguments:  -os linux -ws gtk -arch x86_64
+
+!ENTRY org.lamport.tla.toolbox.jclouds 4 0 2017-03-07 10:20:24.447
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: org.lamport.tla.toolbox.jclouds [199]
+  Bundle was not resolved because of a uses contraint violation.
+  org.osgi.service.resolver.ResolutionException: Uses constraint violation. Unable to resolve resource org.lamport.tla.toolbox.jclouds [osgi.identity; osgi.identity="org.lamport.tla.toolbox.jclouds"; type="osgi.bundle"; version:Version="1.0.0.201512230951"; singleton:="true"] because it is exposed to package 'javax.inject' from resources javax.inject [osgi.identity; osgi.identity="javax.inject"; type="osgi.bundle"; version:Version="1.0.0.v20091030"] and org.apache.servicemix.bundles.javax-inject [osgi.identity; osgi.identity="org.apache.servicemix.bundles.javax-inject"; type="osgi.bundle"; version:Version="1.0.0.2"] via two dependency chains.
+
+Chain 1:
+  org.lamport.tla.toolbox.jclouds [osgi.identity; osgi.identity="org.lamport.tla.toolbox.jclouds"; type="osgi.bundle"; version:Version="1.0.0.201512230951"; singleton:="true"]
+    require: (osgi.wiring.bundle=org.eclipse.core.runtime)
+     |
+    provide: osgi.wiring.bundle: org.eclipse.core.runtime
+  javax.inject [osgi.identity; osgi.identity="javax.inject"; type="osgi.bundle"; version:Version="1.0.0.v20091030"]
+
+Chain 2:
+  org.lamport.tla.toolbox.jclouds [osgi.identity; osgi.identity="org.lamport.tla.toolbox.jclouds"; type="osgi.bundle"; version:Version="1.0.0.201512230951"; singleton:="true"]
+    require: (&(osgi.wiring.bundle=jclouds-core)(bundle-version>=1.7.3))
+     |
+    provide: osgi.wiring.bundle; bundle-version:Version="1.9.1"; osgi.wiring.bundle="jclouds-core"
+  jclouds-core [osgi.identity; osgi.identity="jclouds-core"; type="osgi.bundle"; version:Version="1.9.1"]
+    import: (osgi.wiring.package=javax.inject)
+     |
+    export: osgi.wiring.package: javax.inject
+  org.apache.servicemix.bundles.javax-inject [osgi.identity; osgi.identity="org.apache.servicemix.bundles.javax-inject"; type="osgi.bundle"; version:Version="1.0.0.2"]
+	at org.eclipse.osgi.container.Module.start(Module.java:434)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1582)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1562)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1533)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1476)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:230)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:340)
+
+!ENTRY org.eclipse.osgi 4 0 2017-03-07 10:20:24.462
+!MESSAGE Bundle initial@reference:file:plugins/org.lamport.tla.toolbox.jclouds_1.0.0.201512230951.jar was not resolved.
+
+!ENTRY org.lamport.tla.toolbox.product.standalone 1 -1 2017-03-07 10:20:24.616
+!MESSAGE TLA+ Toolbox started without arguments.
+
+!ENTRY org.eclipse.e4.ui.workbench 4 0 2017-03-07 10:20:25.399
+!MESSAGE Unable to create class 'org.eclipse.e4.ui.swt.internal.gtk.DarkThemeProcessor' from bundle '91'
+!STACK 0
+org.eclipse.e4.core.di.InjectionException: java.lang.NullPointerException
+	at org.eclipse.e4.core.internal.di.MethodRequestor.execute(MethodRequestor.java:68)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.processAnnotated(InjectorImpl.java:898)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.inject(InjectorImpl.java:121)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.internalMake(InjectorImpl.java:345)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.make(InjectorImpl.java:278)
+	at org.eclipse.e4.core.contexts.ContextInjectionFactory.make(ContextInjectionFactory.java:186)
+	at org.eclipse.e4.ui.internal.workbench.ReflectionContributionFactory.createFromBundle(ReflectionContributionFactory.java:107)
+	at org.eclipse.e4.ui.internal.workbench.ReflectionContributionFactory.doCreate(ReflectionContributionFactory.java:73)
+	at org.eclipse.e4.ui.internal.workbench.ReflectionContributionFactory.create(ReflectionContributionFactory.java:50)
+	at org.eclipse.e4.ui.internal.workbench.ModelAssembler.runProcessor(ModelAssembler.java:252)
+	at org.eclipse.e4.ui.internal.workbench.ModelAssembler.runProcessors(ModelAssembler.java:219)
+	at org.eclipse.e4.ui.internal.workbench.ModelAssembler.processModel(ModelAssembler.java:82)
+	at org.eclipse.e4.ui.internal.workbench.ResourceHandler.loadMostRecentModel(ResourceHandler.java:259)
+	at org.eclipse.e4.ui.internal.workbench.swt.E4Application.loadApplicationModel(E4Application.java:397)
+	at org.eclipse.e4.ui.internal.workbench.swt.E4Application.createE4Workbench(E4Application.java:254)
+	at org.eclipse.ui.internal.Workbench$5.run(Workbench.java:620)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:337)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:598)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:150)
+	at org.lamport.tla.toolbox.Application.start(Application.java:77)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:134)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:104)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:380)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:235)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:669)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:608)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1515)
+	at org.eclipse.equinox.launcher.Main.main(Main.java:1488)
+Caused by: java.lang.NullPointerException
+	at org.eclipse.e4.ui.swt.internal.gtk.DarkThemeProcessor.intialize(DarkThemeProcessor.java:58)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.eclipse.e4.core.internal.di.MethodRequestor.execute(MethodRequestor.java:56)
+	... 32 more
+
+!ENTRY org.eclipse.e4.ui.workbench 2 0 2017-03-07 10:20:25.404
+!MESSAGE Unable to create processor org.eclipse.e4.ui.swt.internal.gtk.DarkThemeProcessor from org.eclipse.e4.ui.css.swt.theme
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:20:58.069
+!MESSAGE footFileName = /home/fgaribal/Documents/2A/S8/Transition/TLA-TP3/philosophes0.tla
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:20:58.209
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:20:58.552
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:20:58.665
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:20:58.733
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:20:59.149
+!MESSAGE Added a parse result listener.There are now 1 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:22:53.310
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:22:53.515
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:22:57.647
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:22:57.691
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:23:08.661
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:23:08.764
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:24:21.485
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:24:21.690
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:24:56.989
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:24:57.068
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:25:24.082
+!MESSAGE footFileName = /home/fgaribal/Documents/2A/S8/Transition/TLA-TP2/jeton.tla
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:25:24.129
+!MESSAGE Removed a parse result listener.There are now 0 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:25:24.229
+!MESSAGE Spec build invoked on jeton ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:25:24.319
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:25:24.408
+!MESSAGE Added a parse result listener.There are now 1 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:25:24.424
+!MESSAGE Spec build invoked on jeton ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:25:24.505
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:25:30.775
+!MESSAGE Removed a parse result listener.There are now 0 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:25:30.853
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:25:30.882
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:25:30.963
+!MESSAGE Added a parse result listener.There are now 1 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:25:30.994
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:25:31.020
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:25:35.407
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:25:35.440
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:25:44.161
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:25:44.199
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:25:48.868
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:25:48.968
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:25:54.152
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:25:54.185
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:26:07.484
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:26:07.521
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:26:31.465
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:26:31.524
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:26:33.082
+!MESSAGE Removed a parse result listener.There are now 0 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:26:33.157
+!MESSAGE Spec build invoked on jeton ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:26:33.411
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:26:33.415
+!MESSAGE Spec build invoked on jeton ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:26:33.477
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:26:33.509
+!MESSAGE Added a parse result listener.There are now 1 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:26:43.024
+!MESSAGE Removed a parse result listener.There are now 0 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:26:43.107
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:26:43.174
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:26:43.235
+!MESSAGE Added a parse result listener.There are now 1 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:26:43.278
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:26:43.313
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:26:53.024
+!MESSAGE Removed a parse result listener.There are now 0 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:26:53.132
+!MESSAGE Spec build invoked on jeton ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:26:53.174
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:26:53.264
+!MESSAGE Added a parse result listener.There are now 1 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:26:53.311
+!MESSAGE Spec build invoked on jeton ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:26:53.364
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:26:58.136
+!MESSAGE Removed a parse result listener.There are now 0 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:26:58.203
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:26:58.243
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:26:58.310
+!MESSAGE Added a parse result listener.There are now 1 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:26:58.398
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:26:58.468
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:27:02.122
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:27:02.169
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:27:05.746
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:27:05.787
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:27:25.187
+!MESSAGE Removed a parse result listener.There are now 0 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:27:25.261
+!MESSAGE Spec build invoked on jeton ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:27:25.300
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:27:25.377
+!MESSAGE Added a parse result listener.There are now 1 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:27:25.404
+!MESSAGE Spec build invoked on jeton ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:27:25.438
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:27:33.906
+!MESSAGE Removed a parse result listener.There are now 0 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:27:33.971
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:27:34.070
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:27:34.140
+!MESSAGE Added a parse result listener.There are now 1 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:27:34.176
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:27:34.241
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:27:45.347
+!MESSAGE Removed a parse result listener.There are now 0 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:27:45.413
+!MESSAGE Spec build invoked on jeton ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:27:45.449
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:27:45.524
+!MESSAGE Added a parse result listener.There are now 1 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:27:45.602
+!MESSAGE Spec build invoked on jeton ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:27:45.639
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:27:55.356
+!MESSAGE Removed a parse result listener.There are now 0 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:27:55.437
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:27:55.472
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:27:55.627
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:27:55.642
+!MESSAGE Added a parse result listener.There are now 1 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:27:55.671
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:28:37.017
+!MESSAGE Removed a parse result listener.There are now 0 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:28:37.122
+!MESSAGE Spec build invoked on jeton ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:28:37.216
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:28:37.286
+!MESSAGE Added a parse result listener.There are now 1 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:28:37.322
+!MESSAGE Spec build invoked on jeton ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:28:37.356
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:28:41.345
+!MESSAGE Removed a parse result listener.There are now 0 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:28:41.421
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:28:41.458
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:28:41.521
+!MESSAGE Added a parse result listener.There are now 1 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:28:41.563
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:28:41.665
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:28:48.526
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:28:48.566
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:28:56.883
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:28:56.913
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:29:46.957
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:29:47.057
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:30:16.151
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:30:16.192
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:30:22.636
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:30:22.682
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:30:27.362
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:30:27.398
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:31:01.067
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:31:01.180
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:31:04.686
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:31:04.773
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:31:37.334
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:31:37.365
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:32:12.763
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:32:12.857
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:32:26.211
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:32:26.240
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:32:27.246
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:32:27.280
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:32:38.331
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:32:38.359
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:32:55.604
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:32:55.632
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:34:05.061
+!MESSAGE Removed a parse result listener.There are now 0 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:34:05.146
+!MESSAGE Spec build invoked on jeton ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:34:05.256
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:34:05.264
+!MESSAGE Spec build invoked on jeton ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:34:05.300
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:34:05.514
+!MESSAGE Added a parse result listener.There are now 1 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:34:12.199
+!MESSAGE Removed a parse result listener.There are now 0 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:34:12.252
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:34:12.314
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:34:12.374
+!MESSAGE Added a parse result listener.There are now 1 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:34:12.420
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:34:12.507
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:34:15.609
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:34:15.644
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:34:18.537
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:34:18.688
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:34:23.484
+!MESSAGE Removed a parse result listener.There are now 0 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:34:23.556
+!MESSAGE Spec build invoked on jeton ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:34:23.591
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:34:23.673
+!MESSAGE Added a parse result listener.There are now 1 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:34:23.719
+!MESSAGE Spec build invoked on jeton ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:34:23.752
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:34:28.844
+!MESSAGE Removed a parse result listener.There are now 0 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:34:28.896
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:34:28.943
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:34:29.003
+!MESSAGE Added a parse result listener.There are now 1 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:34:29.049
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:34:29.153
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:34:35.507
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:34:35.544
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:34:39.949
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:34:39.982
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:34:41.039
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:34:41.071
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:34:48.193
+!MESSAGE Removed a parse result listener.There are now 0 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:34:48.256
+!MESSAGE Spec build invoked on jeton ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:34:48.292
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:34:48.366
+!MESSAGE Added a parse result listener.There are now 1 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:34:48.396
+!MESSAGE Spec build invoked on jeton ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:34:48.448
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:34:52.119
+!MESSAGE Removed a parse result listener.There are now 0 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:34:52.194
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:34:52.225
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:34:52.289
+!MESSAGE Added a parse result listener.There are now 1 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:34:52.379
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:34:52.410
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:34:55.568
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:34:55.670
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:35:00.925
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:35:00.956
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:35:07.950
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:35:08.006
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:35:45.998
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:35:46.065
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:36:00.133
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:36:00.161
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:36:06.409
+!MESSAGE Removed a parse result listener.There are now 0 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:36:06.478
+!MESSAGE Spec build invoked on jeton ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:36:06.509
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:36:06.576
+!MESSAGE Added a parse result listener.There are now 1 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:36:06.662
+!MESSAGE Spec build invoked on jeton ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:36:06.691
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:36:14.435
+!MESSAGE Removed a parse result listener.There are now 0 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:36:14.493
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:36:14.549
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:36:14.614
+!MESSAGE Added a parse result listener.There are now 1 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:36:14.653
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:36:14.678
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:36:37.555
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:36:37.584
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:36:50.940
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:36:51.005
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:36:56.579
+!MESSAGE Removed a parse result listener.There are now 0 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:36:56.642
+!MESSAGE Spec build invoked on jeton ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:36:56.670
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:36:56.736
+!MESSAGE Added a parse result listener.There are now 1 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:36:56.828
+!MESSAGE Spec build invoked on jeton ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:36:56.856
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:38:00.044
+!MESSAGE Removed a parse result listener.There are now 0 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:38:00.109
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:38:00.196
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:38:00.260
+!MESSAGE Added a parse result listener.There are now 1 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:38:00.348
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:38:00.371
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:38:17.896
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:38:18.111
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:38:30.181
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:38:30.215
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:38:43.051
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:38:43.083
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:39:09.398
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:39:09.485
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:39:23.397
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:39:23.429
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:39:28.618
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:39:28.650
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:39:33.275
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:39:33.305
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:39:43.822
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:39:43.849
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:40:29.070
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:40:29.162
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:40:54.610
+!MESSAGE Removed a parse result listener.There are now 0 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:40:54.679
+!MESSAGE Spec build invoked on jeton ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:40:54.713
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:40:54.772
+!MESSAGE Added a parse result listener.There are now 1 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:40:54.818
+!MESSAGE Spec build invoked on jeton ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:40:54.854
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:40:59.269
+!MESSAGE Removed a parse result listener.There are now 0 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:40:59.326
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:40:59.354
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:40:59.418
+!MESSAGE Added a parse result listener.There are now 1 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:40:59.469
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:40:59.507
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:41:21.163
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:41:21.197
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-03-07 10:42:42.382
+!MESSAGE Open handler invoked on Model_1
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:42:42.532
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:42:42.621
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-03-07 10:42:43.076
+!MESSAGE No source for philosophes0___Model_1.launch found.
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-03-07 10:42:43.184
+!MESSAGE Finished open handler
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:42:54.747
+!MESSAGE Removed a parse result listener.There are now 0 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:42:54.820
+!MESSAGE Spec build invoked on jeton ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:42:54.852
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:42:54.912
+!MESSAGE Added a parse result listener.There are now 1 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:42:55.006
+!MESSAGE Spec build invoked on jeton ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:42:55.035
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:42:59.001
+!MESSAGE Removed a parse result listener.There are now 0 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:42:59.063
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:42:59.105
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:42:59.175
+!MESSAGE Added a parse result listener.There are now 1 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:42:59.259
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:42:59.287
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:43:05.541
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:43:05.578
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-03-07 10:43:07.525
+!MESSAGE Open handler invoked on Model_1
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-03-07 10:43:08.006
+!MESSAGE Finished open handler
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:43:30.178
+!MESSAGE footFileName = /home/fgaribal/Documents/2A/S8/Transition/TLA-TP3/philosophes0.tla
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:43:30.550
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:43:30.597
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:43:31.476
+!MESSAGE footFileName = /home/fgaribal/Documents/2A/S8/Transition/TLA-TP3/philosophes0.tla
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-03-07 10:43:31.725
+!MESSAGE TLC ARGUMENTS: [-fpbits, 0, -workers, 2, -tool, MC, -fp, 0, -config, MC.cfg, -coverage, 3, -checkpoint, 15, -metadir, /home/fgaribal/Documents/2A/S8/Transition/TLA-TP3/philosophes0.toolbox/Model_1]
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-03-07 10:43:31.750
+!MESSAGE JAVA VM ARGUMENTS: [-Dtlc2.tool.fp.FPSet.impl=tlc2.tool.fp.MSBDiskFPSet, -Xmx1491m]
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-03-07 10:43:31.753
+!MESSAGE Nested JVM used for model checker is: /usr/lib/jvm/java-8-oracle/jre
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-03-07 10:43:31.833
+!MESSAGE TLCOutputSourceRegistry for model checking maintains 1 sources.
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-03-07 10:43:31.837
+!MESSAGE The source philosophes0___Model_1.launch has 4 prio and 1 listeners
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:43:31.871
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:43:31.907
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:43:33.144
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:43:33.183
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:43:34.244
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:43:34.279
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:45:07.060
+!MESSAGE Removed a parse result listener.There are now 0 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:45:07.135
+!MESSAGE Spec build invoked on jeton ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:45:07.260
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:45:07.328
+!MESSAGE Added a parse result listener.There are now 1 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:45:07.368
+!MESSAGE Spec build invoked on jeton ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:45:07.402
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:45:52.322
+!MESSAGE Removed a parse result listener.There are now 0 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:45:52.405
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:45:52.433
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:45:52.532
+!MESSAGE Added a parse result listener.There are now 1 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:45:52.540
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:45:52.578
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-03-07 10:45:54.325
+!MESSAGE Open handler invoked on Model_1
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-03-07 10:45:54.796
+!MESSAGE Finished open handler
+
+!ENTRY org.lamport.tla.toolbox.editor.basic 1 -1 2017-03-07 10:46:06.663
+!MESSAGE \* i -> Hungry,Thinking,Eating
+
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:46:45.504
+!MESSAGE footFileName = /home/fgaribal/Documents/2A/S8/Transition/TLA-TP3/philosophes0.tla
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:46:45.753
+!MESSAGE footFileName = /home/fgaribal/Documents/2A/S8/Transition/TLA-TP3/philosophes0.tla
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-03-07 10:46:45.896
+!MESSAGE TLC ARGUMENTS: [-fpbits, 0, -workers, 2, -tool, MC, -fp, 0, -config, MC.cfg, -coverage, 3, -checkpoint, 15, -metadir, /home/fgaribal/Documents/2A/S8/Transition/TLA-TP3/philosophes0.toolbox/Model_1]
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-03-07 10:46:45.900
+!MESSAGE JAVA VM ARGUMENTS: [-Dtlc2.tool.fp.FPSet.impl=tlc2.tool.fp.MSBDiskFPSet, -Xmx1491m]
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-03-07 10:46:45.904
+!MESSAGE Nested JVM used for model checker is: /usr/lib/jvm/java-8-oracle/jre
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-03-07 10:46:45.913
+!MESSAGE TLCOutputSourceRegistry for model checking maintains 1 sources.
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-03-07 10:46:45.918
+!MESSAGE The source philosophes0___Model_1.launch has 4 prio and 1 listeners
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:46:46.054
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:46:46.090
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:46:47.120
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:46:47.229
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:46:47.474
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:46:47.498
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:46:48.552
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:46:48.583
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:47:39.027
+!MESSAGE footFileName = /home/fgaribal/Documents/2A/S8/Transition/TLA-TP3/philosophes0.tla
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-03-07 10:47:39.194
+!MESSAGE TLC ARGUMENTS: [-fpbits, 0, -workers, 2, -tool, MC, -fp, 0, -config, MC.cfg, -coverage, 3, -checkpoint, 15, -metadir, /home/fgaribal/Documents/2A/S8/Transition/TLA-TP3/philosophes0.toolbox/Model_1]
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-03-07 10:47:39.197
+!MESSAGE JAVA VM ARGUMENTS: [-Dtlc2.tool.fp.FPSet.impl=tlc2.tool.fp.MSBDiskFPSet, -Xmx1491m]
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-03-07 10:47:39.207
+!MESSAGE Nested JVM used for model checker is: /usr/lib/jvm/java-8-oracle/jre
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-03-07 10:47:39.216
+!MESSAGE TLCOutputSourceRegistry for model checking maintains 1 sources.
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-03-07 10:47:39.220
+!MESSAGE The source philosophes0___Model_1.launch has 4 prio and 1 listeners
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:47:39.344
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:47:39.371
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:47:40.378
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:47:40.415
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:47:41.474
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:47:41.501
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:49:48.076
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:49:48.178
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:49:53.586
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:49:53.616
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:50:02.058
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:50:02.092
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:50:08.141
+!MESSAGE footFileName = /home/fgaribal/Documents/2A/S8/Transition/TLA-TP3/philosophes0.tla
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-03-07 10:50:08.324
+!MESSAGE TLC ARGUMENTS: [-fpbits, 0, -workers, 2, -tool, MC, -fp, 0, -config, MC.cfg, -coverage, 3, -checkpoint, 15, -metadir, /home/fgaribal/Documents/2A/S8/Transition/TLA-TP3/philosophes0.toolbox/Model_1]
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-03-07 10:50:08.328
+!MESSAGE JAVA VM ARGUMENTS: [-Dtlc2.tool.fp.FPSet.impl=tlc2.tool.fp.MSBDiskFPSet, -Xmx1491m]
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-03-07 10:50:08.331
+!MESSAGE Nested JVM used for model checker is: /usr/lib/jvm/java-8-oracle/jre
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-03-07 10:50:08.336
+!MESSAGE TLCOutputSourceRegistry for model checking maintains 1 sources.
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-03-07 10:50:08.338
+!MESSAGE The source philosophes0___Model_1.launch has 4 prio and 1 listeners
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:50:08.474
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:50:08.503
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:50:09.560
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:50:09.588
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:50:10.593
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:50:10.624
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:55:30.835
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:55:30.962
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:56:35.944
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:56:36.065
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:59:36.349
+!MESSAGE Removed a parse result listener.There are now 0 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:59:36.433
+!MESSAGE Spec build invoked on jeton ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:59:36.533
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:59:36.593
+!MESSAGE Added a parse result listener.There are now 1 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:59:36.681
+!MESSAGE Spec build invoked on jeton ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:59:36.708
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:59:39.886
+!MESSAGE Removed a parse result listener.There are now 0 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:59:39.948
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:59:39.977
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:59:40.046
+!MESSAGE Added a parse result listener.There are now 1 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:59:40.081
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 10:59:40.119
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:00:06.519
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:00:06.558
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:00:11.503
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:00:11.543
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:00:16.818
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:00:16.862
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:00:30.872
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:00:30.904
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:00:41.296
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:00:41.398
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:00:45.606
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:00:45.653
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:01:07.451
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:01:07.478
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:01:27.094
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:01:27.126
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:02:34.435
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:02:34.541
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:02:50.895
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:02:50.919
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:02:53.909
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:02:53.937
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:02:57.223
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:02:57.251
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:03:34.567
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:03:34.666
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:03:55.681
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:03:55.708
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:04:08.357
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:04:08.384
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:04:09.439
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:04:09.470
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:04:41.725
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:04:41.834
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:05:18.360
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:05:18.388
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:05:36.199
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:05:36.249
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:07:05.016
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:07:05.136
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox.editor.basic 1 -1 2017-03-07 11:07:07.205
+!MESSAGE \* philosophe à droite du philo n°i
+
+
+!ENTRY org.lamport.tla.toolbox.editor.basic 1 -1 2017-03-07 11:07:07.222
+!MESSAGE \* philosophe à droite du philo n°i
+
+
+!ENTRY org.lamport.tla.toolbox.editor.basic 1 -1 2017-03-07 11:07:07.243
+!MESSAGE \* philosophe à droite du philo n°i
+
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:07:16.340
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:07:16.377
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:07:27.495
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:07:27.533
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:11:21.284
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:11:21.422
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:11:40.130
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:11:40.167
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:11:44.377
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:11:44.406
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:11:50.789
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:11:50.817
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:12:13.920
+!MESSAGE Removed a parse result listener.There are now 0 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:12:13.988
+!MESSAGE Spec build invoked on jeton ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:12:14.017
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:12:14.167
+!MESSAGE Spec build invoked on jeton ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:12:14.195
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:12:14.256
+!MESSAGE Added a parse result listener.There are now 1 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:12:20.177
+!MESSAGE Removed a parse result listener.There are now 0 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:12:20.248
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:12:20.281
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:12:20.348
+!MESSAGE Added a parse result listener.There are now 1 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:12:20.435
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:12:20.463
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:12:55.892
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:12:55.996
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:16:00.646
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:16:00.750
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:16:01.899
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:16:01.933
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:17:03.269
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:17:03.590
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:17:16.165
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:17:16.198
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:17:22.341
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:17:22.406
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:18:06.279
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:18:06.695
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:18:28.504
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:18:28.599
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:18:52.708
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:18:52.743
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:20:54.885
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:20:54.976
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:21:17.740
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:21:17.774
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:21:19.422
+!MESSAGE Removed a parse result listener.There are now 0 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:21:19.492
+!MESSAGE Spec build invoked on jeton ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:21:19.532
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:21:19.596
+!MESSAGE Added a parse result listener.There are now 1 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:21:19.686
+!MESSAGE Spec build invoked on jeton ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:21:19.717
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:21:22.501
+!MESSAGE Removed a parse result listener.There are now 0 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:21:22.556
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:21:22.585
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:21:22.655
+!MESSAGE Added a parse result listener.There are now 1 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:21:22.739
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:21:22.769
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox.editor.basic 1 -1 2017-03-07 11:30:56.235
+!MESSAGE \* philosophe à droite du philo n°i
+
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:31:04.381
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:31:04.540
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-03-07 11:31:48.668
+!MESSAGE Open handler invoked on Model_1
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-03-07 11:31:49.196
+!MESSAGE Finished open handler
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:31:51.112
+!MESSAGE footFileName = /home/fgaribal/Documents/2A/S8/Transition/TLA-TP3/philosophes0.tla
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-03-07 11:31:51.391
+!MESSAGE TLC ARGUMENTS: [-fpbits, 0, -workers, 2, -tool, MC, -fp, 0, -config, MC.cfg, -coverage, 3, -checkpoint, 15, -metadir, /home/fgaribal/Documents/2A/S8/Transition/TLA-TP3/philosophes0.toolbox/Model_1]
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-03-07 11:31:51.396
+!MESSAGE JAVA VM ARGUMENTS: [-Dtlc2.tool.fp.FPSet.impl=tlc2.tool.fp.MSBDiskFPSet, -Xmx1491m]
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-03-07 11:31:51.402
+!MESSAGE Nested JVM used for model checker is: /usr/lib/jvm/java-8-oracle/jre
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-03-07 11:31:51.416
+!MESSAGE TLCOutputSourceRegistry for model checking maintains 1 sources.
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-03-07 11:31:51.426
+!MESSAGE The source philosophes0___Model_1.launch has 4 prio and 1 listeners
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:31:51.566
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:31:51.624
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:31:52.790
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:31:52.869
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:31:53.448
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:31:53.549
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:31:54.558
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:31:54.594
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:33:04.171
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:33:04.275
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:33:23.126
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:33:23.381
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:33:51.481
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:33:51.512
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:33:53.765
+!MESSAGE footFileName = /home/fgaribal/Documents/2A/S8/Transition/TLA-TP3/philosophes0.tla
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-03-07 11:33:54.252
+!MESSAGE TLC ARGUMENTS: [-fpbits, 0, -workers, 2, -tool, MC, -fp, 0, -config, MC.cfg, -coverage, 3, -checkpoint, 15, -metadir, /home/fgaribal/Documents/2A/S8/Transition/TLA-TP3/philosophes0.toolbox/Model_1]
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-03-07 11:33:54.255
+!MESSAGE JAVA VM ARGUMENTS: [-Dtlc2.tool.fp.FPSet.impl=tlc2.tool.fp.MSBDiskFPSet, -Xmx1491m]
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-03-07 11:33:54.259
+!MESSAGE Nested JVM used for model checker is: /usr/lib/jvm/java-8-oracle/jre
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-03-07 11:33:54.303
+!MESSAGE TLCOutputSourceRegistry for model checking maintains 1 sources.
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-03-07 11:33:54.307
+!MESSAGE The source philosophes0___Model_1.launch has 4 prio and 1 listeners
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:33:54.401
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:33:54.438
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:33:55.508
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:33:55.555
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:33:56.612
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:33:56.637
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:38:32.155
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:38:32.267
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:38:33.767
+!MESSAGE footFileName = /home/fgaribal/Documents/2A/S8/Transition/TLA-TP3/philosophes0.tla
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-03-07 11:38:33.923
+!MESSAGE TLC ARGUMENTS: [-fpbits, 0, -workers, 2, -tool, MC, -fp, 0, -config, MC.cfg, -coverage, 3, -checkpoint, 15, -metadir, /home/fgaribal/Documents/2A/S8/Transition/TLA-TP3/philosophes0.toolbox/Model_1]
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-03-07 11:38:33.926
+!MESSAGE JAVA VM ARGUMENTS: [-Dtlc2.tool.fp.FPSet.impl=tlc2.tool.fp.MSBDiskFPSet, -Xmx1491m]
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-03-07 11:38:33.928
+!MESSAGE Nested JVM used for model checker is: /usr/lib/jvm/java-8-oracle/jre
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-03-07 11:38:33.942
+!MESSAGE TLCOutputSourceRegistry for model checking maintains 1 sources.
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-03-07 11:38:33.948
+!MESSAGE The source philosophes0___Model_1.launch has 4 prio and 1 listeners
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:38:34.073
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:38:34.107
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:38:35.114
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:38:35.140
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:38:36.194
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:38:36.224
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:39:29.693
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:39:29.726
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:39:31.628
+!MESSAGE footFileName = /home/fgaribal/Documents/2A/S8/Transition/TLA-TP3/philosophes0.tla
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-03-07 11:39:31.763
+!MESSAGE TLC ARGUMENTS: [-fpbits, 0, -workers, 2, -tool, MC, -fp, 0, -config, MC.cfg, -coverage, 3, -checkpoint, 15, -metadir, /home/fgaribal/Documents/2A/S8/Transition/TLA-TP3/philosophes0.toolbox/Model_1]
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-03-07 11:39:31.766
+!MESSAGE JAVA VM ARGUMENTS: [-Dtlc2.tool.fp.FPSet.impl=tlc2.tool.fp.MSBDiskFPSet, -Xmx1491m]
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-03-07 11:39:31.769
+!MESSAGE Nested JVM used for model checker is: /usr/lib/jvm/java-8-oracle/jre
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-03-07 11:39:31.791
+!MESSAGE TLCOutputSourceRegistry for model checking maintains 1 sources.
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-03-07 11:39:31.795
+!MESSAGE The source philosophes0___Model_1.launch has 4 prio and 1 listeners
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:39:31.941
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:39:31.969
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:39:32.415
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:39:32.528
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:39:32.698
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:39:32.724
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:39:33.748
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:39:33.775
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:47:04.854
+!MESSAGE Spec build invoked on philosophes0 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:47:04.954
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-03-07 11:56:42.817
+!MESSAGE Removed a parse result listener.There are now 0 listeners.

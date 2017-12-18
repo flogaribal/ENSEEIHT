@@ -1,0 +1,230 @@
+/**
+ * 
+ */
+package fr.n7.stl.block.ast.impl;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+
+import fr.n7.stl.block.ast.AtomicType;
+import fr.n7.stl.block.ast.InterfaceType;
+import fr.n7.stl.block.ast.Type;
+
+/**
+ * Implementation of the Abstract Syntax Tree node for an interface type.
+ * @author v
+ */
+public class InterfaceTypeImpl implements InterfaceType {
+
+    private String name;
+	private List<FinalStaticAttributeDeclarationImpl> staticAttributes ;
+	private List<InterfaceType> extendedInterfaces;
+	private List<Type> interfaceElements;
+
+	public InterfaceTypeImpl(String _name, Iterable<InterfaceTypeImpl> _extendedInterfaces, Iterable<Type> _interfaceElements) {
+	    this.name = _name;
+
+		this.extendedInterfaces = new LinkedList<InterfaceType>();
+	    for (InterfaceTypeImpl _extendedInterface : _extendedInterfaces) {
+	        this.extendedInterfaces.add(_extendedInterface);
+        }
+
+		this.interfaceElements= new LinkedList<Type>();
+		for (Type _type : _interfaceElements) {
+			this.interfaceElements.add(_type);
+		}
+	}
+
+	/* (non-Javadoc)
+	 * @see fr.n7.stl.block.ast.Type#equalsTo(fr.n7.stl.block.ast.Type)
+	 */
+	@Override
+    public boolean equalsTo(Type _other) {
+	    boolean equals;
+
+	    if (_other != null) {
+	        if (_other instanceof InterfaceTypeImpl) {
+	            equals = this.name.equals(((InterfaceType) _other).getName());
+            }
+            else {
+	            equals = false;
+            }
+        }
+        else {
+	        equals = false;
+        }
+
+	    return equals;
+    }
+
+
+	/* LEGACY
+	@Override
+	public boolean equalsTo(Type _other) {
+		boolean equals = true;
+		int i = 0;
+		
+		if (!(_other instanceof InterfaceTypeImpl)) {
+			equals = false;
+		} else {
+
+            i = 0;
+            while (equals && i < extendedInterfaces.size()) {
+                equals = equals & (extendedInterfaces.get(i).equals(((InterfaceTypeImpl) _other).getExtendedInterfaces().get(i)));
+            }
+            i = 0;
+            while (equals && i < interfaceElements.size()) {
+                equals = equals & (interfaceElements.get(i).equals(((InterfaceTypeImpl) _other).getInterfaceElements().get(i)));
+            }
+		}
+		return equals;
+	}*/
+
+	/* (non-Javadoc)
+	 * @see fr.n7.stl.block.ast.Type#compatibleWith(fr.n7.stl.block.ast.Type)
+	 */
+	@Override
+    public boolean compatibleWith(Type _other) {
+        boolean compatibleWith = false;
+
+        if (_other != null) {
+            if (_other instanceof InterfaceTypeImpl) {
+                // check if they have the same name
+                compatibleWith = this.name.equals(((InterfaceTypeImpl) _other).getName());
+                // or check the other implements this one
+                List<InterfaceType> extendedByOther = ((InterfaceType) _other).getExtendedInterfaces();
+
+                for (InterfaceType inter : extendedByOther) {
+                    compatibleWith = compatibleWith | this.equalsTo(inter);
+                }
+            }
+        }
+
+        return compatibleWith;
+    }
+
+	/* LEGACY
+	@Override
+	public boolean compatibleWith(Type _other) {
+        boolean compatibleWith = true;
+        int i = 0;
+
+        if (!(_other instanceof InterfaceTypeImpl)) {
+            compatibleWith = false;
+        } else {
+
+            i = 0;
+            while (compatibleWith && i < extendedInterfaces.size()) {
+                compatibleWith = compatibleWith & (extendedInterfaces.get(i).compatibleWith(((InterfaceTypeImpl) _other).getExtendedInterfaces().get(i)));
+            }
+            i = 0;
+            while (compatibleWith && i < interfaceElements.size()) {
+                compatibleWith = compatibleWith & (interfaceElements.get(i).compatibleWith(((InterfaceTypeImpl) _other).getInterfaceElements().get(i)));
+            }
+        }
+        return compatibleWith;
+	}*/
+
+	/* (non-Javadoc)
+	 * @see fr.n7.stl.block.ast.Type#merge(fr.n7.stl.block.ast.Type)
+	 */
+    @Override
+    public Type merge(Type _other) {
+        if (this.compatibleWith(_other)) {
+            return this;
+        }
+        else {
+            return AtomicType.ErrorType;
+        }
+    }
+
+
+	/* LEGACY
+	@Override
+	public Type merge(Type _other) {
+		List<InterfaceTypeImpl> newExtendedInterfaces = null;
+		List<Type> newInterfaceElements = null;
+
+		int i = 0;
+		
+		if (!compatibleWith(_other)) {
+			
+		} else {
+			newExtendedInterfaces = new LinkedList<InterfaceTypeImpl>();
+			i = 0;
+			while (i < extendedInterfaces.size()) {
+				newExtendedInterfaces.add((InterfaceTypeImpl) extendedInterfaces.get(i).merge(((InterfaceTypeImpl)_other).getExtendedInterfaces().get(i)));
+			}
+            newInterfaceElements = new LinkedList<Type>();
+            i = 0;
+            while (i < interfaceElements.size()) {
+                newInterfaceElements.add(interfaceElements.get(i).merge(((InterfaceTypeImpl)_other).getInterfaceElements().get(i)));
+            }
+		}
+		return (new InterfaceTypeImpl(newExtendedInterfaces, newInterfaceElements));
+	} */
+
+	/* (non-Javadoc)
+	 * @see fr.n7.stl.block.ast.Type#length(int)
+	 */
+	@Override
+	public int length() {
+		int length = 0;
+		for (Type t : this.extendedInterfaces) {
+			length += t.length();
+		}
+		for (Type t : this.interfaceElements) {
+		    length += t.length();
+        }
+		return length;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+	    StringBuilder stringBuilder = new StringBuilder();
+        
+	    stringBuilder.append("(");
+
+		Iterator<InterfaceType> _iterInterface = this.extendedInterfaces.iterator();
+		if (_iterInterface.hasNext()) {
+		    stringBuilder.append("extends : ");
+			stringBuilder.append(_iterInterface.next());
+			while (_iterInterface.hasNext()) {
+				stringBuilder.append(" ,");
+				stringBuilder.append(_iterInterface.next());
+			}
+		}
+
+        Iterator<Type> _iterElements = this.interfaceElements.iterator();
+        if (_iterElements.hasNext()) {
+            stringBuilder.append("elements : ");
+            stringBuilder.append(_iterElements.next());
+            while (_iterElements.hasNext()) {
+                stringBuilder.append(" ,");
+                stringBuilder.append(_iterElements.next());
+            }
+        }
+
+		stringBuilder.append(")");
+        return stringBuilder.toString();
+	}
+
+	@Override
+    public String getName() {
+	    return this.name;
+    }
+
+    public List<InterfaceType> getExtendedInterfaces() {
+        return extendedInterfaces;
+    }
+
+    public List<Type> getInterfaceElements() {
+        return interfaceElements;
+    }
+
+}

@@ -1,0 +1,26 @@
+1494860657314	Copy compilation unit
+1494860661703	Copy compilation unit
+1494860671336	Rename type 'MethodeAcess'
+1494860707714	Rename field 'field'
+1494860735221	Rename field 'record'
+1494860786420	Rename local variable 'recordType'
+1494860913207	Copy compilation unit
+1494861048135	Rename local variable 'currFieldLength'
+1494861090740	Rename method 'getFieldOffset'
+1494862707845	Copy compilation unit
+1494862718497	Copy compilation unit
+1494862799597	Rename field 'type'
+1494863010229	Rename type 'MethodeAccess'
+1494863034896	Rename type 'MethodAccess'
+1494916338870	Rename field 'classElements'
+1494916350522	Rename local variable '_classElements'
+1494916567303	Rename local variable 'newClassElements'
+1494917413877	Rename local variable '_iterElements'
+1494917507546	Rename local variable '_iterAttributes'
+1494918188583	Rename local variable 'field'
+1494918205061	Rename local variable 'attribute'
+1494918226608	Rename local variable 'fields'
+1494918291523	Rename local variable 'reversedFields'
+1494918313140	Rename local variable 'currField'
+1494923476937	Copy compilation unit
+1494923615563	Rename type 'FinalStaticAttributeDeclaration'

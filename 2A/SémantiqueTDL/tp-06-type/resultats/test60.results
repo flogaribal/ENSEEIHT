@@ -1,0 +1,36 @@
+test60 {
+   // Sans erreur : initialisation d'une variable de type tableau statique de booléens avec une valeur séquence de booléens de taille 2
+   // 	   	    extraction du premier élément de la paire dans une condition de conditionnelle
+   boolean p[] =  { true, false } ;
+   if (p[0]) {
+   }
+}======================
+======================
+======================
+Fichier analyé : ./tests/test60.bloc
+Bloc Version 0.0.1
+AST :{
+boolean[] p = { true ,false };
+if (@{p}[ 0 ] ){
+}
+}
+
+p     { true ,false }
+test60
+Correctement typé.
+PUSH 1
+LOADL 1
+LOADL 0
+STORE (1) 0[SB]
+LOAD (1) 0[SB]
+LOADL 0
+LOADL 1
+SUBR IMul
+SUBR IAdd
+LOADI (1)
+JUMPIF (0) else_cond_1
+JUMP fin_cond_1
+else_cond_1:
+fin_cond_1:
+HALT
+

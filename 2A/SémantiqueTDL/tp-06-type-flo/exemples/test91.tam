@@ -1,0 +1,27 @@
+PUSH 1
+LOADL 10
+STORE (1) 0[SB]
+PUSH 1
+LOADL 1
+STORE (1) 1[SB]
+debut_boucle_1:
+LOAD (1) 0[SB]
+LOADL 0
+SUBR IGtr
+JUMPIF (0) fin_boucle_1
+LOAD (1) 1[SB]
+LOAD (1) 0[SB]
+SUBR IMul
+LOADA 1[SB]
+STOREI (1)
+LOAD (1) 0[SB]
+LOADL 1
+SUBR ISub
+LOADA 0[SB]
+STOREI (1)
+JUMP debut_boucle_1
+fin_boucle_1:
+LOAD (1) 0[SB]
+SUBR IOut
+HALT
+

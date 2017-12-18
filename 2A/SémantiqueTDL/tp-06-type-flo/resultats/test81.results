@@ -1,0 +1,16 @@
+test81 {
+   // Erreur de type : initialisation d'une variable de type tableau d'entier avec un tableau créé statiquement, puis affectation du tableau avec une séquence entier et booléen
+   int p[] = { 1, 2};
+   p = { 3, true};
+}======================
+======================
+======================
+Fichier analyé : ./tests/test81.bloc
+Bloc Version 0.0.1
+AST :{
+int[] p = { 1 ,2 };
+@{p} = { 3 ,true };
+}
+
+p     { 1 ,2 }
+Mal typé.

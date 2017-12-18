@@ -1,0 +1,18 @@
+PUSH 1
+LOADL 1
+LOADL 2
+SUBR IMul
+SUBR MAlloc
+STORE (1) 0[SB]
+LOAD (1) 0[SB]
+LOADL 0
+LOADL 1
+SUBR IMul
+SUBR IAdd
+LOADI (1)
+JUMPIF (0) else_cond_1
+JUMP fin_cond_1
+else_cond_1:
+fin_cond_1:
+HALT
+

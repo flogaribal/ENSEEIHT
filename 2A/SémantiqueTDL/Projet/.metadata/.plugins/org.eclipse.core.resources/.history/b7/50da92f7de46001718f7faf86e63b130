@@ -1,0 +1,16 @@
+/**
+ * 
+ */
+package fr.n7.stl.block.ast;
+
+/**
+ * @author
+ */
+public interface AttributeDeclaration extends ElementClasse {
+
+    /**
+	 * Provide the type of the attribute in a class.
+	 * @return Type of the attribute.
+	 */
+	public Type getType();
+}

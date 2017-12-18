@@ -1,0 +1,29 @@
+/**
+ * 
+ */
+package fr.n7.stl.block.ast;
+
+import java.util.List;
+
+/**
+ * @author
+ */
+public interface MethodDeclaration extends ElementClasse {
+
+    /**
+     * Provides the access restriction of the element inside the class
+     * @return The access restriction of this element as an Access
+     */
+    public Access getAccess();
+    
+    public Type getResult();
+    
+    public Type getType();
+    
+    public List<Instruction> getBody();
+    
+    public List<Type> getParameters();
+
+    public boolean implementsSignatureDeclaration(SignatureDeclaration _signatureDeclaration);
+
+}

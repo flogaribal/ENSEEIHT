@@ -1,0 +1,31 @@
+test48 {
+   // Sans erreur : initialisation d'une variable de type paire de booléens avec une valeur séquence de booléens de taille 2
+   // 	   	    extraction du premier élément dans la paire dans une condition de conditionnelle
+   <boolean,boolean> p =  { true, false } ;
+   if (fst p) {
+   }
+}======================
+======================
+======================
+Fichier analyé : ./tests/test48.bloc
+Bloc Version 0.0.1
+AST :{
+< boolean, boolean> p = { true ,false };
+if ((fst @{p}) ){
+}
+}
+
+p     { true ,false }
+test48
+Correctement typé.
+PUSH 2
+LOADL 1
+LOADL 0
+STORE (2) 0[SB]
+LOAD (2) 0[SB]
+nullJUMPIF (0) else_cond_1
+JUMP fin_cond_1
+else_cond_1:
+fin_cond_1:
+HALT
+

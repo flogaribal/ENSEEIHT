@@ -1,0 +1,16 @@
+test85 {
+   // Erreur de type : initialisation d'une variable de type tableau d'entier avec un tableau créé dynamiquement puis affectation avec un booléen
+   int p[] = new int[2];
+   p[0] = true;
+}======================
+======================
+======================
+Fichier analyé : ./tests/test85.bloc
+Bloc Version 0.0.1
+AST :{
+int[] p = new int[ 2 ];
+@{p}[ 0 ] = true;
+}
+
+p     new int[ 2 ]
+Mal typé.

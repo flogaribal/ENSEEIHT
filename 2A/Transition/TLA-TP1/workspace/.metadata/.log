@@ -1,0 +1,1338 @@
+!SESSION 2017-02-08 10:20:43.370 -----------------------------------------------
+eclipse.buildId=1.5.2
+java.version=1.8.0_121
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=fr_FR
+Command-line arguments:  -os linux -ws gtk -arch x86_64
+
+!ENTRY org.lamport.tla.toolbox.jclouds 4 0 2017-02-08 10:20:47.412
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: org.lamport.tla.toolbox.jclouds [199]
+  Bundle was not resolved because of a uses contraint violation.
+  org.osgi.service.resolver.ResolutionException: Uses constraint violation. Unable to resolve resource org.lamport.tla.toolbox.jclouds [osgi.identity; osgi.identity="org.lamport.tla.toolbox.jclouds"; type="osgi.bundle"; version:Version="1.0.0.201512230951"; singleton:="true"] because it is exposed to package 'javax.inject' from resources javax.inject [osgi.identity; osgi.identity="javax.inject"; type="osgi.bundle"; version:Version="1.0.0.v20091030"] and org.apache.servicemix.bundles.javax-inject [osgi.identity; osgi.identity="org.apache.servicemix.bundles.javax-inject"; type="osgi.bundle"; version:Version="1.0.0.2"] via two dependency chains.
+
+Chain 1:
+  org.lamport.tla.toolbox.jclouds [osgi.identity; osgi.identity="org.lamport.tla.toolbox.jclouds"; type="osgi.bundle"; version:Version="1.0.0.201512230951"; singleton:="true"]
+    require: (osgi.wiring.bundle=org.eclipse.core.runtime)
+     |
+    provide: osgi.wiring.bundle: org.eclipse.core.runtime
+  javax.inject [osgi.identity; osgi.identity="javax.inject"; type="osgi.bundle"; version:Version="1.0.0.v20091030"]
+
+Chain 2:
+  org.lamport.tla.toolbox.jclouds [osgi.identity; osgi.identity="org.lamport.tla.toolbox.jclouds"; type="osgi.bundle"; version:Version="1.0.0.201512230951"; singleton:="true"]
+    require: (&(osgi.wiring.bundle=jclouds-core)(bundle-version>=1.7.3))
+     |
+    provide: osgi.wiring.bundle; bundle-version:Version="1.9.1"; osgi.wiring.bundle="jclouds-core"
+  jclouds-core [osgi.identity; osgi.identity="jclouds-core"; type="osgi.bundle"; version:Version="1.9.1"]
+    import: (osgi.wiring.package=javax.inject)
+     |
+    export: osgi.wiring.package: javax.inject
+  org.apache.servicemix.bundles.javax-inject [osgi.identity; osgi.identity="org.apache.servicemix.bundles.javax-inject"; type="osgi.bundle"; version:Version="1.0.0.2"]
+	at org.eclipse.osgi.container.Module.start(Module.java:434)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1582)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1562)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1533)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1476)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:230)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:340)
+
+!ENTRY org.eclipse.osgi 4 0 2017-02-08 10:20:47.436
+!MESSAGE Bundle initial@reference:file:plugins/org.lamport.tla.toolbox.jclouds_1.0.0.201512230951.jar was not resolved.
+
+!ENTRY org.lamport.tla.toolbox.product.standalone 1 -1 2017-02-08 10:20:47.630
+!MESSAGE TLA+ Toolbox started without arguments.
+
+!ENTRY org.eclipse.e4.ui.workbench 4 0 2017-02-08 10:20:48.347
+!MESSAGE Unable to create class 'org.eclipse.e4.ui.swt.internal.gtk.DarkThemeProcessor' from bundle '91'
+!STACK 0
+org.eclipse.e4.core.di.InjectionException: java.lang.NullPointerException
+	at org.eclipse.e4.core.internal.di.MethodRequestor.execute(MethodRequestor.java:68)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.processAnnotated(InjectorImpl.java:898)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.inject(InjectorImpl.java:121)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.internalMake(InjectorImpl.java:345)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.make(InjectorImpl.java:278)
+	at org.eclipse.e4.core.contexts.ContextInjectionFactory.make(ContextInjectionFactory.java:186)
+	at org.eclipse.e4.ui.internal.workbench.ReflectionContributionFactory.createFromBundle(ReflectionContributionFactory.java:107)
+	at org.eclipse.e4.ui.internal.workbench.ReflectionContributionFactory.doCreate(ReflectionContributionFactory.java:73)
+	at org.eclipse.e4.ui.internal.workbench.ReflectionContributionFactory.create(ReflectionContributionFactory.java:50)
+	at org.eclipse.e4.ui.internal.workbench.ModelAssembler.runProcessor(ModelAssembler.java:252)
+	at org.eclipse.e4.ui.internal.workbench.ModelAssembler.runProcessors(ModelAssembler.java:219)
+	at org.eclipse.e4.ui.internal.workbench.ModelAssembler.processModel(ModelAssembler.java:82)
+	at org.eclipse.e4.ui.internal.workbench.ResourceHandler.loadMostRecentModel(ResourceHandler.java:259)
+	at org.eclipse.e4.ui.internal.workbench.swt.E4Application.loadApplicationModel(E4Application.java:397)
+	at org.eclipse.e4.ui.internal.workbench.swt.E4Application.createE4Workbench(E4Application.java:254)
+	at org.eclipse.ui.internal.Workbench$5.run(Workbench.java:620)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:337)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:598)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:150)
+	at org.lamport.tla.toolbox.Application.start(Application.java:77)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:134)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:104)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:380)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:235)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:669)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:608)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1515)
+	at org.eclipse.equinox.launcher.Main.main(Main.java:1488)
+Caused by: java.lang.NullPointerException
+	at org.eclipse.e4.ui.swt.internal.gtk.DarkThemeProcessor.intialize(DarkThemeProcessor.java:58)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.eclipse.e4.core.internal.di.MethodRequestor.execute(MethodRequestor.java:56)
+	... 32 more
+
+!ENTRY org.eclipse.e4.ui.workbench 2 0 2017-02-08 10:20:48.351
+!MESSAGE Unable to create processor org.eclipse.e4.ui.swt.internal.gtk.DarkThemeProcessor from org.eclipse.e4.ui.css.swt.theme
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 10:21:28.305
+!MESSAGE footFileName = /home/fgaribal/Documents/2A/S8/Transition/TLA-TP1/hlmc.tla
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 10:21:28.480
+!MESSAGE Spec build invoked on hlmc ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 10:21:28.713
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 10:21:28.823
+!MESSAGE Spec build invoked on hlmc ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 10:21:28.909
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 10:21:29.371
+!MESSAGE Added a parse result listener.There are now 1 listeners.
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-02-08 10:25:40.479
+!MESSAGE Open handler invoked on Model_hlmc
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-02-08 10:25:41.252
+!MESSAGE No source for hlmc___Model_hlmc.launch found.
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-02-08 10:25:41.367
+!MESSAGE Finished open handler
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 10:25:46.296
+!MESSAGE footFileName = /home/fgaribal/Documents/2A/S8/Transition/TLA-TP1/hlmc.tla
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-02-08 10:25:46.586
+!MESSAGE TLC ARGUMENTS: [-deadlock, -fpbits, 0, -workers, 1, -tool, MC, -fp, 0, -config, MC.cfg, -coverage, 3, -checkpoint, 15, -metadir, /home/fgaribal/Documents/2A/S8/Transition/TLA-TP1/hlmc.toolbox/Model_hlmc]
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-02-08 10:25:46.595
+!MESSAGE JAVA VM ARGUMENTS: [-Dtlc2.tool.fp.FPSet.impl=tlc2.tool.fp.MSBDiskFPSet, -Xmx1491m]
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-02-08 10:25:46.604
+!MESSAGE Nested JVM used for model checker is: /usr/lib/jvm/java-8-oracle/jre
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 10:25:46.710
+!MESSAGE Spec build invoked on hlmc ...
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-02-08 10:25:46.721
+!MESSAGE TLCOutputSourceRegistry for model checking maintains 1 sources.
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-02-08 10:25:46.728
+!MESSAGE The source hlmc___Model_hlmc.launch has 4 prio and 1 listeners
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 10:25:46.769
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 10:25:47.869
+!MESSAGE Spec build invoked on hlmc ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 10:25:47.918
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 10:29:36.598
+!MESSAGE footFileName = /home/fgaribal/Documents/2A/S8/Transition/TLA-TP1/hlmc2.tla
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 10:29:36.774
+!MESSAGE Removed a parse result listener.There are now 0 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 10:29:36.916
+!MESSAGE Spec build invoked on hlmc2 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 10:29:37.035
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 10:29:37.089
+!MESSAGE Added a parse result listener.There are now 1 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 10:29:37.826
+!MESSAGE Spec build invoked on hlmc2 ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 10:29:37.875
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 10:35:06.651
+!MESSAGE footFileName = /home/fgaribal/Documents/2A/S8/Transition/TLA-TP1/canibales.tla
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 10:35:06.688
+!MESSAGE Removed a parse result listener.There are now 0 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 10:35:06.756
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 10:35:06.859
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 10:35:06.863
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 10:35:06.938
+!MESSAGE Added a parse result listener.There are now 1 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 10:35:07.099
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 10:35:54.158
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 10:35:54.467
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 10:35:58.979
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 10:35:59.008
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 10:36:06.524
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 10:36:06.570
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 10:39:54.406
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 10:39:54.497
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 10:40:39.568
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 10:40:39.614
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox.editor.basic 1 -1 2017-02-08 10:40:45.040
+!MESSAGE Content assist for 'Missionnaires'offset: 210, length: 13
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 10:40:45.961
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 10:40:46.035
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 10:42:39.311
+!MESSAGE footFileName = /home/fgaribal/Documents/2A/S8/Transition/TLA-TP1/hlmc.tla
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-02-08 10:42:39.602
+!MESSAGE TLC ARGUMENTS: [-deadlock, -fpbits, 0, -workers, 1, -tool, MC, -fp, 0, -config, MC.cfg, -coverage, 3, -checkpoint, 15, -metadir, /home/fgaribal/Documents/2A/S8/Transition/TLA-TP1/hlmc.toolbox/Model_hlmc]
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-02-08 10:42:39.614
+!MESSAGE JAVA VM ARGUMENTS: [-Dtlc2.tool.fp.FPSet.impl=tlc2.tool.fp.MSBDiskFPSet, -Xmx1491m]
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-02-08 10:42:39.619
+!MESSAGE Nested JVM used for model checker is: /usr/lib/jvm/java-8-oracle/jre
+
+!ENTRY org.eclipse.core.jobs 4 2 2017-02-08 10:42:39.679
+!MESSAGE An internal error occurred during: "TLC run for Model_hlmc".
+!STACK 0
+org.eclipse.core.runtime.AssertionFailedException: null argument:
+	at org.eclipse.core.runtime.Assert.isNotNull(Assert.java:85)
+	at org.eclipse.core.runtime.Assert.isNotNull(Assert.java:73)
+	at org.lamport.tla.toolbox.tool.tlc.util.ModelHelper.getModelOutputLogFile(ModelHelper.java:743)
+	at org.lamport.tla.toolbox.tool.tlc.output.internal.FileProcessOutputSink.initializeSink(FileProcessOutputSink.java:68)
+	at org.lamport.tla.toolbox.tool.tlc.output.internal.BroadcastStreamListener.getRegisteredStreamManagers(BroadcastStreamListener.java:89)
+	at org.lamport.tla.toolbox.tool.tlc.output.internal.BroadcastStreamListener.<init>(BroadcastStreamListener.java:28)
+	at org.lamport.tla.toolbox.tool.tlc.job.TLCProcessJob.run(TLCProcessJob.java:177)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 10:45:21.400
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 10:45:21.522
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:07:33.390
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:07:33.494
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:07:37.181
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:07:37.205
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:07:58.965
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:07:58.992
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:10:46.064
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:10:46.178
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:10:49.735
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:10:49.761
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:11:01.520
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:11:01.549
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:12:00.659
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:12:00.757
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:12:28.325
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:12:28.360
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:12:53.076
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:12:53.191
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:12:59.554
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:12:59.600
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:15:31.801
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:15:31.899
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:15:50.855
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:15:50.891
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:16:02.658
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:16:02.698
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:18:02.219
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:18:02.316
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:18:15.709
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:18:15.743
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:18:34.079
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:18:34.107
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:19:12.938
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:19:13.025
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:19:21.174
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:19:21.200
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:19:37.826
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:19:37.850
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:20:55.982
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:20:56.103
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:21:13.767
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:21:13.798
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:21:24.737
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:21:24.766
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:22:04.827
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:22:04.928
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:22:45.407
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:22:45.437
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:23:34.731
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:23:34.830
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:24:00.856
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:24:00.880
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:24:13.162
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:24:13.195
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:27:10.062
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:27:10.152
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:27:46.878
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:27:46.912
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:28:02.766
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:28:02.810
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:28:07.110
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:28:07.146
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:28:11.876
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:28:11.997
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:28:35.006
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:28:35.051
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:28:59.319
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:28:59.353
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:29:27.043
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:29:27.140
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:29:41.442
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:29:41.476
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:29:49.125
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:29:49.168
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:29:59.905
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:29:59.942
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:30:38.616
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:30:38.714
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:30:43.295
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:30:43.341
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:30:54.467
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:30:54.501
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:31:27.777
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:31:27.832
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:31:36.880
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:31:36.915
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:32:11.273
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:32:11.371
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:32:13.224
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:32:13.259
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:32:15.335
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:32:15.368
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:32:32.153
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:32:32.191
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:33:13.778
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:33:13.931
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:33:20.689
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:33:20.725
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:33:43.080
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:33:43.118
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:33:58.011
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:33:58.051
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:34:25.436
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:34:25.546
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:34:35.082
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:34:35.123
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:34:50.330
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:34:50.368
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:34:55.416
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:34:55.446
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:35:06.411
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:35:06.450
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:35:25.532
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:35:25.631
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:35:30.992
+!MESSAGE footFileName = /home/fgaribal/Documents/2A/S8/Transition/TLA-TP1/hlmc.tla
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-02-08 11:35:31.111
+!MESSAGE TLC ARGUMENTS: [-deadlock, -fpbits, 0, -workers, 1, -tool, MC, -fp, 0, -config, MC.cfg, -coverage, 3, -checkpoint, 15, -metadir, /home/fgaribal/Documents/2A/S8/Transition/TLA-TP1/hlmc.toolbox/Model_hlmc]
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-02-08 11:35:31.114
+!MESSAGE JAVA VM ARGUMENTS: [-Dtlc2.tool.fp.FPSet.impl=tlc2.tool.fp.MSBDiskFPSet, -Xmx1491m]
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-02-08 11:35:31.116
+!MESSAGE Nested JVM used for model checker is: /usr/lib/jvm/java-8-oracle/jre
+
+!ENTRY org.eclipse.core.jobs 4 2 2017-02-08 11:35:31.137
+!MESSAGE An internal error occurred during: "TLC run for Model_hlmc".
+!STACK 0
+org.eclipse.core.runtime.AssertionFailedException: null argument:
+	at org.eclipse.core.runtime.Assert.isNotNull(Assert.java:85)
+	at org.eclipse.core.runtime.Assert.isNotNull(Assert.java:73)
+	at org.lamport.tla.toolbox.tool.tlc.util.ModelHelper.getModelOutputLogFile(ModelHelper.java:743)
+	at org.lamport.tla.toolbox.tool.tlc.output.internal.FileProcessOutputSink.initializeSink(FileProcessOutputSink.java:68)
+	at org.lamport.tla.toolbox.tool.tlc.output.internal.BroadcastStreamListener.getRegisteredStreamManagers(BroadcastStreamListener.java:89)
+	at org.lamport.tla.toolbox.tool.tlc.output.internal.BroadcastStreamListener.<init>(BroadcastStreamListener.java:28)
+	at org.lamport.tla.toolbox.tool.tlc.job.TLCProcessJob.run(TLCProcessJob.java:177)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:36:22.572
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:36:22.620
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:37:34.357
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:37:34.444
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:37:44.468
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:37:44.502
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:37:47.730
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:37:47.762
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:39:39.119
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:39:39.216
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:40:39.373
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:40:39.489
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-02-08 11:40:54.925
+!MESSAGE Open handler invoked on Model_1
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:40:55.026
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:40:55.055
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-02-08 11:40:55.304
+!MESSAGE No source for canibales___Model_1.launch found.
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-02-08 11:40:55.410
+!MESSAGE Finished open handler
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-02-08 11:41:02.224
+!MESSAGE TLCOutputSourceRegistry for model checking maintains 1 sources.
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-02-08 11:41:02.227
+!MESSAGE The source hlmc___Model_hlmc.launch has 4 prio and 1 listeners
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:41:02.381
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:41:02.426
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-02-08 11:41:08.003
+!MESSAGE Open handler invoked on Cannibales
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:41:08.153
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:41:08.194
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-02-08 11:41:08.381
+!MESSAGE No source for canibales___Cannibales.launch found.
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-02-08 11:41:08.468
+!MESSAGE Finished open handler
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:41:13.758
+!MESSAGE footFileName = /home/fgaribal/Documents/2A/S8/Transition/TLA-TP1/canibales.tla
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-02-08 11:41:13.866
+!MESSAGE TLC ARGUMENTS: [-workers, 2, -tool, MC, -fp, 0, -config, MC.cfg, -coverage, 3, -checkpoint, 15, -metadir, /home/fgaribal/Documents/2A/S8/Transition/TLA-TP1/canibales.toolbox/Cannibales]
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-02-08 11:41:13.870
+!MESSAGE JAVA VM ARGUMENTS: [-Dtlc2.tool.fp.FPSet.impl=tlc2.tool.fp.MSBDiskFPSet, -Xmx2982m]
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-02-08 11:41:13.874
+!MESSAGE Nested JVM used for model checker is: /usr/lib/jvm/java-8-oracle/jre
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-02-08 11:41:13.881
+!MESSAGE TLCOutputSourceRegistry for model checking maintains 2 sources.
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-02-08 11:41:13.885
+!MESSAGE The source canibales___Cannibales.launch has 4 prio and 1 listeners
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-02-08 11:41:13.889
+!MESSAGE The source hlmc___Model_hlmc.launch has 4 prio and 1 listeners
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:41:14.006
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:41:14.038
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:41:15.102
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:41:15.132
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:42:46.067
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:42:46.175
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:43:00.828
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:43:00.861
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:43:20.011
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:43:20.050
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:43:33.540
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:43:33.576
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:43:49.140
+!MESSAGE footFileName = /home/fgaribal/Documents/2A/S8/Transition/TLA-TP1/canibales.tla
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-02-08 11:43:49.291
+!MESSAGE TLC ARGUMENTS: [-workers, 2, -tool, MC, -fp, 0, -config, MC.cfg, -coverage, 3, -checkpoint, 15, -metadir, /home/fgaribal/Documents/2A/S8/Transition/TLA-TP1/canibales.toolbox/Cannibales]
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-02-08 11:43:49.296
+!MESSAGE JAVA VM ARGUMENTS: [-Dtlc2.tool.fp.FPSet.impl=tlc2.tool.fp.MSBDiskFPSet, -Xmx2982m]
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-02-08 11:43:49.298
+!MESSAGE Nested JVM used for model checker is: /usr/lib/jvm/java-8-oracle/jre
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-02-08 11:43:49.334
+!MESSAGE TLCOutputSourceRegistry for model checking maintains 2 sources.
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-02-08 11:43:49.336
+!MESSAGE The source canibales___Cannibales.launch has 4 prio and 1 listeners
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-02-08 11:43:49.339
+!MESSAGE The source hlmc___Model_hlmc.launch has 4 prio and 1 listeners
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:43:49.443
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:43:49.471
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:43:50.517
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:43:50.556
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:44:18.487
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:44:18.528
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:44:19.169
+!MESSAGE footFileName = /home/fgaribal/Documents/2A/S8/Transition/TLA-TP1/canibales.tla
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-02-08 11:44:19.312
+!MESSAGE TLC ARGUMENTS: [-workers, 2, -tool, MC, -fp, 0, -config, MC.cfg, -coverage, 3, -checkpoint, 15, -metadir, /home/fgaribal/Documents/2A/S8/Transition/TLA-TP1/canibales.toolbox/Cannibales]
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-02-08 11:44:19.321
+!MESSAGE JAVA VM ARGUMENTS: [-Dtlc2.tool.fp.FPSet.impl=tlc2.tool.fp.MSBDiskFPSet, -Xmx2982m]
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-02-08 11:44:19.325
+!MESSAGE Nested JVM used for model checker is: /usr/lib/jvm/java-8-oracle/jre
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-02-08 11:44:19.366
+!MESSAGE TLCOutputSourceRegistry for model checking maintains 2 sources.
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-02-08 11:44:19.369
+!MESSAGE The source canibales___Cannibales.launch has 4 prio and 1 listeners
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-02-08 11:44:19.373
+!MESSAGE The source hlmc___Model_hlmc.launch has 4 prio and 1 listeners
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:44:19.930
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:44:19.975
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:44:20.312
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:44:20.377
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:44:38.134
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:44:38.173
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:44:46.666
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:44:46.711
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:45:05.484
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:45:05.596
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:47:25.458
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:47:25.596
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:47:33.585
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:47:33.614
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:47:37.070
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:47:37.117
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:52:23.356
+!MESSAGE footFileName = /home/fgaribal/Documents/2A/S8/Transition/TLA-TP1/canibales.tla
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-02-08 11:52:23.512
+!MESSAGE TLC ARGUMENTS: [-workers, 2, -tool, MC, -fp, 0, -config, MC.cfg, -coverage, 3, -checkpoint, 15, -metadir, /home/fgaribal/Documents/2A/S8/Transition/TLA-TP1/canibales.toolbox/Cannibales]
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-02-08 11:52:23.516
+!MESSAGE JAVA VM ARGUMENTS: [-Dtlc2.tool.fp.FPSet.impl=tlc2.tool.fp.MSBDiskFPSet, -Xmx2982m]
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-02-08 11:52:23.519
+!MESSAGE Nested JVM used for model checker is: /usr/lib/jvm/java-8-oracle/jre
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-02-08 11:52:23.526
+!MESSAGE TLCOutputSourceRegistry for model checking maintains 2 sources.
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-02-08 11:52:23.530
+!MESSAGE The source canibales___Cannibales.launch has 4 prio and 1 listeners
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-02-08 11:52:23.533
+!MESSAGE The source hlmc___Model_hlmc.launch has 4 prio and 1 listeners
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:52:23.663
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:52:23.694
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:52:24.750
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:52:24.788
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:52:47.038
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:52:47.073
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:52:49.749
+!MESSAGE footFileName = /home/fgaribal/Documents/2A/S8/Transition/TLA-TP1/canibales.tla
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-02-08 11:52:49.844
+!MESSAGE TLC ARGUMENTS: [-workers, 2, -tool, MC, -fp, 0, -config, MC.cfg, -coverage, 3, -checkpoint, 15, -metadir, /home/fgaribal/Documents/2A/S8/Transition/TLA-TP1/canibales.toolbox/Cannibales]
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-02-08 11:52:49.847
+!MESSAGE JAVA VM ARGUMENTS: [-Dtlc2.tool.fp.FPSet.impl=tlc2.tool.fp.MSBDiskFPSet, -Xmx2982m]
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-02-08 11:52:49.849
+!MESSAGE Nested JVM used for model checker is: /usr/lib/jvm/java-8-oracle/jre
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-02-08 11:52:49.886
+!MESSAGE TLCOutputSourceRegistry for model checking maintains 2 sources.
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-02-08 11:52:49.888
+!MESSAGE The source canibales___Cannibales.launch has 4 prio and 1 listeners
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-02-08 11:52:49.890
+!MESSAGE The source hlmc___Model_hlmc.launch has 4 prio and 1 listeners
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:52:50.310
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:52:50.383
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:52:51.388
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:52:51.422
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:53:00.304
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:53:00.339
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:53:02.396
+!MESSAGE footFileName = /home/fgaribal/Documents/2A/S8/Transition/TLA-TP1/canibales.tla
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-02-08 11:53:02.488
+!MESSAGE TLC ARGUMENTS: [-workers, 2, -tool, MC, -fp, 0, -config, MC.cfg, -coverage, 3, -checkpoint, 15, -metadir, /home/fgaribal/Documents/2A/S8/Transition/TLA-TP1/canibales.toolbox/Cannibales]
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-02-08 11:53:02.492
+!MESSAGE JAVA VM ARGUMENTS: [-Dtlc2.tool.fp.FPSet.impl=tlc2.tool.fp.MSBDiskFPSet, -Xmx2982m]
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-02-08 11:53:02.497
+!MESSAGE Nested JVM used for model checker is: /usr/lib/jvm/java-8-oracle/jre
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-02-08 11:53:02.523
+!MESSAGE TLCOutputSourceRegistry for model checking maintains 2 sources.
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-02-08 11:53:02.527
+!MESSAGE The source canibales___Cannibales.launch has 4 prio and 1 listeners
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-02-08 11:53:02.529
+!MESSAGE The source hlmc___Model_hlmc.launch has 4 prio and 1 listeners
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:53:02.638
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:53:02.673
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:53:03.007
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:53:03.077
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:53:04.132
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:53:04.190
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:53:57.396
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:53:57.468
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:53:58.523
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:53:58.557
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:53:59.574
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:53:59.622
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:54:13.275
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:54:13.302
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:54:19.657
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:54:19.684
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:54:34.299
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:54:34.332
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:54:38.813
+!MESSAGE footFileName = /home/fgaribal/Documents/2A/S8/Transition/TLA-TP1/canibales.tla
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-02-08 11:54:38.902
+!MESSAGE TLC ARGUMENTS: [-workers, 2, -tool, MC, -fp, 0, -config, MC.cfg, -coverage, 3, -checkpoint, 15, -metadir, /home/fgaribal/Documents/2A/S8/Transition/TLA-TP1/canibales.toolbox/Cannibales]
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-02-08 11:54:38.904
+!MESSAGE JAVA VM ARGUMENTS: [-Dtlc2.tool.fp.FPSet.impl=tlc2.tool.fp.MSBDiskFPSet, -Xmx2982m]
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-02-08 11:54:38.907
+!MESSAGE Nested JVM used for model checker is: /usr/lib/jvm/java-8-oracle/jre
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-02-08 11:54:38.924
+!MESSAGE TLCOutputSourceRegistry for model checking maintains 2 sources.
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-02-08 11:54:38.931
+!MESSAGE The source canibales___Cannibales.launch has 4 prio and 1 listeners
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-02-08 11:54:38.933
+!MESSAGE The source hlmc___Model_hlmc.launch has 4 prio and 1 listeners
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:54:39.051
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:54:39.088
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:54:39.226
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:54:39.259
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:54:39.633
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:54:39.667
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:54:40.721
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:54:40.765
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:55:04.543
+!MESSAGE footFileName = /home/fgaribal/Documents/2A/S8/Transition/TLA-TP1/canibales.tla
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-02-08 11:55:04.685
+!MESSAGE TLC ARGUMENTS: [-workers, 2, -tool, MC, -fp, 0, -config, MC.cfg, -coverage, 3, -checkpoint, 15, -metadir, /home/fgaribal/Documents/2A/S8/Transition/TLA-TP1/canibales.toolbox/Cannibales]
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-02-08 11:55:04.688
+!MESSAGE JAVA VM ARGUMENTS: [-Dtlc2.tool.fp.FPSet.impl=tlc2.tool.fp.MSBDiskFPSet, -Xmx2982m]
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-02-08 11:55:04.691
+!MESSAGE Nested JVM used for model checker is: /usr/lib/jvm/java-8-oracle/jre
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-02-08 11:55:04.706
+!MESSAGE TLCOutputSourceRegistry for model checking maintains 2 sources.
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-02-08 11:55:04.719
+!MESSAGE The source canibales___Cannibales.launch has 4 prio and 1 listeners
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-02-08 11:55:04.721
+!MESSAGE The source hlmc___Model_hlmc.launch has 4 prio and 1 listeners
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:55:04.835
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:55:04.869
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:55:05.215
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:55:05.261
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:55:06.265
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:55:06.294
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:55:29.111
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:55:29.147
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:55:31.053
+!MESSAGE footFileName = /home/fgaribal/Documents/2A/S8/Transition/TLA-TP1/canibales.tla
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-02-08 11:55:31.148
+!MESSAGE TLC ARGUMENTS: [-workers, 2, -tool, MC, -fp, 0, -config, MC.cfg, -coverage, 3, -checkpoint, 15, -metadir, /home/fgaribal/Documents/2A/S8/Transition/TLA-TP1/canibales.toolbox/Cannibales]
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-02-08 11:55:31.151
+!MESSAGE JAVA VM ARGUMENTS: [-Dtlc2.tool.fp.FPSet.impl=tlc2.tool.fp.MSBDiskFPSet, -Xmx2982m]
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-02-08 11:55:31.153
+!MESSAGE Nested JVM used for model checker is: /usr/lib/jvm/java-8-oracle/jre
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-02-08 11:55:31.164
+!MESSAGE TLCOutputSourceRegistry for model checking maintains 2 sources.
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-02-08 11:55:31.168
+!MESSAGE The source canibales___Cannibales.launch has 4 prio and 1 listeners
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-02-08 11:55:31.172
+!MESSAGE The source hlmc___Model_hlmc.launch has 4 prio and 1 listeners
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:55:31.296
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:55:31.330
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:55:31.731
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:55:31.766
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:55:32.820
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:55:32.867
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:58:25.275
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:58:25.388
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:58:33.866
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:58:33.903
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:58:59.964
+!MESSAGE footFileName = /home/fgaribal/Documents/2A/S8/Transition/TLA-TP1/canibales.tla
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-02-08 11:59:00.104
+!MESSAGE TLC ARGUMENTS: [-workers, 2, -tool, MC, -fp, 0, -config, MC.cfg, -coverage, 3, -checkpoint, 15, -metadir, /home/fgaribal/Documents/2A/S8/Transition/TLA-TP1/canibales.toolbox/Cannibales]
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-02-08 11:59:00.107
+!MESSAGE JAVA VM ARGUMENTS: [-Dtlc2.tool.fp.FPSet.impl=tlc2.tool.fp.MSBDiskFPSet, -Xmx2982m]
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-02-08 11:59:00.110
+!MESSAGE Nested JVM used for model checker is: /usr/lib/jvm/java-8-oracle/jre
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-02-08 11:59:00.127
+!MESSAGE TLCOutputSourceRegistry for model checking maintains 2 sources.
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-02-08 11:59:00.131
+!MESSAGE The source canibales___Cannibales.launch has 4 prio and 1 listeners
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-02-08 11:59:00.134
+!MESSAGE The source hlmc___Model_hlmc.launch has 4 prio and 1 listeners
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:59:00.253
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:59:00.285
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:59:00.861
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:59:00.898
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:59:01.957
+!MESSAGE Spec build invoked on canibales ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 11:59:02.001
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-02-08 12:01:16.036
+!MESSAGE Removed a parse result listener.There are now 0 listeners.

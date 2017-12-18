@@ -1,0 +1,147 @@
+/**
+ * 
+ */
+package fr.n7.stl.block.ast.impl;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
+import fr.n7.stl.block.ast.AtomicType;
+import fr.n7.stl.block.ast.AttributeDeclaration;
+import fr.n7.stl.block.ast.Expression;
+import fr.n7.stl.block.ast.Type;
+import fr.n7.stl.tam.ast.Fragment;
+import fr.n7.stl.tam.ast.TAMFactory;
+
+/**
+ * Implementation of the Abstract Syntax Tree node for accessing an attribute in a class
+ * @author DUBOIS, GARIBAL, HOTTIN, LARATO
+ *
+ */
+public class AttributeAccess implements Expression {
+
+	protected 	Expression classe;
+	private 	String name;
+	private 	AttributeDeclarationImpl attribute;
+
+	/**
+	 * 
+	 * @param _record record
+	 * @param _name name
+	 */
+	public AttributeAccess(Expression _record, String _name) {
+		this.classe = _record;
+		this.name = _name;
+	}
+
+	/**
+	 * 
+	 * @param _record record
+	 * @param _field field
+	 */
+	public AttributeAccess(Expression _record, AttributeDeclarationImpl _field) {
+		this.classe = _record;
+		this.attribute = _field;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return this.classe + "." + this.name;
+	}
+
+	/* (non-Javadoc)
+	 * @see fr.n7.stl.block.ast.Expression#getType()
+	 */
+	@Override
+	public Type getType() {
+		Type classType = classe.getType();
+
+		if (classType instanceof ClassTypeImpl) {
+			if (attribute == null) {
+				attribute = (AttributeDeclarationImpl) getAttribute();
+			}
+			return attribute.getType();
+		} else {
+			System.err.println(classe.toString() + " ERREUR CLASSTYPE");
+			return AtomicType.ErrorType;
+		}
+	}
+
+	/* (non-Javadoc)
+	 * @see fr.n7.stl.block.ast.Expression#getCode(fr.n7.stl.tam.ast.TAMFactory)
+	 */
+	@Override
+	public Fragment getCode(TAMFactory _factory) {
+		Fragment fragment = _factory.createFragment();
+
+		/* Récupère la taille de l'attribut courant */
+		int currAttributeLength = getAttribute().getType().length();
+
+		/* Ajoute le code de la classe = remonte l'attribut sur la pile */
+		fragment.append(classe.getCode(_factory));
+
+		/* Supprime les attributs jusqu'au notre */
+		fragment.add(_factory.createPop(0, getAttributeOffset()));
+
+		/* Supprime tous les attributs après le notre */
+		fragment.add(_factory.createPop(currAttributeLength, classe.getType().length()-currAttributeLength-getAttributeOffset()));
+
+
+		return fragment;
+	}
+
+
+	/**
+	* Renvoie l'attribut courant, si il est nul, récupère l'attribut depuis le ClassType
+	* @result attributes
+	**/
+	protected AttributeDeclaration getAttribute() {
+		if (attribute == null) {
+			Optional<AttributeDeclaration> _attribute = ((ClassTypeImpl)classe.getType()).getAttribute(this.attribute);
+			if (_attribute.isPresent()) {
+				return _attribute.get();
+			}
+		}
+		return attribute;
+	}
+
+	/**
+	* Renvoi l'offset correspondant à ce field declaration
+	* @return attribute offset
+	**/
+	protected int getAttributeOffset() {
+		// TODO : ameliorer complexité (inverser offset)
+
+		int offset = 0;
+		boolean found = false;
+		int i = 0;
+
+		List<AttributeDeclaration> _attributes = ((ClassTypeImpl)classe.getType()).getAttributes();
+		int size = _attributes.size();
+
+		
+		/**
+		 * TODO vérifier si nécessaire de reverse la liste
+		 */
+		List<AttributeDeclaration> reverseAttributes = new ArrayList<AttributeDeclaration>(_attributes);
+		Collections.reverse(reverseAttributes);
+
+		while (!found && i < size) {
+			AttributeDeclaration currAttribute = reverseAttributes.get(i);
+
+			if (currAttribute.getName().equals(name)) {
+				found = true;
+			} else {
+				offset += currAttribute.getType().length();
+			}
+			i++;
+		}		
+
+		return offset ;
+	}
+}

@@ -1,0 +1,5 @@
+node test (b:bool)
+returns (o:bool)
+let
+	o = b;
+tel

@@ -1,0 +1,31 @@
+test51 {
+   // Sans erreur : initialisation d'une variable de type paire composée d'un booléen et un entier avec une valeur séquence composée d'un booléen et un entier
+   // 	   	    extraction du premier élément dans la paire dans une condition de conditionnelle
+   <boolean,int> p =  { true, 1 } ;
+   while (fst p) {
+   }
+}======================
+======================
+======================
+Fichier analyé : ./tests/test51.bloc
+Bloc Version 0.0.1
+AST :{
+< boolean, int> p = { true ,1 };
+while ((fst @{p})) {
+}
+}
+
+p     { true ,1 }
+test51
+Correctement typé.
+PUSH 2
+LOADL 1
+LOADL 1
+STORE (2) 0[SB]
+debut_boucle_1:
+LOAD (2) 0[SB]
+nullJUMPIF (0) fin_boucle_1
+JUMP debut_boucle_1
+fin_boucle_1:
+HALT
+

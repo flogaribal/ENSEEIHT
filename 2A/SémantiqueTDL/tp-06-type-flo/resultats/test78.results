@@ -1,0 +1,19 @@
+test78 {
+   // Erreur de type : initialisation d'une variable de type paire d'entier et booléen avec une valeur séquence d'entier et de booléen
+   // 	   	       extraction du premier élément de la paire dans une condition de conditionnelle
+   <int,boolean> p =  { 1, false } ;
+   if (fst p) {
+   }
+}======================
+======================
+======================
+Fichier analyé : ./tests/test78.bloc
+Bloc Version 0.0.1
+AST :{
+< int, boolean> p = { 1 ,false };
+if ((fst @{p}) ){
+}
+}
+
+p     { 1 ,false }
+Mal typé.

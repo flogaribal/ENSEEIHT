@@ -1,0 +1,37 @@
+test100 {
+   // Sans erreur : initialisation d'une variable de type tableau statique de booléens avec une valeur séquence de booléens de taille 2
+   // 	   	    extraction du premier élément de la paire dans une condition de conditionnelle
+   boolean a = true;
+   boolean *p =  & a ;
+   if (*p) {
+   }
+}======================
+======================
+======================
+Fichier analyé : ./tests/test100.bloc
+Bloc Version 0.0.1
+AST :{
+boolean a = true;
+(boolean *) p = &(@{a});
+if ((*@{p}) ){
+}
+}
+
+a     true
+p     &(@{a})
+test100
+Correctement typé.
+PUSH 1
+LOADL 1
+STORE (1) 0[SB]
+PUSH 1
+LOADA 0[SB]
+STORE (1) 1[SB]
+LOAD (1) 1[SB]
+LOADI (1)
+JUMPIF (0) else_cond_1
+JUMP fin_cond_1
+else_cond_1:
+fin_cond_1:
+HALT
+

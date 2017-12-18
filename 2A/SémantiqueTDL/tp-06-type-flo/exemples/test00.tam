@@ -1,0 +1,5 @@
+PUSH 1
+LOADL 1
+STORE (1) 0[SB]
+HALT
+

@@ -1,0 +1,26 @@
+test92 {
+   // Sans erreur : initialisation d'une variable de type pointeur sur entier avec une variable entière créé statiquement
+   int i = 1;
+   int *p = &i;
+}======================
+======================
+======================
+Fichier analyé : ./tests/test92.bloc
+Bloc Version 0.0.1
+AST :{
+int i = 1;
+(int *) p = &(@{i});
+}
+
+i     1
+p     &(@{i})
+test92
+Correctement typé.
+PUSH 1
+LOADL 1
+STORE (1) 0[SB]
+PUSH 1
+LOADA 0[SB]
+STORE (1) 1[SB]
+HALT
+

@@ -1,0 +1,28 @@
+test45 {
+   // Sans erreur : initialisation d'une variable de type paire d'entier avec une valeur séquence d'entiers de taille 2
+   // 	   	    initialisation d'une variable de type paire d'entier avec une valeur paire d'entiers
+   <int,int> p = { 1, 2};
+   <int,int> q = p;
+}======================
+======================
+======================
+Fichier analyé : ./tests/test45.bloc
+Bloc Version 0.0.1
+AST :{
+< int, int> p = { 1 ,2 };
+< int, int> q = @{p};
+}
+
+p     { 1 ,2 }
+q     @{p}
+test45
+Correctement typé.
+PUSH 2
+LOADL 1
+LOADL 2
+STORE (2) 0[SB]
+PUSH 2
+LOAD (2) 0[SB]
+STORE (2) 2[SB]
+HALT
+

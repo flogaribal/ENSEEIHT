@@ -1,0 +1,80 @@
+/**
+ * 
+ */
+package fr.n7.stl.block.ast.impl;
+
+import java.util.*;
+
+import fr.n7.stl.block.ast.*;
+import fr.n7.stl.tam.ast.Fragment;
+import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.util.SymbolTable;
+
+/**
+ * Implementation of the Abstract Syntax Tree node for calling a method
+ * @author Marc Pantel
+ *
+ */
+public class MethodCallImpl implements MethodCall {
+
+	private MethodDeclaration methodDeclaration;
+	private List<Expression>  arguments;
+
+	public MethodCallImpl(MethodDeclaration _methodDeclaration, List<Expression> _arguments) {
+		this.methodDeclaration = _methodDeclaration;
+		this.arguments = _arguments;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(this.methodDeclaration.getName());
+        sb.append("(");
+
+        Iterator<Expression> argumentsIterator = arguments.iterator();
+
+        while (argumentsIterator.hasNext()) {
+            sb.append(argumentsIterator.next().toString());
+
+            if (argumentsIterator.hasNext()) {
+                sb.append(", ");
+            }
+        }
+
+        sb.append(");");
+
+        return sb.toString();
+	}
+
+	/* (non-Javadoc)
+	 * @see fr.n7.stl.block.ast.Expression#getType()
+	 */
+	@Override
+	public Type getType() {
+		return this.methodDeclaration.getType();
+	}
+
+	@Override
+    public SymbolTable<VariableDeclaration> getSymbolTable() {
+	    return this.symbolTable;
+    }
+
+	/* (non-Javadoc)
+	 * @see fr.n7.stl.block.ast.Expression#getCode(fr.n7.stl.tam.ast.TAMFactory)
+	 */
+	@Override
+	public Fragment getCode(TAMFactory _factory) {
+		Fragment fragment = _factory.createFragment();
+
+		// TODO
+
+		return fragment;
+	}
+
+
+
+}

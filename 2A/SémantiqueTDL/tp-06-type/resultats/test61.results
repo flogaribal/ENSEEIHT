@@ -1,0 +1,38 @@
+test61 {
+   // Sans erreur : initialisation d'une variable de type tableau dynamique de booléens avec une valeur séquence de booléens de taille 2
+   // 	   	    extraction du premier élément de la paire dans une condition de conditionnelle
+   boolean p[] = new boolean [2];
+   if (p[0]) {
+   }
+}======================
+======================
+======================
+Fichier analyé : ./tests/test61.bloc
+Bloc Version 0.0.1
+AST :{
+boolean[] p = new boolean[ 2 ];
+if (@{p}[ 0 ] ){
+}
+}
+
+p     new boolean[ 2 ]
+test61
+Correctement typé.
+PUSH 1
+LOADL 1
+LOADL 2
+SUBR IMul
+SUBR MAlloc
+STORE (1) 0[SB]
+LOAD (1) 0[SB]
+LOADL 0
+LOADL 1
+SUBR IMul
+SUBR IAdd
+LOADI (1)
+JUMPIF (0) else_cond_1
+JUMP fin_cond_1
+else_cond_1:
+fin_cond_1:
+HALT
+

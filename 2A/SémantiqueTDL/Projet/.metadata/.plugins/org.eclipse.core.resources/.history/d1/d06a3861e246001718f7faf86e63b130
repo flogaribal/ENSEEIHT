@@ -1,0 +1,55 @@
+/**
+ * 
+ */
+package fr.n7.stl.block.ast.impl;
+
+import fr.n7.stl.block.ast.Access;
+import fr.n7.stl.block.ast.AttributeDeclaration;
+import fr.n7.stl.block.ast.Expression;
+import fr.n7.stl.block.ast.Type;
+
+/**
+ * Implementation of the Abstract Syntax Tree node for a attribute declaration instruction.
+ * @author DUBOIS, GARIBAL, HOTTIN, LARATO
+ */
+public class AttributeDeclarationImpl extends VariableDeclarationImpl implements AttributeDeclaration {
+
+    private Access access;
+    private boolean isStatic;
+
+    /**
+     * Creates an attribute declaration instruction node for the Abstract Syntax Tree.
+     * @param _name Name of the declared attribute.
+     * @param _type Type of the declared attribute.
+     * @param _value Value of the declared attribute.
+     * @param _access Access of the declared attribute
+     */
+    public AttributeDeclarationImpl(String _name, Type _type, Expression _value, Access _access, boolean _isStatic) {
+        super(_name, _type, _value);
+
+        this.access = _access;
+        this.isStatic = _isStatic;
+    }
+
+    public AttributeDeclarationImpl(String _name, Type _type, Access _access, boolean _isStatic) {
+        super(_name, _type);
+
+        this.access = _access;
+        this.isStatic = _isStatic;
+    }
+
+    @Override
+    public String toString() {
+        return this.access + " " + (this.isStatic ? "static " : "") + super.toString();
+    }
+
+    @Override
+    public boolean getIsStatic() {
+        return this.isStatic;
+    }
+
+    @Override
+    public boolean checkType() {
+        return true;
+    }
+}

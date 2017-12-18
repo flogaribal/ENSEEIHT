@@ -1,0 +1,32 @@
+test103 {
+   // Sans erreur : initialisation d'une variable de type tableau dynamique de booléens avec une valeur séquence de booléens de taille 2
+   // 	   	    extraction du premier élément de la paire dans une condition de répétition
+   boolean *p = new boolean;
+   while (*p) {
+   }
+}======================
+======================
+======================
+Fichier analyé : ./tests/test103.bloc
+Bloc Version 0.0.1
+AST :{
+(boolean *) p = fr.n7.stl.block.ast.impl.PointerAllocationImpl@2b193f2d;
+while ((*@{p})) {
+}
+}
+
+p     fr.n7.stl.block.ast.impl.PointerAllocationImpl@2b193f2d
+test103
+Correctement typé.
+PUSH 1
+LOADL 1
+SUBR MAlloc
+STORE (1) 0[SB]
+debut_boucle_1:
+LOAD (1) 0[SB]
+LOADI (1)
+JUMPIF (0) fin_boucle_1
+JUMP debut_boucle_1
+fin_boucle_1:
+HALT
+

@@ -1,0 +1,49 @@
+Grammaires Attribuées : Outil EGG.
+Génération de code pour le langage Bloc.
+
+Objectif : Implanter la sémantique de la génération de code pour le langage Bloc par un parcours
+de l'arbre abstrait construit dans les séances précédentes en
+exploitant les types et déplacements calculés lors des séances précédentes.
+
+Il s'agit de réaliser la génération de code telle qu'elle a été
+étudié en cours pour les expressions et en TD pour le reste du
+langage.
+
+Rappel : La documentation est dans 'egg5.pdf'
+
+Nous mettons à votre disposition les classes représentant l'arbre
+abstrait, la table des symboles (interface Scope et HierarchicalScope,
+classe SymbolTable) et les types.
+
+La commande make produit également la documentation au format JavaDoc
+dans le répertoire doc. Celle-ci est incomplète. Seule les interfaces
+XxxFactory, Scope, HierarchicalScope sont détaillées.
+
+L'objectif est de compléter les travaux réalisés dans la séance
+précédente. Vous travaillerez donc dans le répertoire du tp-07.
+
+============================================================
+
+
+I)  Nous vous fournissons une version légèrement améliorée de la
+partie TAM que vous n'avez pas modifiée.
+
+Effacez la partie TAM : rm -rf fr/n7/stl/tam
+
+Récuperez la partie correspondante sous moodle : tam.tgz
+
+Extraire depuis l'archive : tar xzvf tam.tgz
+
+
+============================================================
+
+II) Implanter la génération de code à travers les actions sémantiques :  
+- getCode des différents noeuds Expression, Instruction et Block de l'arbre abstrait.
+
+============================================================
+
+
+
+
+
+TEST 82 FAUX

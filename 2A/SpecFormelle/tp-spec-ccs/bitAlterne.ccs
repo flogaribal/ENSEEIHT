@@ -1,0 +1,33 @@
+set Observables = { irecu, precu }; 				* les événements observés
+*set Internals = { i, p, ack };
+set Internals = { sendi, deliveri, sendp, deliverp, sendack, deliverack };
+
+
+
+
+
+agent System1 	= (Sender | Receiver) \ Internals;
+
+agent System2 	= (Sender | Receiver | Network ) \ Internals;
+
+agent Sender 	= 'sendi.deliverack.'sendp.deliverack.Sender;
+
+agent Receiver 	= deliveri.irecu.'sendack.deliverp.precu.'sendack.Receiver;
+
+agent Network	= sendi.'deliveri.Network + sendack.'deliverack.Network + sendp.'deliverp.Network;
+
+
+
+agent AbstractSystem = irecu.precu.AbstractSystem;
+
+
+* ______ SYS 1 
+*mayeq (AbstractSystem, System1);
+*dftrace (AbstractSystem, System1);
+*eq(AbstractSystem, System1);  			* VRAI
+
+
+* ______ SYS 1 
+*mayeq (AbstractSystem, System1);
+dftrace (AbstractSystem, System2);
+eq(AbstractSystem, System1);  			* FAUX

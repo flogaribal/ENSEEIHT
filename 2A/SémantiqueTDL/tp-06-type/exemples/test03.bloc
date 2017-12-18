@@ -1,0 +1,8 @@
+test {
+  	int v = 2; 
+	int v1 = v+2; 
+	int v2 = v1+32; 
+	int v3 = v2+2; 
+	int v4 = v3+2; 
+	int v5 = v4-2; 
+}

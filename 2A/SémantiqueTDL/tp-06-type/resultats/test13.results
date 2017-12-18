@@ -1,0 +1,44 @@
+test13 {
+   // Correct : double déclaration dans un sous-bloc avec un type différent.
+   int i = 1 ;
+   if (true) {
+      boolean i = true;
+   } else  {
+      boolean i = true;
+   }
+}======================
+======================
+======================
+Fichier analyé : ./tests/test13.bloc
+Bloc Version 0.0.1
+AST :{
+int i = 1;
+if (true ){
+boolean i = true;
+}
+ else {
+boolean i = true;
+}
+}
+
+i     1
+i     true
+i     true
+test13
+Correctement typé.
+PUSH 1
+LOADL 1
+STORE (1) 0[SB]
+LOADL 1
+JUMPIF (0) else_cond_1
+PUSH 1
+LOADL 1
+STORE (1) 1[SB]
+JUMP fin_cond_1
+else_cond_1:
+PUSH 1
+LOADL 1
+STORE (1) 1[SB]
+fin_cond_1:
+HALT
+

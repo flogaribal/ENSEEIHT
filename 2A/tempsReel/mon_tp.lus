@@ -1,0 +1,95 @@
+node rising_edge (X: bool) returns (Y: bool);
+let
+	Y = X -> (X and not pre(X));
+tel
+
+node falling_edge (X: bool) returns (Y: bool);
+let
+	Y = not X -> (not X and pre(X));
+tel
+
+node verif (X: bool) returns (Y: bool);
+let
+	Y = (rising_edge(X) = falling_edge(not X)) 
+		and (rising_edge(not X) = falling_edge(X));
+tel
+
+
+
+
+
+
+
+
+
+
+
+node counter (const N : int; RAZ : bool) returns (Top: bool);
+	var cpt: int;
+let 
+	cpt = 0 -> 	if RAZ then 0 else pre(cpt) +1;
+	Top = (cpt = N); 
+tel
+
+node simu_counter(RAZ: bool) returns (Top: bool)
+let
+	Top = counter (3,RAZ);
+tel
+
+
+
+
+
+
+
+
+node keep(X: bool; RAZ: bool) returns (Y: bool);
+let
+	Y = false -> X or (pre(Y)and not(RAZ));
+tel
+
+
+
+
+
+
+
+
+node metronome_variable(rythme: int) returns (tic, tac, toc, tut: bool);
+	var cpt : int;
+let
+		cpt = if rythme >= 1 or rythme <= 4 then 0 -> (pre(cpt+1) mod rythme) else -1;
+		tic = (cpt = 0);
+		tac = (cpt = 1);
+		toc = (cpt = 2);
+		tut = (cpt = 3);
+
+tel
+
+
+node metronome_sans_var(rythme: int) returns (tic, tac, toc, tut: bool);
+let
+	tic = (rythme = 1) or (rythme = 2 and pre(tac)) or (rythme = 3 and pre(toc)) or (rythme = 4 and pre(tut));
+	tac = (rythme <> 1 and pre(tic));
+	toc = (rythme <> 1 and rythme <> 2 and pre(tac));
+	tut = (rythme <> 1 and rythme <> 2 and rythme <> 3 and pre(toc));
+tel
+
+
+node metronome_bool(r1, r2, r3, r4: bool) returns (tic, tac, toc, tut: bool);
+let
+	tic = (r1) or (r2 and pre(tac)) or (r3 and pre(toc)) or (r4 and pre(tut));
+	tac = (not(r1) and pre(tic));
+	toc = (not(r1) and not(r2) and pre(tac));
+	tut = (not(r1) and not(r2) and not(r3) and pre(toc));
+tel
+
+
+node verif_1(X: int) returns (Y: bool);
+	var tic, tac, toc, tut : bool;
+let
+	tic, tac, toc, tut = metronome_bool(true, false, false, false);
+	Y = tic and (not(tac) and not(toc) and not(tut));
+tel
+
+

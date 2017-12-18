@@ -1,0 +1,76 @@
+/**
+ * 
+ */
+package fr.n7.stl.block.ast.impl;
+
+import fr.n7.stl.block.ast.AtomicType;
+import fr.n7.stl.block.ast.Expression;
+import fr.n7.stl.block.ast.Type;
+import fr.n7.stl.tam.ast.Fragment;
+import fr.n7.stl.tam.ast.Library;
+import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.util.SymbolTable;
+
+/**
+ * Implementation of the Abstract Syntax Tree node for accessing an array element.
+ * @author Marc Pantel
+ *
+ */
+public class ArrayAccessImpl implements Expression {
+
+	protected Expression array;
+	private SymbolTable tdsUsed;
+	protected Expression index;
+
+	public ArrayAccessImpl(Expression _array, Expression _index, SymbolTable _tdsUsed) {
+		this.array = _array;
+		this.index = _index;
+		
+	}
+
+	@Override
+	public String toString() {
+		return (this.array.toString() + "[ " + this.index.toString() + " ]");
+	}
+
+	/* (non-Javadoc)
+	 * @see fr.n7.stl.block.ast.Expression#getType()
+	 */
+	@Override
+	public Type getType() {
+		Type arrayType = array.getType();
+		if (arrayType instanceof ArrayTypeImpl) {
+			return ((ArrayTypeImpl)arrayType).getType();
+		}
+		return AtomicType.ErrorType;
+	}
+
+	/* (non-Javadoc)
+	 * @see fr.n7.stl.block.ast.Expression#getCode(fr.n7.stl.tam.ast.TAMFactory)
+	 */
+	@Override
+	public Fragment getCode(TAMFactory _factory) {
+		Fragment fragment = _factory.createFragment();
+
+		// Récupération du code du tableau (= son adresse)
+		fragment.append(array.getCode(_factory));
+
+		// Récupération du code de l'index (calcul ou autre)
+		fragment.append(index.getCode(_factory));
+
+		// Mise de 1 sur la pile
+		fragment.add(_factory.createLoadL(1));
+
+		// Multiplication de l'index par 1
+		fragment.add(Library.IMul);
+
+		// Ajout de l'index à l'adresse du tableau située sur la pile
+		fragment.add(Library.IAdd);
+
+		// Mise de la valeur du tableau à l'index indiqué sur la pile
+		fragment.add(_factory.createLoadI(this.getType().length()));
+
+		return fragment;
+	}
+
+}

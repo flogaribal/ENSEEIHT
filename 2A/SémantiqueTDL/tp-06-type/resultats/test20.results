@@ -1,0 +1,34 @@
+test20 {
+   // Sans erreur : utilisation d'une variable après un sous-bloc.
+   int i = 1 ;
+   if (true) {
+   }
+   i = 2;
+}======================
+======================
+======================
+Fichier analyé : ./tests/test20.bloc
+Bloc Version 0.0.1
+AST :{
+int i = 1;
+if (true ){
+}
+@{i} = 2;
+}
+
+i     1
+test20
+Correctement typé.
+PUSH 1
+LOADL 1
+STORE (1) 0[SB]
+LOADL 1
+JUMPIF (0) else_cond_1
+JUMP fin_cond_1
+else_cond_1:
+fin_cond_1:
+LOADL 2
+LOADA 0[SB]
+STOREI (1)
+HALT
+

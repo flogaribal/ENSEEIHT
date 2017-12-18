@@ -1,0 +1,87 @@
+---------------- MODULE philosophes0 ----------------
+(* Philosophes. Version en utilisant l'état des voisins. *)
+
+EXTENDS Naturals
+
+CONSTANT N
+
+ASSUME N \in Nat /\ N > 1
+
+Philos == 0..N-1
+fourch == 0..N-2
+
+gauche(i) == (i+1)%N       \* philosophe à gauche du philo n°i
+droite(i) == (i+N-1)%N     \* philosophe à droite du philo n°i
+
+fourchGauche(i) == (i+1)%(N-1) 
+fourchDroite(i) == (i+N-1)%(N-1)
+
+Hungry == "H"
+Thinking == "T"
+Eating == "E"
+Ready == "R"
+
+Droite == "D"
+Gauche == "G"
+Milieu == "M"
+
+VARIABLES
+    etat,         \* i -> Hungry,Thinking,Eating
+    fourchettes 
+    
+TypeInvariant ==
+   [] (/\ etat \in [ Philos -> {Hungry,Thinking,Eating,Ready} ]
+       /\ fourchettes \in [fourch -> {Droite, Gauche, Milieu} ])
+
+ExclusionMutuelle == \A i \in Philos: etat[i] = Eating => (etat[gauche(i)] #Eating /\ etat[droite(i)] #Eating)
+
+VivaciteIndividuelle == \A i \in Philos: (etat[i] = Hungry ~> etat[i] = Eating)
+
+VivaciteGlobale == \A i \in Philos: etat[i] = Hungry => (etat[gauche(i)] = Eating /\ etat[droite(i)] = Eating)
+
+----------------------------------------------------------------
+
+Init == /\ etat = [ i \in Philos |-> Thinking ]
+        /\ fourchettes = [ i \in fourch |-> Milieu ]
+
+demande(i) == /\ etat[i] = Thinking 
+              /\ etat' = [ etat EXCEPT ![i] = Hungry ]  
+
+prendreFourchetteDroite(i) == /\ etat[i] = Hungry 
+                              /\ fourchettes[fourchDroite(i)] = Milieu
+                              
+
+prendreFourchetteGauche(i) == /\ etat[i] = Hungry 
+                              /\ fourchettes[fourchDroite(i)] = Gauche
+                              /\ fourchettes[fourchGauche(i)] = Droite
+
+mange(i) == /\ etat[i] = Ready
+            /\ etat[gauche(i)]#Eating
+            /\ etat[droite(i)]#Eating
+            /\ etat' = [ etat EXCEPT ![i] = Eating ]
+            
+
+
+pense(i) == /\ etat[i] = Eating
+            /\ fourchettes[fourchDroite(i)] = Milieu
+            /\ fourchettes[fourchGauche(i)] = Milieu
+            /\ etat' = [ etat EXCEPT ![i] = Thinking ]
+
+
+Next ==
+  \E i \in Philos : \/ demande(i)
+                    \/ prendreFourchetteDroite(i)
+                    \/ prendreFourchetteGauche(i)
+                    \/ mange(i)
+                    \/ pense(i)
+
+Fairness == \A i \in Philos : 
+                    /\ WF_ <<etat>> (demande(i))
+                    /\ WF_ <<etat>> (mange(i))
+
+Spec ==
+  /\ Init
+  /\ [] [ Next ]_<<etat>>
+  /\ Fairness
+
+================================

@@ -1,0 +1,58 @@
+$**************  SCADETOC Version 6.2.1 (build i10) **************
+** Generation date: 2017-02-15T10:57:37
+** Command: scade -code "G:\Documents\2A\S8\tp_scade\tp_scade.etp" -node falling_edge -conf Simulation -build
+*************************************************************$
+*** Generated Files Information (GENFIL): KCG- Generated files
+ ~kcg.log
+  at file G:\Documents\2A\S8\tp_scade\Simulation\kcg.log, line 0, character 0
+ ~kcg_s2c_config.txt
+  at file G:\Documents\2A\S8\tp_scade\Simulation\kcg_s2c_config.txt, line 0, character 0
+ ~kcg_trace.xml
+  at file G:\Documents\2A\S8\tp_scade\Simulation\kcg_trace.xml, line 0, character 0
+ ~kcg_metrics.txt
+  at file G:\Documents\2A\S8\tp_scade\Simulation\kcg_metrics.txt, line 0, character 0
+ ~falling_edge.c
+  at file G:\Documents\2A\S8\tp_scade\Simulation\falling_edge.c, line 0, character 0
+ ~falling_edge.h
+  at file G:\Documents\2A\S8\tp_scade\Simulation\falling_edge.h, line 0, character 0
+ ~kcg_types.h
+  at file G:\Documents\2A\S8\tp_scade\Simulation\kcg_types.h, line 0, character 0
+ ~kcg_consts.h
+  at file G:\Documents\2A\S8\tp_scade\Simulation\kcg_consts.h, line 0, character 0
+ ~kcg_sensors.h
+  at file G:\Documents\2A\S8\tp_scade\Simulation\kcg_sensors.h, line 0, character 0
+ ~kcg_types.c
+  at file G:\Documents\2A\S8\tp_scade\Simulation\kcg_types.c, line 0, character 0
+ ~kcg_consts.c
+  at file G:\Documents\2A\S8\tp_scade\Simulation\kcg_consts.c, line 0, character 0
+*** Generated Files Information (GENFIL): Simulator Generated files
+ ~falling_edge_type.h
+  at file G:\Documents\2A\S8\tp_scade\Simulation\falling_edge_type.h, line 0, character 0
+ ~falling_edge_type.c
+  at file G:\Documents\2A\S8\tp_scade\Simulation\falling_edge_type.c, line 0, character 0
+ ~falling_edge_mapping.h
+  at file G:\Documents\2A\S8\tp_scade\Simulation\falling_edge_mapping.h, line 0, character 0
+ ~falling_edge_mapping.c
+  at file G:\Documents\2A\S8\tp_scade\Simulation\falling_edge_mapping.c, line 0, character 0
+ ~falling_edge_interface.h
+  at file G:\Documents\2A\S8\tp_scade\Simulation\falling_edge_interface.h, line 0, character 0
+ ~falling_edge_interface.c
+  at file G:\Documents\2A\S8\tp_scade\Simulation\falling_edge_interface.c, line 0, character 0
+ ~falling_edge_dll.c
+  at file G:\Documents\2A\S8\tp_scade\Simulation\falling_edge_dll.c, line 0, character 0
+*** Generated Files Information (GENFIL): Build Generated files
+ ~Makefile
+  at file G:\Documents\2A\S8\tp_scade\Simulation\Makefile, line 0, character 0
+ ~falling_edge.dll
+  at file G:\Documents\2A\S8\tp_scade\Simulation\falling_edge.dll, line 0, character 0
+ ~falling_edge.exe
+  at file G:\Documents\2A\S8\tp_scade\Simulation\falling_edge.exe, line 0, character 0
+*** Generated Files Information (GENFIL): Code Generator Generated files
+ ~sc2c.log
+  at file G:\Documents\2A\S8\tp_scade\Simulation\sc2c.log, line 0, character 0
+ ~sc2c_integration_files.txt
+  at file G:\Documents\2A\S8\tp_scade\Simulation\sc2c_integration_files.txt, line 0, character 0
+$**************  SCADETOC Version 6.2.1 (build i10) **************
+** Generation date: 2017-02-15T10:57:43
+** sc2c.log
+*************************************************************$

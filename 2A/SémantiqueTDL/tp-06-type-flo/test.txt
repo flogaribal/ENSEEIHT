@@ -1,0 +1,10 @@
+test {
+   typedef int T1;
+   T1 k = 1;
+   int l = k;
+   int i = - 1;
+   const int j = 2;
+   struct T { int n; int m; } s = { 4, 5};
+   i = i + j * 3 + s.n * s.m;
+   s.m = 6;
+}

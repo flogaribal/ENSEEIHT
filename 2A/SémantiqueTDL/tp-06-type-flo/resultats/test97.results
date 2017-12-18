@@ -1,0 +1,33 @@
+test97 {
+   // Sans erreur : initialisation d'une variable de type tableau d'entier avec un tableau créé statiquement, puis affectation du tableau
+   int i = 1;
+   int *p = &i;
+   int j = *p;
+}======================
+======================
+======================
+Fichier analyé : ./tests/test97.bloc
+Bloc Version 0.0.1
+AST :{
+int i = 1;
+(int *) p = &(@{i});
+int j = (*@{p});
+}
+
+i     1
+p     &(@{i})
+j     (*@{p})
+test97
+Correctement typé.
+PUSH 1
+LOADL 1
+STORE (1) 0[SB]
+PUSH 1
+LOADA 0[SB]
+STORE (1) 1[SB]
+PUSH 1
+LOAD (1) 1[SB]
+LOADI (1)
+STORE (1) 2[SB]
+HALT
+

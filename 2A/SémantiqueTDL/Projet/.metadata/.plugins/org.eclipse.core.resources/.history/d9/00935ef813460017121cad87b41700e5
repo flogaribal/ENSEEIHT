@@ -1,0 +1,44 @@
+/**
+ * 
+ */
+package fr.n7.stl.block.ast.impl;
+
+
+import fr.n7.stl.block.ast.Declaration;
+import fr.n7.stl.block.ast.Expression;
+import fr.n7.stl.block.ast.Instance;
+import fr.n7.stl.block.ast.Type;
+import fr.n7.stl.tam.ast.Fragment;
+import fr.n7.stl.tam.ast.Register;
+import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.util.SymbolTable;
+
+/**
+ * Implementation of the Abstract Syntax Tree node for a instance declaration.
+ * @author Marc Pantel
+ *
+ */
+public class InstanceDeclarationImpl implements Instance {
+
+	private SymbolTable<Declaration> localSymbolTable;
+	
+	/**
+	 * Creates a variable declaration instruction node for the Abstract Syntax Tree.
+	 * @param _name Name of the declared variable.
+	 * @param _type Type of the declared variable.
+	 * @param _value Value of the declared variable.
+	 */
+	public InstanceDeclarationImpl(String _name, Type _type, Expression _value, SymbolTable<Declaration> _symbolTable) {
+		super(_name, _type, _value);
+		localSymbolTable = new SymbolTable<Declaration>(_symbolTable);
+	}
+
+	public InstanceDeclarationImpl(String _name, Type _type, SymbolTable<Declaration> _symbolTable) {
+		this(_name,_type,null,_symbolTable);
+    }
+
+	
+	public SymbolTable<Declaration> getLocalSymbolTable() {
+		return localSymbolTable;
+	}
+}

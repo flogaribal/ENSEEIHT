@@ -1,0 +1,17 @@
+test86 {
+   // Erreur de type : initialisation d'une variable de type tableau d'entier avec un tableau créé dynamiquement
+   int p[] = new int[2];
+   boolean a = p[0];
+}======================
+======================
+======================
+Fichier analyé : ./tests/test86.bloc
+Bloc Version 0.0.1
+AST :{
+int[] p = new int[ 2 ];
+boolean a = @{p}[ 0 ];
+}
+
+p     new int[ 2 ]
+a     @{p}[ 0 ]
+Mal typé.

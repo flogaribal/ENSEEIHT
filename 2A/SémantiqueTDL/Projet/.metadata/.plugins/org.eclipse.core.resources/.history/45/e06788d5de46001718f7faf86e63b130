@@ -1,0 +1,170 @@
+/**
+ * 
+ */
+package fr.n7.stl.block.ast.impl;
+
+import java.util.List;
+
+import fr.n7.stl.block.ast.*;
+import fr.n7.stl.tam.ast.Fragment;
+import fr.n7.stl.tam.ast.Register;
+import fr.n7.stl.tam.ast.TAMFactory;
+
+/**
+ * Implementation of the Abstract Syntax Tree node for a method declaration instruction.
+ * @author 
+ *
+ */
+public class MethodDeclarationImpl implements MethodDeclaration {
+
+    private String name;
+	private Type type;
+	protected Type result;
+	protected List<Type> parameters;
+	private List<Instruction> body;
+	private int allocatedSize;
+	private Access access;
+	private boolean isStatic;
+
+    public MethodDeclarationImpl(String _name, Type _result, List<Type> _parameters, List<Instruction> _body, Access _access, boolean _isStatic) {
+
+        this.access = _access;
+        this.isStatic = _isStatic;
+        this.name = _name;
+		this.result = _result;
+		this.parameters = _parameters;
+		this.body = _body;
+		parameters = _parameters;
+		
+		type = new MethodeTypeImpl(result, parameters);
+    }
+    
+
+    @Override
+    public boolean equals(Object _other) {
+        boolean equals = true;
+        int i = 0;
+
+        if (!(_other instanceof MethodDeclaration)) {
+            equals = false;
+        } else {
+            i = 0;
+            while (equals && i < parameters.size()) {
+                equals = equals & (parameters.get(i).equals(((MethodDeclarationImpl)_other).getParameters().get(i)));
+
+            }
+        }
+        return equals;
+    }
+
+
+
+	/* (non-Javadoc)
+	 * @see fr.n7.stl.block.ast.Instruction#checkType()
+	 */
+	@Override
+	public boolean checkType() {
+		boolean _result = true;
+		for (Instruction f : this.body) {
+			_result = _result && f.checkType();
+		}
+		return _result;
+	}
+
+	@Override
+	public String getName() {
+		return this.name;
+	}
+	
+    @Override
+    public String toString() {
+    	StringBuilder str = new StringBuilder(this.access + " " + (this.isStatic ? "static " : "") + " " +result.toString() + name + "(");
+    	int i = 0;
+		for(Type t: parameters) {
+			str.append(t.toString());
+			if (i != parameters.size()) {
+				str.append(", ");
+			}
+			i++;
+		}
+		str.append("{");
+		str.append(body.toString());
+		str.append("}");
+		return str.toString();
+    }
+
+    @Override
+    public Access getAccess() {
+        return this.access;
+    }
+
+    @Override
+    public boolean getIsStatic() {
+        return this.isStatic;
+    }
+    
+	public Type getType() {
+		return type;
+	}
+    
+    @Override
+    public Type getResult() {
+	    return this.result;
+    }
+    
+    @Override
+    public List<Instruction> getBody() {
+	    return this.body;
+    }
+
+    @Override
+    public List<Type> getParameters() {
+	    return this.parameters;
+    }
+
+
+	/* (non-Javadoc)
+	 * @see fr.n7.stl.block.ast.Instruction#allocateMemory(fr.n7.stl.tam.ast.Register, int)
+	 */
+	@Override
+	public int allocateMemory(Register _register, int _offset) {
+		int local = _offset;
+
+		for(Instruction i : body) {
+			local += i.allocateMemory(_register,local);
+		}
+
+		this.allocatedSize = local-_offset;
+		return 0;
+	}
+
+	/* (non-Javadoc)
+	 * @see fr.n7.stl.block.ast.Instruction#getCode(fr.n7.stl.tam.ast.TAMFactory)
+	 */
+	@Override
+	public Fragment getCode(TAMFactory _factory) {
+		Fragment fragment = _factory.createFragment();
+
+		return fragment;
+	}
+
+    @Override
+    public boolean implementsSignatureDeclaration(SignatureDeclaration _signatureDeclaration) {
+        boolean result = true;
+        int paramListSize = this.parameters.size();
+
+        result = result & this.access == Access.Public;
+
+        result = result & this.name.equals(_signatureDeclaration.getName());
+        result = result & this.type.equalsTo(_signatureDeclaration.getReturnType());
+
+        result = result & paramListSize == _signatureDeclaration.getParameters().size();
+
+        int i = 0;
+        while (result & i < paramListSize) {
+            result = result & this.parameters.get(i).equalsTo(_signatureDeclaration.getParameters().get(i));
+        }
+
+        return result;
+    }
+}

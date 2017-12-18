@@ -1,0 +1,49 @@
+/**
+ * 
+ */
+package fr.n7.stl.block.ast.impl;
+
+
+import fr.n7.stl.block.ast.Classe;
+import fr.n7.stl.block.ast.Declaration;
+import fr.n7.stl.block.ast.Expression;
+import fr.n7.stl.block.ast.Instance;
+import fr.n7.stl.block.ast.Type;
+import fr.n7.stl.tam.ast.Fragment;
+import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.util.SymbolTable;
+
+/**
+ * Implementation of the Abstract Syntax Tree node for a instance declaration.
+ *
+ */
+public class InstanceValueImpl implements Instance {
+
+	private SymbolTable<Declaration> localSymbolTable;
+	private Classe classe;
+	
+	/**
+	 * Creates a variable declaration instruction node for the Abstract Syntax Tree.
+	 * @param _name Name of the declared variable.
+	 * @param _type Type of the declared variable.
+	 * @param _expr Value of the declared variable.
+	 */
+	public InstanceValueImpl(SymbolTable<Declaration> _symbolTable, Classe _classe) {
+		localSymbolTable = new SymbolTable<Declaration>(_symbolTable);
+		classe = _classe;
+	}
+	
+	public SymbolTable<Declaration> getLocalSymbolTable() {
+		return localSymbolTable;
+	}
+
+	@Override
+	public Type getType() {
+		return null;
+	}
+
+	@Override
+	public Fragment getCode(TAMFactory _factory) {
+		return null;
+	}
+}

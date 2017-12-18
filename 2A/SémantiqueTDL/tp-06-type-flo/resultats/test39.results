@@ -1,0 +1,21 @@
+test39 {
+   // Erreur de type : utilisation d'une variable avec un autre type dans un sous-bloc.
+   int i = 1 ;
+   while (true) {
+      boolean a = i;
+   }
+}======================
+======================
+======================
+Fichier analyé : ./tests/test39.bloc
+Bloc Version 0.0.1
+AST :{
+int i = 1;
+while (true) {
+boolean a = @{i};
+}
+}
+
+i     1
+a     @{i}
+Mal typé.

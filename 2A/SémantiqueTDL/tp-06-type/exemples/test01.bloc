@@ -1,0 +1,8 @@
+test {
+   typedef int Entier; 
+   Entier i = 1; 
+   typedef < Entier, Entier> PaireEntier; 
+   PaireEntier p = { i, 2}; 
+   PaireEntier p2 = { i+2,4}; 
+
+}

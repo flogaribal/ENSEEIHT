@@ -1,0 +1,17 @@
+test57 {
+   // Sans erreur : initialisation d'une variable de type tableau d'entier avec un tableau créé statiquement, puis affectation du tableau
+   int p[] = { 1, 2};
+   boolean a = p[0];
+}======================
+======================
+======================
+Fichier analyé : ./tests/test84.bloc
+Bloc Version 0.0.1
+AST :{
+int[] p = { 1 ,2 };
+boolean a = @{p}[ 0 ];
+}
+
+p     { 1 ,2 }
+a     @{p}[ 0 ]
+Mal typé.

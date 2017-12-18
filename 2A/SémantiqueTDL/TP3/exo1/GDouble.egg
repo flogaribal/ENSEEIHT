@@ -1,0 +1,61 @@
+option auto= true;
+option version = 0.0.1 ;
+option k=1;
+
+syn val : DOUBLE for S,I,SI;
+
+syn power : DOUBLE for SI,I;  
+
+sugar  point  is    "\.";
+term   chiffre  is  "[0-9]";
+space      separateur       is    "[\r\n\t ]+" ;
+
+----------------------------------------------------------------------------------------
+
+S -> I point I #val ;
+
+#val{
+	local
+	do
+	  S^val := I^val + I1^val * Math.pow(10, - I1^power);
+	end
+}
+
+----------------------------------------------------------------------------------------
+
+I -> chiffre SI #valPower;
+
+#valPower{
+	local
+	do	
+		I^power := SI^power +1;          
+		I^val := Double.parseDouble(chiffre^txt) * Math.pow(10,SI^power) + SI^val ;
+
+	end
+}
+
+----------------------------------------------------------------------------------------
+
+SI -> chiffre SI #valPower;
+
+#valPower{
+	local
+	do
+	  SI^power 	:= SI1^power+1;
+	  SI^val 	:= Double.parseDouble(chiffre^txt) * Math.pow(10,SI1^power) + SI1^val ;
+	end
+}
+
+----------------------------------------------------------------------------------------
+
+SI -> #valPower;
+
+#valPower{
+	local
+	do
+	  SI^power := 0;
+	  SI^val := 0;
+	end
+}	
+
+end

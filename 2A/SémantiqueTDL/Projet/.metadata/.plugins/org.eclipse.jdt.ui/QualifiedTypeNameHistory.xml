@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="java.time.chrono.IsoChronology"/>
+<fullyQualifiedTypeName name="fr.n7.stl.block.ast.Expression"/>
+<fullyQualifiedTypeName name="fr.n7.stl.block.ast.FunctionDeclaration"/>
+<fullyQualifiedTypeName name="fr.n7.stl.block.ast.impl.FunctionTypeImpl"/>
+<fullyQualifiedTypeName name="fr.n7.stl.block.ast.impl.AttributeDeclarationImpl"/>
+<fullyQualifiedTypeName name="sun.reflect.generics.tree.ClassTypeSignature"/>
+<fullyQualifiedTypeName name="fr.n7.stl.block.ast.Access"/>
+<fullyQualifiedTypeName name="java.lang.StringBuilder"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="fr.n7.stl.block.ast.AttributeDeclaration"/>
+<fullyQualifiedTypeName name="fr.n7.stl.block.ast.MethodDeclaration"/>
+<fullyQualifiedTypeName name="fr.n7.stl.block.ast.Instruction"/>
+<fullyQualifiedTypeName name="fr.n7.stl.block.ast.ClassElementDeclaration"/>
+<fullyQualifiedTypeName name="fr.n7.stl.block.ast.impl.MethodeDeclarationImpl"/>
+<fullyQualifiedTypeName name="fr.n7.stl.block.ast.MethodeDeclaration"/>
+<fullyQualifiedTypeName name="fr.n7.stl.util.MethodSymbolTable"/>
+<fullyQualifiedTypeName name="fr.n7.stl.block.ast.impl.VariableDeclarationImpl"/>
+<fullyQualifiedTypeName name="com.sun.org.apache.xerces.internal.util.SymbolTable"/>
+<fullyQualifiedTypeName name="fr.n7.stl.block.ast.Declaration"/>
+<fullyQualifiedTypeName name="fr.n7.stl.block.ast.impl.InstanceDeclarationImpl"/>
+<fullyQualifiedTypeName name="fr.n7.stl.util.SymbolTable"/>
+<fullyQualifiedTypeName name="fr.n7.stl.block.ast.Instance"/>
+<fullyQualifiedTypeName name="fr.n7.stl.block.ast.impl.ClassDeclarationImpl"/>
+<fullyQualifiedTypeName name="fr.n7.stl.block.ast.Classe"/>
+</qualifiedTypeNameHistroy>

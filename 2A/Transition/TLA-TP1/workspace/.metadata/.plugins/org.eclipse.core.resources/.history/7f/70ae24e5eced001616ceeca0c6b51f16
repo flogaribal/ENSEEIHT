@@ -1,0 +1,79 @@
+---------------- MODULE canibales ----------------
+
+(* Le problème des canibales *)
+
+EXTENDS Naturals, FiniteSets, TLC
+
+  tailleBarque = 2
+  
+VARIABLES
+  cannibalesG, cannibalesD, missionnairesG, missionnairesD, barque, tailleBarque, nbMissionnairesInit, nbCannibalesInit
+
+TypeInvariant ==
+  [] (/\ (barque = "G" \/ barque = "D")
+      /\ cannibalesG >= 0
+      /\ cannibalesG <= nbCannibalesInit
+      /\ missionnairesG >= 0
+      /\ missionnairesG <= nbMissionnairesInit
+      /\ cannibalesD >= 0
+      /\ cannibalesD <= nbCannibalesInit
+      /\ missionnairesD >= 0
+      /\ missionnairesD <= nbMissionnairesInit
+      /\ cannibalesG + cannibalesD = nbCannibalesInit
+      /\ missionnairesG + missionnairesD = nbMissionnairesInit) 
+    
+pasMiam1(pos) == 
+    IF pos = "G" THEN cannibalesG <= missionnairesG ELSE cannibalesD <= missionnairesD
+
+pasMiam ==
+  pasMiam1("G") /\ pasMiam1("D")
+
+ToujoursOk == []pasMiam
+
+Solution ==
+  [] (/\ cannibalesD = nbCannibalesInit
+      /\ missionnairesD = nbMissionnairesInit)
+   
+----------------------------------------------------------------
+
+Init ==
+  /\ nbMissionnairesInit = 3
+  /\ nbCannibalesInit = 3
+  /\ cannibalesG = nbCannibalesInit 
+  /\ missionnairesG = nbMissionnairesInit
+  /\ cannibalesD = 0 
+  /\ missionnairesD = 0
+  /\ tailleBarque = 2
+  /\ barque = "G"
+
+bougeGD(nbCannibales, nbMissionnaires) ==
+  /\ barque = "G"
+  /\ (nbCannibales > 0 \/ nbMissionnaires > 0)
+  /\ (nbCannibales + nbMissionnaires <= tailleBarque)
+  /\ cannibalesG' = cannibalesG - nbCannibales
+  /\ cannibalesD' = cannibalesD + nbCannibales
+  /\ missionnairesG' = missionnairesG - nbMissionnaires
+  /\ missionnairesD' = missionnairesD + nbMissionnaires
+  /\ barque' = "D"  
+  /\ pasMiam'
+  /\ UNCHANGED <<tailleBarque, nbMissionnairesInit, nbCannibalesInit>>
+
+bougeDG(nbCannibales, nbMissionnaires) ==
+  /\ barque = "D"
+  /\ (nbCannibales > 0 \/ nbMissionnaires > 0)
+  /\ (nbCannibales + nbMissionnaires <= tailleBarque)
+  /\ cannibalesD' = cannibalesD - nbCannibales
+  /\ cannibalesG' = cannibalesG + nbCannibales  
+  /\ missionnairesD' = missionnairesD - nbMissionnaires
+  /\ missionnairesG' = missionnairesG + nbMissionnaires
+  /\ barque' = "G"
+  /\ pasMiam'   
+  /\ UNCHANGED <<tailleBarque, nbMissionnairesInit, nbCannibalesInit>>
+
+Next == \E nbCannibales \in 0..nbCannibalesInit: \E nbMissionnaires \in 0..nbMissionnairesInit :
+          bougeGD(nbCannibales,nbMissionnaires) \/ bougeDG(nbCannibales,nbMissionnaires)
+        
+
+Spec == Init /\ [] [ Next /\ PrintT(<<cannibalesG',missionnairesG',cannibalesD',missionnairesD'>>) ]_<<cannibalesG, cannibalesD, missionnairesG, missionnairesD, barque,tailleBarque, nbMissionnairesInit, nbCannibalesInit>>
+
+================================================================

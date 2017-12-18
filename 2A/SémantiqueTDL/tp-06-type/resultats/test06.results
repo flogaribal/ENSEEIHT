@@ -1,0 +1,19 @@
+test06 {
+   // Erreur de déclaration : lecture d'une variable qui n'est pas définie
+   int i = 1 + j;
+}======================
+======================
+======================
+Fichier analyé : ./tests/test06.bloc
+Bloc Version 0.0.1
+./tests/test06.bloc:3:Error(Semantics):b_01j 
+AST :{
+int i = (1 + null);
+}
+
+i     (1 + null)
+java.lang.NullPointerException
+	at fr.n7.stl.block.ast.impl.BinaryExpressionImpl.getType(BinaryExpressionImpl.java:55)
+	at fr.n7.stl.block.ast.impl.VariableDeclarationImpl.checkType(VariableDeclarationImpl.java:84)
+	at fr.n7.stl.block.ast.impl.BlockImpl.checkType(BlockImpl.java:104)
+	at Main.main(Main.java:31)

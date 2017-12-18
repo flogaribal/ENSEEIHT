@@ -1,0 +1,155 @@
+@!@!@STARTMSG 2262:0 @!@!@
+TLC2 Version 2.08 of 21 December 2015
+@!@!@ENDMSG 2262 @!@!@
+@!@!@STARTMSG 2187:0 @!@!@
+Running in Model-Checking mode.
+@!@!@ENDMSG 2187 @!@!@
+@!@!@STARTMSG 2220:0 @!@!@
+Starting SANY...
+@!@!@ENDMSG 2220 @!@!@
+Parsing file MC.tla
+Parsing file philosophes0.tla
+Parsing file /mnt/n7fs/tla/toolbox/plugins/org.lamport.tlatools_1.0.0.201512230951/tla2sany/StandardModules/TLC.tla
+Parsing file /mnt/n7fs/tla/toolbox/plugins/org.lamport.tlatools_1.0.0.201512230951/tla2sany/StandardModules/Naturals.tla
+Parsing file /mnt/n7fs/tla/toolbox/plugins/org.lamport.tlatools_1.0.0.201512230951/tla2sany/StandardModules/Sequences.tla
+Semantic processing of module Naturals
+Semantic processing of module philosophes0
+Semantic processing of module Sequences
+Semantic processing of module TLC
+Semantic processing of module MC
+@!@!@STARTMSG 2219:0 @!@!@
+SANY finished.
+@!@!@ENDMSG 2219 @!@!@
+@!@!@STARTMSG 2185:0 @!@!@
+Starting... (2017-03-07 11:39:32)
+@!@!@ENDMSG 2185 @!@!@
+@!@!@STARTMSG 2140:3 @!@!@
+The subscript of the next-state relation specified by the specification
+does not seem to contain the state variable fourchettes
+@!@!@ENDMSG 2140 @!@!@
+@!@!@STARTMSG 2212:0 @!@!@
+Implied-temporal checking--satisfiability problem has 5 branches.
+@!@!@ENDMSG 2212 @!@!@
+@!@!@STARTMSG 2189:0 @!@!@
+Computing initial states...
+@!@!@ENDMSG 2189 @!@!@
+@!@!@STARTMSG 2190:0 @!@!@
+Finished computing initial states: 1 distinct state generated.
+@!@!@ENDMSG 2190 @!@!@
+@!@!@STARTMSG 2114:1 @!@!@
+Deadlock reached.
+@!@!@ENDMSG 2114 @!@!@
+@!@!@STARTMSG 2121:1 @!@!@
+The behavior up to this point is:
+@!@!@ENDMSG 2121 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+1: <Initial predicate>
+/\ fourchettes = (0 :> "M" @@ 1 :> "M" @@ 2 :> "M" @@ 3 :> "M")
+/\ etat = (0 :> "T" @@ 1 :> "T" @@ 2 :> "T" @@ 3 :> "T" @@ 4 :> "T")
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+2: <Action line 47, col 15 to line 49, col 38 of module philosophes0>
+/\ fourchettes = (0 :> "M" @@ 1 :> "M" @@ 2 :> "M" @@ 3 :> "M")
+/\ etat = (0 :> "H" @@ 1 :> "T" @@ 2 :> "T" @@ 3 :> "T" @@ 4 :> "T")
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+3: <Action line 51, col 31 to line 55, col 47 of module philosophes0>
+/\ fourchettes = (0 :> "G" @@ 1 :> "M" @@ 2 :> "M" @@ 3 :> "M")
+/\ etat = (0 :> "H" @@ 1 :> "T" @@ 2 :> "T" @@ 3 :> "T" @@ 4 :> "T")
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+4: <Action line 47, col 15 to line 49, col 38 of module philosophes0>
+/\ fourchettes = (0 :> "G" @@ 1 :> "M" @@ 2 :> "M" @@ 3 :> "M")
+/\ etat = (0 :> "H" @@ 1 :> "H" @@ 2 :> "T" @@ 3 :> "T" @@ 4 :> "T")
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+5: <Action line 51, col 31 to line 55, col 47 of module philosophes0>
+/\ fourchettes = (0 :> "G" @@ 1 :> "G" @@ 2 :> "M" @@ 3 :> "M")
+/\ etat = (0 :> "H" @@ 1 :> "H" @@ 2 :> "T" @@ 3 :> "T" @@ 4 :> "T")
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+6: <Action line 57, col 31 to line 61, col 69 of module philosophes0>
+/\ fourchettes = (0 :> "G" @@ 1 :> "G" @@ 2 :> "D" @@ 3 :> "M")
+/\ etat = (0 :> "H" @@ 1 :> "R" @@ 2 :> "T" @@ 3 :> "T" @@ 4 :> "T")
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+7: <Action line 64, col 13 to line 68, col 36 of module philosophes0>
+/\ fourchettes = (0 :> "G" @@ 1 :> "G" @@ 2 :> "D" @@ 3 :> "M")
+/\ etat = (0 :> "H" @@ 1 :> "E" @@ 2 :> "T" @@ 3 :> "T" @@ 4 :> "T")
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+8: <Action line 47, col 15 to line 49, col 38 of module philosophes0>
+/\ fourchettes = (0 :> "G" @@ 1 :> "G" @@ 2 :> "D" @@ 3 :> "M")
+/\ etat = (0 :> "H" @@ 1 :> "E" @@ 2 :> "H" @@ 3 :> "T" @@ 4 :> "T")
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+9: <Action line 47, col 15 to line 49, col 38 of module philosophes0>
+/\ fourchettes = (0 :> "G" @@ 1 :> "G" @@ 2 :> "D" @@ 3 :> "M")
+/\ etat = (0 :> "H" @@ 1 :> "E" @@ 2 :> "H" @@ 3 :> "H" @@ 4 :> "T")
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+10: <Action line 47, col 15 to line 49, col 38 of module philosophes0>
+/\ fourchettes = (0 :> "G" @@ 1 :> "G" @@ 2 :> "D" @@ 3 :> "M")
+/\ etat = (0 :> "H" @@ 1 :> "E" @@ 2 :> "H" @@ 3 :> "H" @@ 4 :> "H")
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2201:0 @!@!@
+The coverage statistics at 2017-03-07 11:39:33
+@!@!@ENDMSG 2201 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 48, col 18 to line 48, col 54 of module philosophes0: 1093
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 49, col 28 to line 49, col 38 of module philosophes0: 1093
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 54, col 34 to line 54, col 98 of module philosophes0: 288
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 55, col 44 to line 55, col 47 of module philosophes0: 288
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 60, col 34 to line 60, col 98 of module philosophes0: 283
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 61, col 34 to line 61, col 69 of module philosophes0: 283
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 67, col 16 to line 67, col 52 of module philosophes0: 261
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 68, col 26 to line 68, col 36 of module philosophes0: 261
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 73, col 16 to line 73, col 80 of module philosophes0: 0
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 74, col 16 to line 74, col 80 of module philosophes0: 0
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 75, col 16 to line 75, col 54 of module philosophes0: 0
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2202:0 @!@!@
+End of statistics.
+@!@!@ENDMSG 2202 @!@!@
+@!@!@STARTMSG 2200:0 @!@!@
+Progress(11) at 2017-03-07 11:39:33: 1926 states generated (126 157 s/min), 649 distinct states found (42 510 ds/min), 50 states left on queue.
+@!@!@ENDMSG 2200 @!@!@
+@!@!@STARTMSG 2199:0 @!@!@
+1926 states generated, 649 distinct states found, 50 states left on queue.
+@!@!@ENDMSG 2199 @!@!@
+@!@!@STARTMSG 2194:0 @!@!@
+The depth of the complete state graph search is 11.
+@!@!@ENDMSG 2194 @!@!@
+@!@!@STARTMSG 2186:0 @!@!@
+Finished in 01s at (2017-03-07 11:39:33)
+@!@!@ENDMSG 2186 @!@!@

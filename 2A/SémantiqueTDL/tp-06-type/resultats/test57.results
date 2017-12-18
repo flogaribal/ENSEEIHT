@@ -1,0 +1,33 @@
+test57 {
+   // Sans erreur : initialisation d'une variable de type tableau d'entier avec un tableau créé statiquement, puis affectation du tableau
+   int p[] = { 1, 2};
+   int j = p[0];
+}
+======================
+======================
+======================
+Fichier analyé : ./tests/test57.bloc
+Bloc Version 0.0.1
+AST :{
+int[] p = { 1 ,2 };
+int j = @{p}[ 0 ];
+}
+
+p     { 1 ,2 }
+j     @{p}[ 0 ]
+test57
+Correctement typé.
+PUSH 1
+LOADL 1
+LOADL 2
+STORE (1) 0[SB]
+PUSH 1
+LOAD (1) 0[SB]
+LOADL 0
+LOADL 1
+SUBR IMul
+SUBR IAdd
+LOADI (1)
+STORE (1) 1[SB]
+HALT
+

@@ -1,0 +1,17 @@
+test07 {
+   // Erreur de type : initialisation d'une variable de type entier avec la valeur d'une variable de type booléen
+   boolean a = true ;
+   int i = a;
+}======================
+======================
+======================
+Fichier analyé : ./tests/test07.bloc
+Bloc Version 0.0.1
+AST :{
+boolean a = true;
+int i = @{a};
+}
+
+a     true
+i     @{a}
+Mal typé.

@@ -1,0 +1,12 @@
+PUSH 1
+LOADL 1
+SUBR MAlloc
+STORE (1) 0[SB]
+debut_boucle_1:
+LOAD (1) 0[SB]
+LOADI (1)
+JUMPIF (0) fin_boucle_1
+JUMP debut_boucle_1
+fin_boucle_1:
+HALT
+

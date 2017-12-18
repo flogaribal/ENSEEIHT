@@ -1,0 +1,34 @@
+test37 {
+   // Sans erreur : utilisation d'une variable après un sous-bloc.
+   int i = 1 ;
+   while (true) {
+   }
+   i = 2;
+}======================
+======================
+======================
+Fichier analyé : ./tests/test37.bloc
+Bloc Version 0.0.1
+AST :{
+int i = 1;
+while (true) {
+}
+@{i} = 2;
+}
+
+i     1
+test37
+Correctement typé.
+PUSH 1
+LOADL 1
+STORE (1) 0[SB]
+debut_boucle_1:
+LOADL 1
+JUMPIF (0) fin_boucle_1
+JUMP debut_boucle_1
+fin_boucle_1:
+LOADL 2
+LOADA 0[SB]
+STOREI (1)
+HALT
+

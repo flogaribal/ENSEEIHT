@@ -1,0 +1,20 @@
+test23 {
+   // Erreur de type : utilisation d'une variable avec un autre type dans un sous-bloc.
+   int i = 1 ;
+   if (true) {
+      i = true;
+   }
+}======================
+======================
+======================
+Fichier analyé : ./tests/test23.bloc
+Bloc Version 0.0.1
+AST :{
+int i = 1;
+if (true ){
+@{i} = true;
+}
+}
+
+i     1
+Mal typé.

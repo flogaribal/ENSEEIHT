@@ -1,0 +1,19 @@
+test79 {
+   // Erreur de type : initialisation d'une variable de type paire d'entier et booléen avec une valeur séquence d'entier et de booléen
+   // 	   	       extraction du premier élément de la paire dans une condition de répétition
+   <int,boolean> p =  { 1, false } ;
+   while (fst p) {
+   }
+}======================
+======================
+======================
+Fichier analyé : ./tests/test79.bloc
+Bloc Version 0.0.1
+AST :{
+< int, boolean> p = { 1 ,false };
+while ((fst @{p})) {
+}
+}
+
+p     { 1 ,false }
+Mal typé.

@@ -1,0 +1,264 @@
+package fr.n7.stl.block.ast.impl;
+
+import java.util.ArrayList;
+import java.util.List;
+import fr.n7.stl.block.ast.Classe;
+import fr.n7.stl.block.ast.ElementClasse;
+import fr.n7.stl.block.ast.Genericite;
+import fr.n7.stl.block.ast.Interface;
+import fr.n7.stl.block.ast.Type;
+import fr.n7.stl.tam.ast.Fragment;
+import fr.n7.stl.tam.ast.Register;
+import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.util.MethodSymbolTable;
+
+/**
+ * Implementation of the Abstract Syntax Tree node for a class declaration instruction.
+ * @author DUBOIS, GARIBAL, HOTTIN, LARATO
+ */
+public class ClassDeclarationImpl implements Classe{
+
+	private String name;
+	private Type type;
+	private List<Interface> implementedInterfaces;
+	private Classe extendedClass;
+	private Genericite genericParam;
+	private List<ElementClasse> elements;
+	private int allocatedSize;
+	
+	private MethodSymbolTable methodSymbolTable; 
+
+	
+	/**
+	 * CONSTRUCTEURS
+	 * @param _name name
+	 * @param _elements elements
+	 * @param _generic generic
+	 * @param _implements implements
+	 * @param _extends extends
+	 * @param _tdsm tds methodes
+	 */
+	public ClassDeclarationImpl(String _name, List<ElementClasse> _elements, Genericite _generic, List<Interface> _implements, Classe _extends, MethodSymbolTable _tdsm) {
+		name = _name;
+		if (elements != null){
+			elements = _elements;
+		}else{
+			elements = new ArrayList<ElementClasse>();
+		}
+		implementedInterfaces = _implements;
+		genericParam = _generic;
+		extendedClass = _extends;
+		methodSymbolTable = _tdsm;
+	}
+	
+	/**
+	 * CONSTRUCTEURS
+	 * @param _name name
+	 * @param _elements elements
+	 * @param _tdsm tds methodes
+	 */
+	public ClassDeclarationImpl(String _name, List<ElementClasse> _elements, MethodSymbolTable _tdsm) {
+		this (_name, _elements, null,null,null, _tdsm);
+	}
+	
+	/**
+	 * CONSTRUCTEURS
+	 * @param _name name
+	 * @param _elements elements
+	 * @param _generic generic
+	 * @param _tdsm tds methodes
+	 */
+	public ClassDeclarationImpl(String _name, List<ElementClasse> _elements, Genericite _generic, MethodSymbolTable _tdsm) {
+		this (_name, _elements, _generic,null,null, _tdsm);
+	}
+
+	/**
+	 * CONSTRUCTEURS
+	 * @param _name name
+	 * @param _elements elements
+	 * @param _implements implements
+	 * @param _tdsm tds methodes
+	 */
+	public ClassDeclarationImpl(String _name, List<ElementClasse> _elements, List<Interface> _implements, MethodSymbolTable _tdsm) {
+		this (_name, _elements, null,_implements,null, _tdsm);
+	}
+	
+	/**
+	 * CONSTRUCTEURS
+	 * @param _name name
+	 * @param _elements elements
+	 * @param _extends extends
+	 * @param _tdsm tds methodes
+	 */
+	public ClassDeclarationImpl(String _name, List<ElementClasse> _elements, Classe _extends, MethodSymbolTable _tdsm) {
+		this (_name, _elements, null,null,_extends, _tdsm);
+	}
+	
+	/**
+	 * CONSTRUCTEURS
+	 * @param _name name
+	 * @param _elements elements
+	 * @param _generic generic
+	 * @param _extends extends
+	 * @param _tdsm tds methodes
+	 */
+	public ClassDeclarationImpl(String _name, List<ElementClasse> _elements, Genericite _generic, Classe _extends, MethodSymbolTable _tdsm) {
+		this (_name, _elements, _generic,null,_extends, _tdsm);
+	}
+	
+	/**
+	 * CONSTRUCTEURS
+	 * @param _name name
+	 * @param _elements elements
+	 * @param _implements implements
+	 * @param _extends extends
+	 * @param _tdsm tds methodes
+	 */
+	public ClassDeclarationImpl(String _name, List<ElementClasse> _elements, List<Interface> _implements, Classe _extends, MethodSymbolTable _tdsm) {
+		this (_name, _elements, null,_implements,_extends, _tdsm);
+	}
+	
+	/**
+	 * CONSTRUCTEURS
+	 * @param _name name
+	 * @param _elements elements
+	 * @param _generic generic
+	 * @param _implements implements
+	 * @param _tdsm tds methodes
+	 */
+	public ClassDeclarationImpl(String _name, List<ElementClasse> _elements, Genericite _generic, List<Interface> _implements, MethodSymbolTable _tdsm) {
+		this (_name, _elements, _generic,_implements,null, _tdsm);
+	}
+	
+	
+	
+	
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	public String toString() {
+		int i = 0;
+		StringBuilder str = new StringBuilder(" class " + name + " ");
+		
+		if (extendedClass != null) {
+		    str.append("extends ");
+		    str.append(extendedClass.toString());
+		    str.append(", ");
+		}
+		
+		if (implementedInterfaces.size() != 0) {
+			str.append("implements ");
+			for (Interface interf: implementedInterfaces) {
+				str.append(interf.getName());
+				if (i != implementedInterfaces.size()){
+					str.append(", ");
+				}
+				i++;
+			}
+			
+		}
+		str.append("{");
+		
+		for(ElementClasse elt: elements) {
+			str.append(elt.toString()+"\n");
+		}
+		str.append("}");
+		
+		return str.toString();
+	}
+
+	/* (non-Javadoc)
+	 * @see fr.n7.stl.block.ast.Declaration#getName()
+	 */
+	@Override
+	public String getName() {
+		return this.name;
+	}
+
+	/* (non-Javadoc)
+	 * @see fr.n7.stl.block.ast.Instruction#checkType()
+	 */
+	@Override
+	public boolean checkType() {
+		
+		/**
+		 * TODO
+		 */
+		return false;
+	}
+
+	/* (non-Javadoc)
+	 * @see fr.n7.stl.block.ast.Instruction#allocateMemory(fr.n7.stl.tam.ast.Register, int)
+	 */
+	@Override
+	public int allocateMemory(Register _register, int _offset) {
+		return 0;
+	}
+
+	/* (non-Javadoc)
+	 * @see fr.n7.stl.block.ast.Instruction#getCode(fr.n7.stl.tam.ast.TAMFactory)
+	 */
+	@Override
+	public Fragment getCode(TAMFactory _factory) {
+		Fragment fragment = _factory.createFragment();
+		
+		/**
+		 * TODO
+		 */
+		
+		return fragment;
+	}
+
+	@Override
+	public Type getType() {
+		return type;
+	}
+
+	/**
+	 * 
+	 * @return implemented interfaces
+	 */
+	public List<Interface> getImplementedInterfaces() {
+		return implementedInterfaces;
+	}
+
+	/**
+	 * 
+	 * @return extended class
+	 */
+	public Classe getExtendedClass() {
+		return extendedClass;
+	}
+
+	/**
+	 * 
+	 * @return Generic parameter
+	 */
+	public Genericite getGenericParam() {
+		return genericParam;
+	}
+
+	/**
+	 * 
+	 * @return elements classe
+	 */
+	public List<ElementClasse> getElements() {
+		return elements;
+	}
+
+	/**
+	 * 
+	 * @return allocated size
+	 */
+	public int getAllocatedSize() {
+		return allocatedSize;
+	}
+
+	@Override
+	public MethodSymbolTable getMethodSymbolTable() {
+		return methodSymbolTable;
+	}
+
+
+}

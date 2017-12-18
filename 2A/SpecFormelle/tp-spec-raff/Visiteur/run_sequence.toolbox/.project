@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>run_sequence</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>toolbox.builder.TLAParserBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>toolbox.builder.PCalAlgorithmSearchingBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>toolbox.natures.TLANature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>run_module.tla</name>
+			<type>1</type>
+			<location>/home/fgaribal/Documents/2A/S8/SpecFormelle/tp-spec-raff/Visiteur/run_module.tla</location>
+		</link>
+		<link>
+			<name>run_sequence.tla</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/run_sequence.tla</locationURI>
+		</link>
+		<link>
+			<name>sequence.tla</name>
+			<type>1</type>
+			<location>/home/fgaribal/Documents/2A/S8/SpecFormelle/tp-spec-raff/Visiteur/sequence.tla</location>
+		</link>
+		<link>
+			<name>var_module.tla</name>
+			<type>1</type>
+			<location>/home/fgaribal/Documents/2A/S8/SpecFormelle/tp-spec-raff/Visiteur/var_module.tla</location>
+		</link>
+	</linkedResources>
+</projectDescription>

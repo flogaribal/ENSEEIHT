@@ -1,0 +1,18 @@
+test09 {
+   // Erreur de déclaration : double déclaration d'une variable avec un type différent.
+   int i = 1 ;
+   boolean i = true;
+}======================
+======================
+======================
+Fichier analyé : ./tests/test09.bloc
+Bloc Version 0.0.1
+./tests/test09.bloc:4:Error(Semantics):bloc_already_definedi 
+AST :{
+int i = 1;
+null}
+
+i     1
+java.lang.NullPointerException
+	at fr.n7.stl.block.ast.impl.BlockImpl.checkType(BlockImpl.java:104)
+	at Main.main(Main.java:31)

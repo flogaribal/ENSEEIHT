@@ -1,0 +1,25 @@
+test15 {
+   // Erreur de déclaration : double déclaration de types différents séparée par un sous-bloc.
+   int i = 1 ;
+   if (true) {
+      int i = 1;
+   }
+   boolean i = true;
+}======================
+======================
+======================
+Fichier analyé : ./tests/test15.bloc
+Bloc Version 0.0.1
+./tests/test15.bloc:7:Error(Semantics):bloc_already_definedi 
+AST :{
+int i = 1;
+if (true ){
+int i = 1;
+}
+null}
+
+i     1
+i     1
+java.lang.NullPointerException
+	at fr.n7.stl.block.ast.impl.BlockImpl.checkType(BlockImpl.java:104)
+	at Main.main(Main.java:31)

@@ -1,0 +1,64 @@
+
+		 mesurés LRU		valeurs mesurés LFU	
+TM		succès A	succès B	succès A	succès B
+64		99.902344	99.902344	99.902344	99.902344
+128		99.169922	0.000000	98.409653	9.475327
+200		99.968750	93.748749	93.085548	11.625275
+256		99.566650	0.000000	98.290321	0.577927
+300		99.566650	0.000000	92.403076	5.893300
+400		99.984375	93.750000	92.429642	3.728970
+500		96.142937	57.898266	92.200279	2.613869
+512		99.781036	0.000000	98.361084	0.034559
+600		93.773323	2.975170	92.244164	1.823614
+700		93.643005	0.000000	92.210770	1.319066
+800		96.798042	0.000000	95.278526	0.006119
+900		93.666756	0.000000	92.223900	0.772292
+___________________________________________
+|		      			   |
+|   Améliorations 5 : LOCALITE SPATIALE :  |
+|__________________________________________|
+TM = 800 : 
+
+Politique LRU
+nombre hits A : 510605975 - pourcentage : 99.727730
+nombre hits B : 480000000 - pourcentage : 93.750000
+nombre d'acces au cache : 1024000000
+
+for (i=0; i<TM ;i++) {
+	for (j=0; j<TM ;j+=16) {
+		  for (k=0; k<TM ; k++) {
+		      for (ji=j; ji<j+16;ji++) {
+			        adrc = ADRA + i * TM * TELEM + k * TELEM;
+			        NhitA += cache (adrc, init_lru, maj_lru);
+
+			        adrc = ADRB + k * TM * TELEM + j * TELEM;
+			        NhitB += cache (adrc, init_lru, maj_lru);
+		      }
+		  }
+	}
+}
+_______________________________________________________
+|		      			              |
+|   Améliorations 5 : LOCALITE SPATIALE + TEMPORELLE  |
+|_____________________________________________________|
+TM = 400 :
+
+Politique LRU
+nombre hits A : 63976000 - pourcentage : 99.962494
+nombre hits B : 63990000 - pourcentage : 99.984375
+nombre d'acces au cache : 128000000
+
+for(ke=0; ke<TM-1; ke+=H){
+   for (i=0; i<TM ;i++) {
+        for (j=0; j<TM ;j++) {
+             for (k=ke; k<ke+H ; k++) {
+                 	
+                   adrc = ADRA + i * TM * TELEM + k * TELEM;
+                   NhitA += cache (adrc, init_lru, maj_lru);
+
+                   adrc = ADRB + k * TM * TELEM + j * TELEM;
+                   NhitB += cache (adrc, init_lru, maj_lru);
+             }
+        }
+   }
+}

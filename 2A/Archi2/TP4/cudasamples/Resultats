@@ -1,0 +1,83 @@
+-------------------------------- DEVICEQUERY.cpp -----------------------------------------
+
+Device 0: "Quadro 600"
+  CUDA Driver Version / Runtime Version          6.5 / 6.0
+  CUDA Capability Major/Minor version number:    2.1
+  Total amount of global memory:                 1023 MBytes (1072889856 bytes)
+  ( 2) Multiprocessors, ( 48) CUDA Cores/MP:     96 CUDA Cores
+  GPU Clock rate:                                1280 MHz (1.28 GHz)
+  Memory Clock rate:                             800 Mhz
+  Memory Bus Width:                              128-bit
+  L2 Cache Size:                                 131072 bytes
+  Maximum Texture Dimension Size (x,y,z)         1D=(65536), 2D=(65536, 65535), 3D=(2048, 2048, 2048)
+  Maximum Layered 1D Texture Size, (num) layers  1D=(16384), 2048 layers
+  Maximum Layered 2D Texture Size, (num) layers  2D=(16384, 16384), 2048 layers
+  Total amount of constant memory:               65536 bytes
+  Total amount of shared memory per block:       49152 bytes
+  Total number of registers available per block: 32768
+  Warp size:                                     32
+  Maximum number of threads per multiprocessor:  1536
+  Maximum number of threads per block:           1024
+  Max dimension size of a thread block (x,y,z): (1024, 1024, 64)
+  Max dimension size of a grid size    (x,y,z): (65535, 65535, 65535)
+  Maximum memory pitch:                          2147483647 bytes
+  Texture alignment:                             512 bytes
+  Concurrent copy and kernel execution:          Yes with 1 copy engine(s)
+  Run time limit on kernels:                     Yes
+  Integrated GPU sharing Host Memory:            No
+  Support host page-locked memory mapping:       Yes
+  Alignment requirement for Surfaces:            Yes
+  Device has ECC support:                        Disabled
+  Device supports Unified Addressing (UVA):      Yes
+  Device PCI Bus ID / PCI location ID:           15 / 0
+  Compute Mode:
+     < Default (multiple host threads can use ::cudaSetDevice() with device simultaneously) >
+
+deviceQuery, CUDA Driver = CUDART, CUDA Driver Version = 6.5, CUDA Runtime Version = 6.0, NumDevs = 1, Device0 = Quadro 600
+Result = PASS
+
+
+
+------------------------------- BANDWITH --------------------------------------
+
+Running on...
+
+ Device 0: Quadro 600
+ Quick Mode
+
+ Host to Device Bandwidth, 1 Device(s)
+ PINNED Memory Transfers
+   Transfer Size (Bytes)	Bandwidth(MB/s)
+   33554432			5711.1
+
+ Device to Host Bandwidth, 1 Device(s)
+ PINNED Memory Transfers
+   Transfer Size (Bytes)	Bandwidth(MB/s)
+   33554432			6238.3
+
+ Device to Device Bandwidth, 1 Device(s)
+ PINNED Memory Transfers
+   Transfer Size (Bytes)	Bandwidth(MB/s)
+   33554432			20617.0
+
+Result = PASS
+
+----------------------------- TESTS -----------------------------------------------
+TM = 
+	- 512 
+		Temps consommé : 0.026879 seconde
+	- 1024
+		Temps consommé : 0.302037 seconde
+	- +1024
+		Erreur appel kernel 9
+
+	Limite de 1024 thread par block
+
+
+Si inversion de i et j 
+	Temps consommé : 6.468954 seconde
+
+Affichage des temps de transfert
+	Transfert A,B de CPU vers GPU : 0.002532 seconde
+	Transfert C de GPU vers CPU : 0.302355 seconde
+	Temps consommé : 0.302391 seconde

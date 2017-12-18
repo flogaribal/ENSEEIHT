@@ -1,0 +1,16 @@
+digraph G {
+  a [label="a:r1
+ 2.", ];
+  b [label="b:r1
+ 2.", ];
+  c [label="c:r1
+ 1.", ];
+  d [label="d:r1
+ 1.", ];
+  
+  
+  a -> c;
+  b -> c;
+  b -> d;
+  
+  }

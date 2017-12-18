@@ -1,0 +1,13 @@
+PUSH 2
+LOADL 1
+LOADL 1
+STORE (2) 0[SB]
+debut_boucle_1:
+LOAD (2) 0[SB]
+POP (0) 1
+POP (1) 0
+JUMPIF (0) fin_boucle_1
+JUMP debut_boucle_1
+fin_boucle_1:
+HALT
+

@@ -1,0 +1,14 @@
+test04 {
+   // Erreur de type : appel d'une opération arithmétique sur une valeur entière et une valeur booléenne
+   int i = 1 + true;
+}======================
+======================
+======================
+Fichier analyé : ./tests/test04.bloc
+Bloc Version 0.0.1
+AST :{
+int i = (1 + true);
+}
+
+i     (1 + true)
+Mal typé.

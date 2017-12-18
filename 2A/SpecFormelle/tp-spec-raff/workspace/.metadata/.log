@@ -1,0 +1,1448 @@
+!SESSION 2017-05-23 10:22:28.408 -----------------------------------------------
+eclipse.buildId=1.5.2
+java.version=1.8.0_131
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=fr_FR
+Command-line arguments:  -os linux -ws gtk -arch x86_64
+
+!ENTRY org.lamport.tla.toolbox.jclouds 4 0 2017-05-23 10:22:32.559
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: org.lamport.tla.toolbox.jclouds [199]
+  Bundle was not resolved because of a uses contraint violation.
+  org.osgi.service.resolver.ResolutionException: Uses constraint violation. Unable to resolve resource org.lamport.tla.toolbox.jclouds [osgi.identity; osgi.identity="org.lamport.tla.toolbox.jclouds"; type="osgi.bundle"; version:Version="1.0.0.201512230951"; singleton:="true"] because it is exposed to package 'javax.inject' from resources javax.inject [osgi.identity; osgi.identity="javax.inject"; type="osgi.bundle"; version:Version="1.0.0.v20091030"] and org.apache.servicemix.bundles.javax-inject [osgi.identity; osgi.identity="org.apache.servicemix.bundles.javax-inject"; type="osgi.bundle"; version:Version="1.0.0.2"] via two dependency chains.
+
+Chain 1:
+  org.lamport.tla.toolbox.jclouds [osgi.identity; osgi.identity="org.lamport.tla.toolbox.jclouds"; type="osgi.bundle"; version:Version="1.0.0.201512230951"; singleton:="true"]
+    require: (osgi.wiring.bundle=org.eclipse.core.runtime)
+     |
+    provide: osgi.wiring.bundle: org.eclipse.core.runtime
+  javax.inject [osgi.identity; osgi.identity="javax.inject"; type="osgi.bundle"; version:Version="1.0.0.v20091030"]
+
+Chain 2:
+  org.lamport.tla.toolbox.jclouds [osgi.identity; osgi.identity="org.lamport.tla.toolbox.jclouds"; type="osgi.bundle"; version:Version="1.0.0.201512230951"; singleton:="true"]
+    require: (&(osgi.wiring.bundle=jclouds-core)(bundle-version>=1.7.3))
+     |
+    provide: osgi.wiring.bundle; bundle-version:Version="1.9.1"; osgi.wiring.bundle="jclouds-core"
+  jclouds-core [osgi.identity; osgi.identity="jclouds-core"; type="osgi.bundle"; version:Version="1.9.1"]
+    import: (osgi.wiring.package=javax.inject)
+     |
+    export: osgi.wiring.package: javax.inject
+  org.apache.servicemix.bundles.javax-inject [osgi.identity; osgi.identity="org.apache.servicemix.bundles.javax-inject"; type="osgi.bundle"; version:Version="1.0.0.2"]
+	at org.eclipse.osgi.container.Module.start(Module.java:434)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1582)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1562)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1533)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1476)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:230)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:340)
+
+!ENTRY org.eclipse.osgi 4 0 2017-05-23 10:22:32.588
+!MESSAGE Bundle initial@reference:file:plugins/org.lamport.tla.toolbox.jclouds_1.0.0.201512230951.jar was not resolved.
+
+!ENTRY org.lamport.tla.toolbox.product.standalone 1 -1 2017-05-23 10:22:32.721
+!MESSAGE TLA+ Toolbox started without arguments.
+
+!ENTRY org.eclipse.e4.ui.workbench 4 0 2017-05-23 10:22:34.011
+!MESSAGE Unable to create class 'org.eclipse.e4.ui.swt.internal.gtk.DarkThemeProcessor' from bundle '91'
+!STACK 0
+org.eclipse.e4.core.di.InjectionException: java.lang.NullPointerException
+	at org.eclipse.e4.core.internal.di.MethodRequestor.execute(MethodRequestor.java:68)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.processAnnotated(InjectorImpl.java:898)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.inject(InjectorImpl.java:121)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.internalMake(InjectorImpl.java:345)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.make(InjectorImpl.java:278)
+	at org.eclipse.e4.core.contexts.ContextInjectionFactory.make(ContextInjectionFactory.java:186)
+	at org.eclipse.e4.ui.internal.workbench.ReflectionContributionFactory.createFromBundle(ReflectionContributionFactory.java:107)
+	at org.eclipse.e4.ui.internal.workbench.ReflectionContributionFactory.doCreate(ReflectionContributionFactory.java:73)
+	at org.eclipse.e4.ui.internal.workbench.ReflectionContributionFactory.create(ReflectionContributionFactory.java:50)
+	at org.eclipse.e4.ui.internal.workbench.ModelAssembler.runProcessor(ModelAssembler.java:252)
+	at org.eclipse.e4.ui.internal.workbench.ModelAssembler.runProcessors(ModelAssembler.java:219)
+	at org.eclipse.e4.ui.internal.workbench.ModelAssembler.processModel(ModelAssembler.java:82)
+	at org.eclipse.e4.ui.internal.workbench.ResourceHandler.loadMostRecentModel(ResourceHandler.java:259)
+	at org.eclipse.e4.ui.internal.workbench.swt.E4Application.loadApplicationModel(E4Application.java:397)
+	at org.eclipse.e4.ui.internal.workbench.swt.E4Application.createE4Workbench(E4Application.java:254)
+	at org.eclipse.ui.internal.Workbench$5.run(Workbench.java:620)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:337)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:598)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:150)
+	at org.lamport.tla.toolbox.Application.start(Application.java:77)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:134)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:104)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:380)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:235)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:669)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:608)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1515)
+	at org.eclipse.equinox.launcher.Main.main(Main.java:1488)
+Caused by: java.lang.NullPointerException
+	at org.eclipse.e4.ui.swt.internal.gtk.DarkThemeProcessor.intialize(DarkThemeProcessor.java:58)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.eclipse.e4.core.internal.di.MethodRequestor.execute(MethodRequestor.java:56)
+	... 32 more
+
+!ENTRY org.eclipse.e4.ui.workbench 2 0 2017-05-23 10:22:34.015
+!MESSAGE Unable to create processor org.eclipse.e4.ui.swt.internal.gtk.DarkThemeProcessor from org.eclipse.e4.ui.css.swt.theme
+!SESSION 2017-05-23 10:23:58.737 -----------------------------------------------
+eclipse.buildId=1.5.2
+java.version=1.8.0_131
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=fr_FR
+Command-line arguments:  -os linux -ws gtk -arch x86_64
+
+!ENTRY org.lamport.tla.toolbox.jclouds 4 0 2017-05-23 10:24:00.823
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: org.lamport.tla.toolbox.jclouds [199]
+  Bundle was not resolved because of a uses contraint violation.
+  org.osgi.service.resolver.ResolutionException: Uses constraint violation. Unable to resolve resource org.lamport.tla.toolbox.jclouds [osgi.identity; osgi.identity="org.lamport.tla.toolbox.jclouds"; type="osgi.bundle"; version:Version="1.0.0.201512230951"; singleton:="true"] because it is exposed to package 'javax.inject' from resources javax.inject [osgi.identity; osgi.identity="javax.inject"; type="osgi.bundle"; version:Version="1.0.0.v20091030"] and org.apache.servicemix.bundles.javax-inject [osgi.identity; osgi.identity="org.apache.servicemix.bundles.javax-inject"; type="osgi.bundle"; version:Version="1.0.0.2"] via two dependency chains.
+
+Chain 1:
+  org.lamport.tla.toolbox.jclouds [osgi.identity; osgi.identity="org.lamport.tla.toolbox.jclouds"; type="osgi.bundle"; version:Version="1.0.0.201512230951"; singleton:="true"]
+    require: (osgi.wiring.bundle=org.eclipse.core.runtime)
+     |
+    provide: osgi.wiring.bundle: org.eclipse.core.runtime
+  javax.inject [osgi.identity; osgi.identity="javax.inject"; type="osgi.bundle"; version:Version="1.0.0.v20091030"]
+
+Chain 2:
+  org.lamport.tla.toolbox.jclouds [osgi.identity; osgi.identity="org.lamport.tla.toolbox.jclouds"; type="osgi.bundle"; version:Version="1.0.0.201512230951"; singleton:="true"]
+    require: (&(osgi.wiring.bundle=jclouds-core)(bundle-version>=1.7.3))
+     |
+    provide: osgi.wiring.bundle; bundle-version:Version="1.9.1"; osgi.wiring.bundle="jclouds-core"
+  jclouds-core [osgi.identity; osgi.identity="jclouds-core"; type="osgi.bundle"; version:Version="1.9.1"]
+    import: (osgi.wiring.package=javax.inject)
+     |
+    export: osgi.wiring.package: javax.inject
+  org.apache.servicemix.bundles.javax-inject [osgi.identity; osgi.identity="org.apache.servicemix.bundles.javax-inject"; type="osgi.bundle"; version:Version="1.0.0.2"]
+	at org.eclipse.osgi.container.Module.start(Module.java:434)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1582)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1562)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1533)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1476)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:230)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:340)
+
+!ENTRY org.eclipse.osgi 4 0 2017-05-23 10:24:00.830
+!MESSAGE Bundle initial@reference:file:plugins/org.lamport.tla.toolbox.jclouds_1.0.0.201512230951.jar was not resolved.
+
+!ENTRY org.lamport.tla.toolbox.product.standalone 1 -1 2017-05-23 10:24:00.937
+!MESSAGE TLA+ Toolbox started without arguments.
+
+!ENTRY org.eclipse.e4.ui.workbench 4 0 2017-05-23 10:24:01.565
+!MESSAGE Unable to create class 'org.eclipse.e4.ui.swt.internal.gtk.DarkThemeProcessor' from bundle '91'
+!STACK 0
+org.eclipse.e4.core.di.InjectionException: java.lang.NullPointerException
+	at org.eclipse.e4.core.internal.di.MethodRequestor.execute(MethodRequestor.java:68)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.processAnnotated(InjectorImpl.java:898)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.inject(InjectorImpl.java:121)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.internalMake(InjectorImpl.java:345)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.make(InjectorImpl.java:278)
+	at org.eclipse.e4.core.contexts.ContextInjectionFactory.make(ContextInjectionFactory.java:186)
+	at org.eclipse.e4.ui.internal.workbench.ReflectionContributionFactory.createFromBundle(ReflectionContributionFactory.java:107)
+	at org.eclipse.e4.ui.internal.workbench.ReflectionContributionFactory.doCreate(ReflectionContributionFactory.java:73)
+	at org.eclipse.e4.ui.internal.workbench.ReflectionContributionFactory.create(ReflectionContributionFactory.java:50)
+	at org.eclipse.e4.ui.internal.workbench.ModelAssembler.runProcessor(ModelAssembler.java:252)
+	at org.eclipse.e4.ui.internal.workbench.ModelAssembler.runProcessors(ModelAssembler.java:219)
+	at org.eclipse.e4.ui.internal.workbench.ModelAssembler.processModel(ModelAssembler.java:82)
+	at org.eclipse.e4.ui.internal.workbench.ResourceHandler.loadMostRecentModel(ResourceHandler.java:259)
+	at org.eclipse.e4.ui.internal.workbench.swt.E4Application.loadApplicationModel(E4Application.java:397)
+	at org.eclipse.e4.ui.internal.workbench.swt.E4Application.createE4Workbench(E4Application.java:254)
+	at org.eclipse.ui.internal.Workbench$5.run(Workbench.java:620)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:337)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:598)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:150)
+	at org.lamport.tla.toolbox.Application.start(Application.java:77)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:134)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:104)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:380)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:235)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:669)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:608)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1515)
+	at org.eclipse.equinox.launcher.Main.main(Main.java:1488)
+Caused by: java.lang.NullPointerException
+	at org.eclipse.e4.ui.swt.internal.gtk.DarkThemeProcessor.intialize(DarkThemeProcessor.java:58)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.eclipse.e4.core.internal.di.MethodRequestor.execute(MethodRequestor.java:56)
+	... 32 more
+
+!ENTRY org.eclipse.e4.ui.workbench 2 0 2017-05-23 10:24:01.573
+!MESSAGE Unable to create processor org.eclipse.e4.ui.swt.internal.gtk.DarkThemeProcessor from org.eclipse.e4.ui.css.swt.theme
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:26:07.682
+!MESSAGE footFileName = /home/fgaribal/Documents/2A/S8/SpecFormelle/tp-spec-raff/Tas/pile.tla
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:26:07.828
+!MESSAGE Spec build invoked on pile ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:26:08.111
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:26:08.222
+!MESSAGE Spec build invoked on pile ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:26:08.305
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:26:08.670
+!MESSAGE Added a parse result listener.There are now 1 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:26:21.625
+!MESSAGE Removed a parse result listener.There are now 0 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:26:57.075
+!MESSAGE footFileName = /home/fgaribal/Documents/2A/S8/SpecFormelle/tp-spec-raff/Tas/run_tas_pile.tla
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:26:57.128
+!MESSAGE Spec build invoked on run_tas_pile ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:26:57.424
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:26:57.515
+!MESSAGE Added a parse result listener.There are now 1 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:26:57.563
+!MESSAGE Spec build invoked on run_tas_pile ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:26:57.723
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:27:02.980
+!MESSAGE Added a parse result listener.There are now 2 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:28:43.754
+!MESSAGE Spec build invoked on run_tas_pile ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:28:43.944
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:29:31.030
+!MESSAGE Spec build invoked on run_tas_pile ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:29:31.197
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:32:22.110
+!MESSAGE Spec build invoked on run_tas_pile ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:32:22.248
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:33:10.177
+!MESSAGE Spec build invoked on run_tas_pile ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:33:10.306
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:33:23.480
+!MESSAGE Spec build invoked on run_tas_pile ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:33:23.629
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:33:50.050
+!MESSAGE Spec build invoked on run_tas_pile ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:33:50.181
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:34:13.272
+!MESSAGE Spec build invoked on run_tas_pile ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:34:13.400
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:35:58.631
+!MESSAGE Spec build invoked on run_tas_pile ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:35:58.727
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:36:14.070
+!MESSAGE Spec build invoked on run_tas_pile ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:36:14.152
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:36:17.436
+!MESSAGE Spec build invoked on run_tas_pile ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:36:17.465
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:36:39.821
+!MESSAGE Spec build invoked on run_tas_pile ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:36:39.905
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:41:58.879
+!MESSAGE Spec build invoked on run_tas_pile ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:41:58.978
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:44:01.768
+!MESSAGE Spec build invoked on run_tas_pile ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:44:01.883
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:47:33.612
+!MESSAGE Spec build invoked on run_tas_pile ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:47:33.725
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:47:40.818
+!MESSAGE Spec build invoked on run_tas_pile ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:47:40.853
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:48:03.589
+!MESSAGE Spec build invoked on run_tas_pile ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:48:03.621
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:48:17.127
+!MESSAGE Spec build invoked on run_tas_pile ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:48:17.160
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:50:00.437
+!MESSAGE Spec build invoked on run_tas_pile ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:50:00.544
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:50:01.560
+!MESSAGE Spec build invoked on run_tas_pile ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:50:01.592
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:50:07.002
+!MESSAGE Spec build invoked on run_tas_pile ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:50:07.043
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:50:25.685
+!MESSAGE Spec build invoked on run_tas_pile ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:50:25.719
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:50:30.543
+!MESSAGE Spec build invoked on run_tas_pile ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:50:30.634
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:50:40.259
+!MESSAGE Spec build invoked on run_tas_pile ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:50:40.287
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:50:42.881
+!MESSAGE Spec build invoked on run_tas_pile ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:50:42.954
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:50:58.212
+!MESSAGE Added a parse result listener.There are now 3 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:51:11.756
+!MESSAGE Removed a parse result listener.There are now 2 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:53:10.200
+!MESSAGE Spec build invoked on run_tas_pile ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:53:10.370
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:54:19.906
+!MESSAGE Spec build invoked on run_tas_pile ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:54:20.072
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-05-23 10:54:41.936
+!MESSAGE Open handler invoked on Model_run_tas_pile
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-05-23 10:54:42.616
+!MESSAGE No source for run_tas_pile___Model_run_tas_pile.launch found.
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-05-23 10:54:42.747
+!MESSAGE Finished open handler
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:54:44.724
+!MESSAGE footFileName = /home/fgaribal/Documents/2A/S8/SpecFormelle/tp-spec-raff/Tas/run_tas_pile.tla
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-05-23 10:54:44.975
+!MESSAGE TLC ARGUMENTS: [-fpbits, 0, -workers, 2, -tool, MC, -fp, 0, -config, MC.cfg, -coverage, 3, -checkpoint, 15, -metadir, /home/fgaribal/Documents/2A/S8/SpecFormelle/tp-spec-raff/Tas/run_tas_pile.toolbox/Model_run_tas_pile]
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-05-23 10:54:44.986
+!MESSAGE JAVA VM ARGUMENTS: [-Dtlc2.tool.fp.FPSet.impl=tlc2.tool.fp.MSBDiskFPSet, -Xmx1491m]
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-05-23 10:54:44.999
+!MESSAGE Nested JVM used for model checker is: /usr/lib/jvm/java-8-oracle/jre
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:54:45.088
+!MESSAGE Spec build invoked on run_tas_pile ...
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-05-23 10:54:45.102
+!MESSAGE TLCOutputSourceRegistry for model checking maintains 1 sources.
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-05-23 10:54:45.109
+!MESSAGE The source run_tas_pile___Model_run_tas_pile.launch has 4 prio and 1 listeners
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:54:45.183
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:54:46.290
+!MESSAGE Spec build invoked on run_tas_pile ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:54:46.436
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:54:46.661
+!MESSAGE Spec build invoked on run_tas_pile ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:54:46.729
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:55:11.740
+!MESSAGE Spec build invoked on run_tas_pile ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:55:11.802
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:55:14.765
+!MESSAGE footFileName = /home/fgaribal/Documents/2A/S8/SpecFormelle/tp-spec-raff/Tas/run_tas_pile.tla
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-05-23 10:55:15.063
+!MESSAGE TLC ARGUMENTS: [-fpbits, 0, -workers, 2, -tool, MC, -fp, 0, -config, MC.cfg, -coverage, 3, -checkpoint, 15, -metadir, /home/fgaribal/Documents/2A/S8/SpecFormelle/tp-spec-raff/Tas/run_tas_pile.toolbox/Model_run_tas_pile]
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-05-23 10:55:15.067
+!MESSAGE JAVA VM ARGUMENTS: [-Dtlc2.tool.fp.FPSet.impl=tlc2.tool.fp.MSBDiskFPSet, -Xmx1491m]
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-05-23 10:55:15.071
+!MESSAGE Nested JVM used for model checker is: /usr/lib/jvm/java-8-oracle/jre
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-05-23 10:55:15.091
+!MESSAGE TLCOutputSourceRegistry for model checking maintains 1 sources.
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-05-23 10:55:15.104
+!MESSAGE The source run_tas_pile___Model_run_tas_pile.launch has 4 prio and 1 listeners
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:55:15.215
+!MESSAGE Spec build invoked on run_tas_pile ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:55:15.329
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:55:15.797
+!MESSAGE Spec build invoked on run_tas_pile ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:55:15.891
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:55:16.948
+!MESSAGE Spec build invoked on run_tas_pile ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:55:17.027
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:56:20.104
+!MESSAGE Spec build invoked on run_tas_pile ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:56:20.237
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:56:26.005
+!MESSAGE Spec build invoked on run_tas_pile ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:56:26.067
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:56:30.624
+!MESSAGE Spec build invoked on run_tas_pile ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:56:30.688
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:56:32.683
+!MESSAGE footFileName = /home/fgaribal/Documents/2A/S8/SpecFormelle/tp-spec-raff/Tas/run_tas_pile.tla
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-05-23 10:56:32.968
+!MESSAGE TLC ARGUMENTS: [-fpbits, 0, -workers, 2, -tool, MC, -fp, 0, -config, MC.cfg, -coverage, 3, -checkpoint, 15, -metadir, /home/fgaribal/Documents/2A/S8/SpecFormelle/tp-spec-raff/Tas/run_tas_pile.toolbox/Model_run_tas_pile]
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-05-23 10:56:32.971
+!MESSAGE JAVA VM ARGUMENTS: [-Dtlc2.tool.fp.FPSet.impl=tlc2.tool.fp.MSBDiskFPSet, -Xmx1491m]
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-05-23 10:56:32.973
+!MESSAGE Nested JVM used for model checker is: /usr/lib/jvm/java-8-oracle/jre
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-05-23 10:56:33.007
+!MESSAGE TLCOutputSourceRegistry for model checking maintains 1 sources.
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-05-23 10:56:33.014
+!MESSAGE The source run_tas_pile___Model_run_tas_pile.launch has 4 prio and 1 listeners
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:56:33.117
+!MESSAGE Spec build invoked on run_tas_pile ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:56:33.182
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:56:33.616
+!MESSAGE Spec build invoked on run_tas_pile ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:56:33.716
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:56:33.949
+!MESSAGE Spec build invoked on run_tas_pile ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:56:34.050
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:56:36.749
+!MESSAGE Spec build invoked on run_tas_pile ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:56:36.807
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:57:06.875
+!MESSAGE Removed a parse result listener.There are now 1 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:57:07.578
+!MESSAGE Removed a parse result listener.There are now 0 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:58:41.375
+!MESSAGE footFileName = /home/fgaribal/Documents/2A/S8/SpecFormelle/tp-spec-raff/Visiteur/run_visiteur.tla
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:58:41.630
+!MESSAGE Spec build invoked on run_visiteur ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:58:41.794
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:58:41.885
+!MESSAGE Added a parse result listener.There are now 1 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:58:42.597
+!MESSAGE Spec build invoked on run_visiteur ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:58:42.640
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:58:47.879
+!MESSAGE Added a parse result listener.There are now 2 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:58:49.092
+!MESSAGE Removed a parse result listener.There are now 1 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:59:25.267
+!MESSAGE Spec build invoked on run_visiteur ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:59:25.324
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:59:48.846
+!MESSAGE Spec build invoked on run_visiteur ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:59:48.963
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:59:57.172
+!MESSAGE Spec build invoked on run_visiteur ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 10:59:57.393
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:00:11.235
+!MESSAGE Spec build invoked on run_visiteur ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:00:11.296
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:00:15.152
+!MESSAGE Spec build invoked on run_visiteur ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:00:15.193
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:03:03.472
+!MESSAGE Spec build invoked on run_visiteur ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:03:03.606
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:03:19.832
+!MESSAGE Spec build invoked on run_visiteur ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:03:19.870
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:04:08.178
+!MESSAGE Spec build invoked on run_visiteur ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:04:08.287
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:04:13.693
+!MESSAGE Spec build invoked on run_visiteur ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:04:13.726
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:04:14.807
+!MESSAGE Spec build invoked on run_visiteur ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:04:14.837
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:04:18.438
+!MESSAGE Spec build invoked on run_visiteur ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:04:18.492
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:05:32.023
+!MESSAGE Removed a parse result listener.There are now 0 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:05:32.126
+!MESSAGE Spec build invoked on run_tas_pile ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:05:32.257
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:05:32.261
+!MESSAGE Spec build invoked on run_tas_pile ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:05:32.312
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:05:32.337
+!MESSAGE Added a parse result listener.There are now 1 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:05:33.526
+!MESSAGE Added a parse result listener.There are now 2 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:15:05.321
+!MESSAGE Spec build invoked on run_tas_pile ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:15:05.464
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:15:10.893
+!MESSAGE Spec build invoked on run_tas_pile ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:15:10.961
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:15:19.553
+!MESSAGE Spec build invoked on run_tas_pile ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:15:19.617
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:15:32.605
+!MESSAGE Spec build invoked on run_tas_pile ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:15:32.676
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:16:14.955
+!MESSAGE Spec build invoked on run_tas_pile ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:16:15.078
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:16:31.535
+!MESSAGE Spec build invoked on run_tas_pile ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:16:31.601
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:16:36.303
+!MESSAGE Spec build invoked on run_tas_pile ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:16:36.370
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:16:54.345
+!MESSAGE Spec build invoked on run_tas_pile ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:16:54.413
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:16:54.656
+!MESSAGE Removed a parse result listener.There are now 1 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:16:57.271
+!MESSAGE Removed a parse result listener.There are now 0 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:17:04.130
+!MESSAGE Spec build invoked on run_visiteur ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:17:04.172
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:17:04.246
+!MESSAGE Added a parse result listener.There are now 1 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:17:04.280
+!MESSAGE Spec build invoked on run_visiteur ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:17:04.384
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:17:17.669
+!MESSAGE Added a parse result listener.There are now 2 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:18:17.105
+!MESSAGE Spec build invoked on run_visiteur ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:18:17.223
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:18:34.861
+!MESSAGE Spec build invoked on run_visiteur ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:18:34.893
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:20:01.850
+!MESSAGE Spec build invoked on run_visiteur ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:20:01.967
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:20:42.686
+!MESSAGE Spec build invoked on run_visiteur ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:20:42.754
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:20:55.850
+!MESSAGE Spec build invoked on run_visiteur ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:20:55.897
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:21:00.037
+!MESSAGE Spec build invoked on run_visiteur ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:21:00.083
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:21:23.055
+!MESSAGE Spec build invoked on run_visiteur ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:21:23.175
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:21:38.989
+!MESSAGE Spec build invoked on run_visiteur ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:21:39.037
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:21:56.244
+!MESSAGE Spec build invoked on run_visiteur ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:21:56.279
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:21:59.017
+!MESSAGE Spec build invoked on run_visiteur ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:21:59.071
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:22:57.752
+!MESSAGE Spec build invoked on run_visiteur ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:22:57.875
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:25:29.881
+!MESSAGE Spec build invoked on run_visiteur ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:25:29.998
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:25:37.518
+!MESSAGE Spec build invoked on run_visiteur ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:25:37.563
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:26:55.887
+!MESSAGE footFileName = /home/fgaribal/Documents/2A/S8/SpecFormelle/tp-spec-raff/Visiteur/run_sequence.tla
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:26:55.924
+!MESSAGE Removed a parse result listener.There are now 1 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:26:55.940
+!MESSAGE Removed a parse result listener.There are now 0 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:26:56.036
+!MESSAGE Spec build invoked on run_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:26:56.174
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:26:56.184
+!MESSAGE Spec build invoked on run_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:26:56.239
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:26:56.275
+!MESSAGE Added a parse result listener.There are now 1 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:26:57.827
+!MESSAGE Added a parse result listener.There are now 2 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:30:43.511
+!MESSAGE Spec build invoked on run_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:30:43.631
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:31:18.976
+!MESSAGE Spec build invoked on run_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:31:19.027
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:32:23.191
+!MESSAGE Spec build invoked on run_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:32:23.310
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:32:25.124
+!MESSAGE Spec build invoked on run_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:32:25.168
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:33:29.834
+!MESSAGE Spec build invoked on run_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:33:29.965
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:33:34.398
+!MESSAGE Spec build invoked on run_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:33:34.445
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:33:44.739
+!MESSAGE Spec build invoked on run_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:33:44.785
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:33:52.981
+!MESSAGE Spec build invoked on run_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:33:53.032
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:34:08.657
+!MESSAGE Spec build invoked on run_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:34:08.689
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:34:29.447
+!MESSAGE Spec build invoked on run_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:34:29.510
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:34:44.623
+!MESSAGE Spec build invoked on run_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:34:44.729
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:34:53.486
+!MESSAGE Spec build invoked on run_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:34:53.524
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:35:15.914
+!MESSAGE Spec build invoked on run_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:35:15.967
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:35:28.592
+!MESSAGE Spec build invoked on run_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:35:28.645
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:35:34.890
+!MESSAGE Spec build invoked on run_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:35:34.931
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:35:42.003
+!MESSAGE Spec build invoked on run_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:35:42.048
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:35:45.954
+!MESSAGE Spec build invoked on run_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:35:46.072
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:35:50.666
+!MESSAGE Spec build invoked on run_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:35:50.698
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:35:59.710
+!MESSAGE Spec build invoked on run_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:35:59.758
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:38:05.808
+!MESSAGE Spec build invoked on run_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:38:05.917
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:38:20.041
+!MESSAGE Spec build invoked on run_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:38:20.087
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:38:35.382
+!MESSAGE Removed a parse result listener.There are now 1 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:38:35.400
+!MESSAGE Removed a parse result listener.There are now 0 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:38:35.480
+!MESSAGE Spec build invoked on run_visiteur ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:38:35.527
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:38:35.610
+!MESSAGE Added a parse result listener.There are now 1 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:38:35.645
+!MESSAGE Spec build invoked on run_visiteur ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:38:35.691
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:38:37.259
+!MESSAGE Added a parse result listener.There are now 2 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:38:48.326
+!MESSAGE Spec build invoked on run_visiteur ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:38:48.377
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:40:20.077
+!MESSAGE Spec build invoked on run_visiteur ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:40:20.194
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:40:36.062
+!MESSAGE Spec build invoked on run_visiteur ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:40:36.109
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:40:43.356
+!MESSAGE Spec build invoked on run_visiteur ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:40:43.392
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:40:47.435
+!MESSAGE Spec build invoked on run_visiteur ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:40:47.475
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:41:01.175
+!MESSAGE Spec build invoked on run_visiteur ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:41:01.213
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:41:16.093
+!MESSAGE Spec build invoked on run_visiteur ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:41:16.144
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:41:22.442
+!MESSAGE Spec build invoked on run_visiteur ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:41:22.566
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:41:38.986
+!MESSAGE Removed a parse result listener.There are now 1 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:41:39.002
+!MESSAGE Removed a parse result listener.There are now 0 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:41:39.086
+!MESSAGE Spec build invoked on run_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:41:39.134
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:41:39.216
+!MESSAGE Added a parse result listener.There are now 1 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:41:39.254
+!MESSAGE Spec build invoked on run_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:41:39.303
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:41:40.739
+!MESSAGE Added a parse result listener.There are now 2 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:41:48.146
+!MESSAGE Spec build invoked on run_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:41:48.201
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:41:52.472
+!MESSAGE Spec build invoked on run_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:41:52.515
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:42:09.499
+!MESSAGE Spec build invoked on run_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:42:09.558
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:43:40.623
+!MESSAGE Spec build invoked on run_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:43:40.740
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:43:43.987
+!MESSAGE Spec build invoked on run_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:43:44.026
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:43:47.433
+!MESSAGE Spec build invoked on run_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:43:47.478
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:43:59.577
+!MESSAGE Spec build invoked on run_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:43:59.618
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:44:15.892
+!MESSAGE Spec build invoked on run_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:44:15.934
+!MESSAGE Resulting status is:  error 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:44:24.307
+!MESSAGE Spec build invoked on run_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:44:24.355
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:46:05.487
+!MESSAGE Spec build invoked on run_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:46:05.596
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:46:21.765
+!MESSAGE Spec build invoked on run_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:46:21.810
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:47:03.791
+!MESSAGE Spec build invoked on run_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:47:03.832
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:47:11.054
+!MESSAGE Spec build invoked on run_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:47:11.156
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:47:28.398
+!MESSAGE Spec build invoked on run_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:47:28.448
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:48:20.941
+!MESSAGE Spec build invoked on run_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:48:21.048
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:49:07.749
+!MESSAGE Spec build invoked on run_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:49:07.794
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:52:40.433
+!MESSAGE Spec build invoked on run_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:52:40.551
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:53:12.568
+!MESSAGE Spec build invoked on run_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:53:12.616
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:54:28.755
+!MESSAGE Spec build invoked on run_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:54:28.864
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:55:43.245
+!MESSAGE Spec build invoked on run_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:55:43.377
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:56:14.655
+!MESSAGE footFileName = /home/fgaribal/Documents/2A/S8/SpecFormelle/tp-spec-raff/Visiteur/run_visiteur_sequence.tla
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:56:14.703
+!MESSAGE Removed a parse result listener.There are now 1 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:56:14.723
+!MESSAGE Removed a parse result listener.There are now 0 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:56:14.819
+!MESSAGE Spec build invoked on run_visiteur_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:56:14.910
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:56:15.018
+!MESSAGE Added a parse result listener.There are now 1 listeners.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:56:15.058
+!MESSAGE Spec build invoked on run_visiteur_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:56:15.111
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:57:36.040
+!MESSAGE Spec build invoked on run_visiteur_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:57:36.183
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-05-23 11:57:57.944
+!MESSAGE Open handler invoked on Model_run_visiteur_sequence
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-05-23 11:57:58.333
+!MESSAGE No source for run_visiteur_sequence___Model_run_visiteur_sequence.launch found.
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-05-23 11:57:58.435
+!MESSAGE Finished open handler
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:57:59.638
+!MESSAGE footFileName = /home/fgaribal/Documents/2A/S8/SpecFormelle/tp-spec-raff/Visiteur/run_visiteur_sequence.tla
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-05-23 11:57:59.984
+!MESSAGE TLC ARGUMENTS: [-fpbits, 0, -workers, 2, -tool, MC, -fp, 0, -config, MC.cfg, -coverage, 3, -checkpoint, 15, -metadir, /home/fgaribal/Documents/2A/S8/SpecFormelle/tp-spec-raff/Visiteur/run_visiteur_sequence.toolbox/Model_run_visiteur_sequence]
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-05-23 11:57:59.987
+!MESSAGE JAVA VM ARGUMENTS: [-Dtlc2.tool.fp.FPSet.impl=tlc2.tool.fp.MSBDiskFPSet, -Xmx1491m]
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-05-23 11:57:59.990
+!MESSAGE Nested JVM used for model checker is: /usr/lib/jvm/java-8-oracle/jre
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-05-23 11:58:00.011
+!MESSAGE TLCOutputSourceRegistry for model checking maintains 2 sources.
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-05-23 11:58:00.013
+!MESSAGE The source run_tas_pile___Model_run_tas_pile.launch has 4 prio and 1 listeners
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-05-23 11:58:00.016
+!MESSAGE The source run_visiteur_sequence___Model_run_visiteur_sequence.launch has 4 prio and 1 listeners
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:58:00.134
+!MESSAGE Spec build invoked on run_visiteur_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:58:00.210
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:58:00.847
+!MESSAGE Spec build invoked on run_visiteur_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:58:00.929
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:58:01.959
+!MESSAGE Spec build invoked on run_visiteur_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:58:02.029
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:58:29.891
+!MESSAGE Spec build invoked on run_visiteur_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:58:29.964
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:58:32.135
+!MESSAGE footFileName = /home/fgaribal/Documents/2A/S8/SpecFormelle/tp-spec-raff/Visiteur/run_visiteur_sequence.tla
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-05-23 11:58:32.626
+!MESSAGE TLC ARGUMENTS: [-fpbits, 0, -workers, 2, -tool, MC, -fp, 0, -config, MC.cfg, -coverage, 3, -checkpoint, 15, -metadir, /home/fgaribal/Documents/2A/S8/SpecFormelle/tp-spec-raff/Visiteur/run_visiteur_sequence.toolbox/Model_run_visiteur_sequence]
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-05-23 11:58:32.629
+!MESSAGE JAVA VM ARGUMENTS: [-Dtlc2.tool.fp.FPSet.impl=tlc2.tool.fp.MSBDiskFPSet, -Xmx1491m]
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc 1 0 2017-05-23 11:58:32.632
+!MESSAGE Nested JVM used for model checker is: /usr/lib/jvm/java-8-oracle/jre
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-05-23 11:58:32.698
+!MESSAGE TLCOutputSourceRegistry for model checking maintains 2 sources.
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-05-23 11:58:32.701
+!MESSAGE The source run_tas_pile___Model_run_tas_pile.launch has 4 prio and 1 listeners
+
+!ENTRY org.lamport.tla.toolbox.tool.tlc.ui 1 -1 2017-05-23 11:58:32.704
+!MESSAGE The source run_visiteur_sequence___Model_run_visiteur_sequence.launch has 4 prio and 1 listeners
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:58:33.357
+!MESSAGE Spec build invoked on run_visiteur_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:58:33.604
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:58:33.966
+!MESSAGE Spec build invoked on run_visiteur_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:58:34.060
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:58:35.118
+!MESSAGE Spec build invoked on run_visiteur_sequence ...
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:58:35.181
+!MESSAGE Resulting status is:  parsed 
+... build invocation finished.
+
+!ENTRY org.lamport.tla.toolbox 1 -1 2017-05-23 11:58:41.601
+!MESSAGE Removed a parse result listener.There are now 0 listeners.

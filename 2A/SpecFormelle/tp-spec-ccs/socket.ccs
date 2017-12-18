@@ -1,0 +1,69 @@
+** Communication client/serveur
+
+set Internals = { accept, session, end, upload, download };
+set Observables = { login, logout };
+
+agent ServeurSimple = accept.'session.login.SessionServeur;
+agent SessionServeur = end.logout.ServeurSimple + upload.SessionServeur + 'download.SessionServeur;
+
+agent Client = 'accept.session.SessionClient;
+agent SessionClient = tau.'upload.SessionClient + tau.download.SessionClient + tau.'end.0;
+
+agent NouveauxClients = tau.(Client | NouveauxClients) + tau.0;
+
+agent Systeme1 = (ServeurSimple | Client) \ Internals;
+agent Systeme3 = (ServeurSimple | Client | Client | Client) \ Internals;
+agent SystemeArbitraire = (ServeurSimple | NouveauxClients) \ Internals;
+
+
+* SYS1___________________
+*agent AbstractSystem1 = S0;
+*agent S0 = tau.login.S1;
+*agent S1 = tau.logout.S2;
+*agent S2 = tau.0;
+
+* SYS3____________________
+agent AbstractSystem3 = S0;
+agent S0 = tau.login.S1;
+agent S1 = tau.logout.S2;
+agent S2 = tau.login.S3;
+agent S3 = tau.logout.S4;
+agent S4 = tau.login.S5;
+agent S5 = tau.logout.S6;
+agent S6 = tau.0;
+
+
+* SYS ARBITRAIRE___________
+*agent AbstractSystem_Arbitraire = S0;
+*agent S0 = tau.login.S1 + tau.0;
+*agent S1 = tau.logout.S0;
+
+
+*________________ DEBUG SYS1 ________________
+*mayeq (AbstractSystem, Systeme1);
+*dftrace (AbstractSystem, Systeme1);
+
+*________________ DEBUG SYS3 ________________
+*mayeq (AbstractSystem3, Systeme3);
+dftrace (AbstractSystem3, Systeme3);
+
+*________________ DEBUG SYS ARBIT ___________
+*mayeq (AbstractSystem_Arbitraire, SystemeArbitraire);
+*dftrace (AbstractSystem_Arbitraire, SystemeArbitraire);
+
+
+
+
+
+* __________SYS1
+ *eq(AbstractSystem, Systeme1);  			* VRAI
+ *strongeq(AbstractSystem, Systeme1);  		* FAUX
+
+
+* __________SYS2
+ eq(AbstractSystem3, Systeme3); 			* VRAI
+ *strongeq(AbstractSystem3, Systeme3);  	* FAUX
+
+*___________SYS ARBITRAIRE ________________
+ *eq(AbstractSystem_Arbitraire, SystemeArbitraire); 			* INVERIFIABLE
+ *strongeq(AbstractSystem_Arbitraire, SystemeArbitraire);  		* INVERIFIABLE

@@ -1,0 +1,22 @@
+1495445379537	Copy compilation unit
+1495521844575	Rename type 'ClassElement'
+1495521903504	Rename type 'ClassDeclaration'
+1495521934176	Rename type 'InterfaceDeclaration'
+1495522083637	Copy compilation unit
+1495522188844	Rename type 'InterfaceElement'
+1495522508282	Copy compilation unit
+1495522533105	Copy compilation unit
+1495522550079	Copy compilation unit
+1495523489588	Rename type 'Generic'
+1495612198210	Copy compilation unit
+1495612338465	Delete element
+1495612486855	Rename field 'function'
+1495612565815	Rename type 'FunctionTypeImpl'
+1495612858364	Delete element
+1495612864099	Delete element
+1495612945799	Rename type 'MethodDeclarationImpl'
+1495613218545	Delete element
+1495613309606	Delete element
+1495618783509	Copy compilation unit
+1495619003035	Rename local variable 'symbolTable'
+1495619009027	Rename local variable 'symbolTable'

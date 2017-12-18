@@ -1,0 +1,97 @@
+TM = 2048     ;      SIZE_X = 256       ;         SIZE_Y = 2
+
+fgaribal@ackbar:~/Documents/2A/S8/Archi2/TP5$ ./main1 2048 256 2
+bloc 256 2 
+grille 8 1024 
+Temps consomme: 1.512067 secondes
+
+
+
+
+
+TM = 2048     ;      SIZE_X = 128       ;         SIZE_Y = 4
+
+fgaribal@ackbar:~/Documents/2A/S8/Archi2/TP5$ ./main1 2048 128 4
+bloc 128 4 
+grille 16 512 
+Temps consomme: 1.556169 secondes
+
+
+
+
+
+TM = 2048     ;      SIZE_X = 64       ;         SIZE_Y = 8
+
+fgaribal@ackbar:~/Documents/2A/S8/Archi2/TP5$ ./main1 2048 64 8
+bloc 64 8 
+grille 32 256 
+Temps consomme: 1.685303 secondes
+
+
+
+
+TM = 2048     ;      SIZE_X = 32       ;         SIZE_Y = 16
+
+fgaribal@ackbar:~/Documents/2A/S8/Archi2/TP5$ ./main1 2048 32 16
+bloc 32 16 
+grille 64 128 
+Temps consomme: 1.753611 secondes
+
+
+
+
+TM = 2048     ;      SIZE_X = 16       ;         SIZE_Y = 16
+
+fgaribal@ackbar:~/Documents/2A/S8/Archi2/TP5$ ./main1 2048 16 16
+bloc 16 16 
+grille 128 128 
+Temps consomme: 1.822992 secondes
+
+
+
+
+TM = 2048     ;      SIZE_X = 16       ;         SIZE_Y = 32
+
+fgaribal@ackbar:~/Documents/2A/S8/Archi2/TP5$ ./main1 2048 16 32
+bloc 16 32 
+grille 128 64 
+Temps consomme: 1.863227 secondes
+
+
+
+
+TM = 2048     ;      SIZE_X = 8       ;         SIZE_Y = 64
+fgaribal@ackbar:~/Documents/2A/S8/Archi2/TP5$ ./main1 2048 8 64
+bloc 8 64 
+grille 256 32 
+Temps consomme: 3.404137 secondes
+
+
+
+
+
+__________________________ DEROULEMENT 4 ___________________________________
+bloc 8 64 
+grille 256 32 
+Temps consomme: 2.055540 secondes
+
+__________________________ DEROULEMENT 8 ___________________________________
+bloc 8 64 
+grille 256 32 
+Temps consomme: 2.075482 secondes
+
+__________________________ DEROULEMENT 16___________________________________
+bloc 8 64 
+grille 256 32 
+Temps consomme: 2.379774 secondes
+
+
+
+
+fgaribal@ackbar:~/Documents/2A/S8/Archi2/TP5$ ./main3 2048
+bloc 16 16 
+grille 128 128 
+Temps consomme: 0.621173 secondes
+
+
+

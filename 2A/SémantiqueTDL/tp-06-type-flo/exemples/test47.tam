@@ -1,0 +1,10 @@
+PUSH 2
+LOADL 1
+LOADL 2
+STORE (2) 0[SB]
+LOAD (2) 0[SB]
+nullLOAD (2) 0[SB]
+nullLOADA 0[SB]
+STOREI (2)
+HALT
+

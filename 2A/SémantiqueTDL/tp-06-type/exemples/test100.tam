@@ -1,0 +1,14 @@
+PUSH 1
+LOADL 1
+STORE (1) 0[SB]
+PUSH 1
+LOADA 0[SB]
+STORE (1) 1[SB]
+LOAD (1) 1[SB]
+LOADI (1)
+JUMPIF (0) else_cond_1
+JUMP fin_cond_1
+else_cond_1:
+fin_cond_1:
+HALT
+

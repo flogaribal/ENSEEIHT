@@ -1,0 +1,33 @@
+test70 {
+   // Sans erreur : initialisation d'une variable de type enregistrement contenant deux champs booléens avec une valeur séquence de booléens de taille 2
+   // 	   	    extraction du premier champ de l'enregistrement dans une condition de conditionnelle
+   struct B { boolean a; boolean b; } p =  { true, false } ;
+   if (p.a) {
+   }
+}======================
+======================
+======================
+Fichier analyé : ./tests/test70.bloc
+Bloc Version 0.0.1
+AST :{
+struct B { boolean a; boolean b;} p = { true ,false };
+if (@{p}.a ){
+}
+}
+
+p     { true ,false }
+test70
+Correctement typé.
+PUSH 2
+LOADL 1
+LOADL 0
+STORE (2) 0[SB]
+LOAD (2) 0[SB]
+POP (0) 1
+POP (1) 0
+JUMPIF (0) else_cond_1
+JUMP fin_cond_1
+else_cond_1:
+fin_cond_1:
+HALT
+
