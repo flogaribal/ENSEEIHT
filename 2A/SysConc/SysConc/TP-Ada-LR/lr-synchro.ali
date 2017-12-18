@@ -1,0 +1,39 @@
+V "GNAT Lib v4.9"
+P ZX
+
+RN
+RV NO_STANDARD_STORAGE_POOLS
+RV SPARK_05
+
+U lr.synchro%b		lr-synchro.adb		92404f81 NE OO PK IU
+W lr%s			lr.ads			lr.ali
+W lr.synchro%s		lr-synchro.adb		lr-synchro.ali
+W lr.synchro.equitable%s  lr-synchro-equitable.adb  lr-synchro-equitable.ali
+
+U lr.synchro%s		lr-synchro.ads		6f87cbb4 EE NE OO PK IU
+W lr%s			lr.ads			lr.ali
+
+D lr.ads		20141028181748 400998c9
+D lr-synchro.ads	20141028181624 2f8e537d
+D lr-synchro.adb	20161114163459 fbdc1615
+D lr-synchro-equitable.ads  20161114163006 46120ae9
+D system.ads		20141119215827 90249111
+X 1 lr.ads
+1K9*LR 2e7 2|1r9 10r5 3|3r6 5r14 9r28 23r5
+X 2 lr-synchro.ads
+1K12*Synchro 1|1k9 2|10l8 10e15 3|3r9 5b17 9r31 23l8 23t15
+3V13*Nom_Strategie{string} 3|13b13
+5U14*Demander_Lecture 3|15b14
+6U14*Demander_Ecriture 3|17b14
+7U14*Terminer_Lecture 3|19b14
+8U14*Terminer_Ecriture 3|21b14
+X 3 lr-synchro.adb
+9K12 Synchro=9:39 13r49 15r39 17r40 19r39 21r40
+X 4 lr-synchro-equitable.ads
+3K20*Equitable 3|3w17 9r39 4|12e25
+5V13*Nom_Strategie{string} 3|13r57
+7U14*Demander_Lecture 3|15r47
+8U14*Demander_Ecriture 3|17r48
+9U14*Terminer_Lecture 3|19r47
+10U14*Terminer_Ecriture 3|21r48
+

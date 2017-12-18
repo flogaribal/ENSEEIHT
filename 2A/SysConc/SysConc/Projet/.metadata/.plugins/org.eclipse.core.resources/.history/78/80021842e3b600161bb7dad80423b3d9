@@ -1,0 +1,122 @@
+package linda.shm;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import linda.Callback;
+import linda.Linda;
+import linda.Tuple;
+
+/** Shared memory implementation of Linda. */
+public class CentralizedLinda implements Linda {
+
+	private List<Tuple> tuples;
+	
+    public CentralizedLinda() {
+    	tuples = new ArrayList<Tuple>();
+    }
+
+	@Override
+	public void write(Tuple t) {
+		tuples.add(t);
+	}
+
+	@Override
+	public Tuple take(Tuple template) {
+		Tuple returnedTuple = null;
+		int i = 0;
+		
+		while (i<tuples.size() && returnedTuple == null) {
+			if (tuples.get(i).matches(template)) {
+				returnedTuple = tuples.get(i);
+				tuples.remove(i);
+			}
+		}
+		
+		return returnedTuple;
+	}
+
+	@Override
+	public Tuple read(Tuple template) {
+		Tuple returnedTuple = null;
+		int i = 0;
+		
+		while (i<tuples.size() && returnedTuple == null) {
+			if (tuples.get(i).matches(template)) {
+				returnedTuple = tuples.get(i);
+			}
+		}
+		
+		return returnedTuple;
+	}
+
+	@Override
+	public Tuple tryTake(Tuple template) {
+		Tuple returnedTuple = null;
+		int i = 0;
+		
+		while (i<tuples.size() && returnedTuple == null) {
+			if (tuples.get(i).matches(template)) {
+				returnedTuple = tuples.get(i);
+				tuples.remove(i);
+			}
+		}
+		
+		return returnedTuple;
+	}
+
+	@Override
+	public Tuple tryRead(Tuple template) {
+		Tuple returnedTuple = null;
+		int i = 0;
+		
+		while (i<tuples.size() && returnedTuple == null) {
+			if (tuples.get(i).matches(template)) {
+				returnedTuple = tuples.get(i);
+			}
+		}
+		
+		return returnedTuple;
+	}
+
+	@Override
+	public Collection<Tuple> takeAll(Tuple template) {
+		List<Tuple> tuplesReturned = new ArrayList<Tuple>();
+		
+		for (Tuple t: tuples) {
+			if (t.matches(template)) {
+				tuplesReturned.add(t);
+			}
+		}
+		
+		tuples.removeAll(tuplesReturned);
+		
+		return tuplesReturned;
+	}
+
+	@Override
+	public Collection<Tuple> readAll(Tuple template) {
+		List<Tuple> tuplesReturned = new ArrayList<Tuple>();
+		
+		for (Tuple t: tuples) {
+			if (t.matches(template)) {
+				tuplesReturned.add(t);
+			}
+		}
+				
+		return tuplesReturned;
+	}
+
+	@Override
+	public void eventRegister(eventMode mode, eventTiming timing, Tuple template, Callback callback) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void debug(String prefix) {
+		// TODO Auto-generated method stub
+		
+	}
+}

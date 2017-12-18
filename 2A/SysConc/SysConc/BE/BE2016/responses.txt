@@ -1,0 +1,203 @@
+In this file you have to write the answers to the questions marked
+with the "pencil" symbol that you will find in the subjects of the
+various exam parts.
+
+
+=======================================================================
+Part 1: Derivative-free minimization
+
+Nb thread : 1 
+
+fgaribal@chenipan:~/Documents/2A/SysConc/BE/BE2016/derivative_free$ ./main 128 0.0001
+Minimum found is 1.5670255629  at x=0.6972, y=0.1316  in 137369 steps
+Sequential   time    :   848.84 msec.
+
+Minimum found is 1.5670255629  at x=0.6972, y=0.1316  in 137369 steps
+Parallel     time    :   865.62 msec.
+
+
+--------
+Nb thread : 2
+
+fgaribal@chenipan:~/Documents/2A/SysConc/BE/BE2016/derivative_free$ ./main 128 0.0001
+Minimum found is 1.5670255629  at x=0.6972, y=0.1316  in 137369 steps
+Sequential   time    :   845.37 msec.
+
+Minimum found is 1.5670255629  at x=0.6972, y=0.1316  in 236106 steps
+Parallel     time    :   570.93 msec.
+
+
+--------
+Nb thread : 4
+
+fgaribal@chenipan:~/Documents/2A/SysConc/BE/BE2016/derivative_free$ ./main 128 0.0001
+Minimum found is 1.5670255629  at x=0.6972, y=0.1316  in 137369 steps
+Sequential   time    :   840.15 msec.
+
+Minimum found is 1.5670255617  at x=0.6971, y=0.1317  in 169698 steps
+Parallel     time    :   389.09 msec.
+
+
+--------
+TEST GRANDES VALEURS ---> FAUX MAUVAIS MIN
+
+fgaribal@chenipan:~/Documents/2A/SysConc/BE/BE2016/derivative_free$ ./main 256 0.00001
+Minimum found is 23.5475908000  at x=2.7819, y=3.0815  in 1000000 steps
+Sequential   time    : 11950.47 msec.
+
+
+Minimum found is 56.7859335955  at x=4.2485, y=4.5629  in 1000000 steps
+Parallel     time    :  4442.62 msec.
+
+
+La méthode parallèle diminue de plus de moitié le temps d'exécution.
+Oui car vu que le nombre de points analysé est plus important qu'en séquentiel (nbThread > 1) 
+et que le minimum retenu par chaque thread est un min local alors chaque thread a emprunté
+un chemin (souvent) différent pour arriver à son min local. On récupère par la suite
+le min de tous les threads ce qui nous donne le min global de la fonction.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=======================================================================
+Part 2: Linked list
+
+Nb thread : 1 
+
+fgaribal@chenipan:~/Documents/2A/SysConc/BE/BE2016/linked_list$ ./main
+Sequential      time    :   500.36 msec.       -- result: 50005001
+Parallel for time       :   500.28 msec.       -- result: 50005001
+Parallel task   time    :   500.89 msec.       -- result: 50005001
+
+
+--------
+Nb thread : 2
+
+fgaribal@chenipan:~/Documents/2A/SysConc/BE/BE2016/linked_list$ ./main
+Sequential      time    :   500.27 msec.       -- result: 50005001
+Parallel for time       :   250.92 msec.       -- result: 50005001
+Parallel task   time    :   250.21 msec.       -- result: 50005001
+
+
+--------
+Nb thread : 4
+
+fgaribal@chenipan:~/Documents/2A/SysConc/BE/BE2016/linked_list$ ./main
+Sequential      time    :   500.40 msec.       -- result: 50005001
+Parallel for time       :   126.74 msec.       -- result: 50005001
+Parallel task   time    :   138.06 msec.       -- result: 49623718
+
+ET 
+
+fgaribal@chenipan:~/Documents/2A/SysConc/BE/BE2016/linked_list$ ./main
+Sequential      time    :   500.34 msec.       -- result: 50005001
+Parallel for time       :   127.03 msec.       -- result: 50005001
+Parallel task   time    :   125.24 msec.       -- result: 49450502
+
+
+Ma fonction utilisant les task n'est pas correct car ne renvoyant pas 
+le bon résultat.
+De ce fait je ne peux comparer leur temps d'éxécution.
+En revanche, les deux méthodes parallèles diminuent de plus de moitié 
+le temps d'éxécution.
+Je suppose par ailleurs, que la méthode des task est censée être plus 
+efficace qu'elle ne l'est a présent et du coup être plus rapide que 
+celle utilisant le "parallel for".
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=======================================================================
+Part 3: Matrix Multiplication
+
+Fonctionne pas
+
+
+
+
+
+
+
+
+
+=======================================================================
+Part 4: Reduction
+
+
+Fonctions fausses -> Impossible de comparer résultats.
+
+
+
+
+
+
+
+
+
+
+
+
+=======================================================================
+Part 5: Synchronizations
+
+Nb thread : 1 
+
+fgaribal@chenipan:~/Documents/2A/SysConc/BE/BE2016/synchronizations$ ./main
+Sequential   time :  1003.89 msec.       -- result: 1000000
+Critical     time :  1004.39 msec.       -- result: 1000000
+Atomic       time :  1001.01 msec.       -- result: 1000000
+Locks        time :  1003.80 msec.       -- result: 1000000
+
+--------
+Nb thread : 2
+
+fgaribal@chenipan:~/Documents/2A/SysConc/BE/BE2016/synchronizations$ ./main
+Sequential   time :  1003.94 msec.       -- result: 1000000
+Critical     time :   504.31 msec.       -- result: 1000000
+Atomic       time :   505.73 msec.       -- result: 1000000
+Locks        time :  1005.07 msec.       -- result: 1000000	
+
+--------
+Nb thread : 4
+
+fgaribal@chenipan:~/Documents/2A/SysConc/BE/BE2016/synchronizations$ ./main
+Sequential   time :  1002.38 msec.       -- result: 1000000
+Critical     time :   256.02 msec.       -- result: 1000000
+Atomic       time :   434.12 msec.       -- result: 1000000
+Locks        time :  1003.42 msec.       -- result: 1000000
+
+
+La version la plus rapide est la version utilisant le "critical".
+La dernière fonction, utilisant les locks, est fausse car ne retournant pas
+de résultat différent de la version séquentielle.

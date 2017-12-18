@@ -1,0 +1,174 @@
+package linda.shm;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+import linda.Callback;
+import linda.Linda;
+import linda.Tuple;
+
+/** Shared memory implementation of Linda. */
+public class CentralizedLinda implements Linda {
+
+	private List<Tuple> tuples;
+	private Condition cond_take;
+	private Condition cond_read;
+	private Lock lock;
+	private boolean lecteur;
+	
+    public CentralizedLinda() {
+    	tuples = new ArrayList<Tuple>();
+    	lock = new ReentrantLock();
+    	cond_take = lock.newCondition();
+    	cond_read = lock.newCondition();
+    	lecteur = false;
+    }
+
+	@Override
+	public void write(Tuple t) {
+		lock.lock();
+		
+		Tuple tmpTuple = t.deepclone();
+		tuples.add(tmpTuple);
+		
+		lock.unlock();
+		
+		lecteur = false;
+
+		cond_read.signal();
+		
+		if (!lecteur) {
+			cond_take.signal();
+		}
+	}
+
+	@Override
+	public Tuple take(Tuple template) {
+		Tuple returnedTuple = null;
+		int i = 0;
+		
+		lock.lock();
+		
+		while (returnedTuple == null) {
+			while (i<tuples.size() && returnedTuple == null) {
+				if (tuples.get(i).matches(template)) {
+					returnedTuple = tuples.get(i);
+					tuples.remove(i);
+				}
+			}
+			i = 0;
+			try {
+				cond_take.await();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		lock.unlock();
+		
+		return returnedTuple;
+	}
+
+	@Override
+	public Tuple read(Tuple template) {
+		lecteur = true;
+		Tuple returnedTuple = null;
+		int i = 0;
+				
+		while (returnedTuple == null) {
+			while (i<tuples.size() && returnedTuple == null) {
+				if (tuples.get(i).matches(template)) {
+					returnedTuple = tuples.get(i);
+				}
+			}
+			i = 0;
+			try {
+				cond_read.await();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+				
+		return returnedTuple;
+	}
+
+	@Override
+	public Tuple tryTake(Tuple template) {
+		Tuple returnedTuple = null;
+		int i = 0;
+		
+		lock.lock();
+		
+		while (i<tuples.size() && returnedTuple == null) {
+			if (tuples.get(i).matches(template)) {
+				returnedTuple = tuples.get(i);
+				tuples.remove(i);
+			}
+		}
+		
+		lock.unlock();
+		
+		return returnedTuple;
+	}
+
+	@Override
+	public Tuple tryRead(Tuple template) {
+		Tuple returnedTuple = null;
+		int i = 0;
+		
+		while (i<tuples.size() && returnedTuple == null) {
+			if (tuples.get(i).matches(template)) {
+				returnedTuple = tuples.get(i);
+			}
+		}
+		
+		return returnedTuple;
+	}
+
+	@Override
+	public Collection<Tuple> takeAll(Tuple template) {
+		List<Tuple> tuplesReturned = new ArrayList<Tuple>();
+		
+		lock.lock();
+		
+		for (Tuple t: tuples) {
+			if (t.matches(template)) {
+				tuplesReturned.add(t);
+			}
+		}
+		
+		lock.unlock();
+		tuples.removeAll(tuplesReturned);
+		
+		return tuplesReturned;
+	}
+
+	@Override
+	public Collection<Tuple> readAll(Tuple template) {
+		List<Tuple> tuplesReturned = new ArrayList<Tuple>();
+		
+		for (Tuple t: tuples) {
+			if (t.matches(template)) {
+				tuplesReturned.add(t);
+			}
+		}
+				
+		return tuplesReturned;
+	}
+
+	@Override
+	public void eventRegister(eventMode mode, eventTiming timing, Tuple template, Callback callback) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void debug(String prefix) {
+		// TODO Auto-generated method stub
+		
+	}
+}
