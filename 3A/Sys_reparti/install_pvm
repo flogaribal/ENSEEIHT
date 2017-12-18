@@ -1,0 +1,19 @@
+#!/bin/csh
+set TP_PVM=`pwd`
+set arch=`pvmgetarch`
+echo "Target machine is:  "${arch}
+if ( -d $HOME/pvm3 ) then
+  echo ' Directory pvm3 already created'
+else
+  cd $HOME;
+  mkdir pvm3; cd pvm3; mkdir bin; cd ${HOME}
+endif
+if ( -d $HOME/pvm3/bin/${arch} ) then
+ echo " Directory $HOME/pvm3/bin/${arch} already created "
+else
+ cd $HOME/pvm3/bin; mkdir ${arch} 
+endif
+cd ${TP_PVM}
+#
+#  
+echo ' **** End of environment setup **** '

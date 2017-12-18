@@ -1,0 +1,58 @@
+@startuml
+[*] --> Init
+
+Init --> Init 				: selection == currentMode / -
+Init --> ModeChanged 		: selection != currentMode / -
+ModeChanged ---> Init 		: selection == currentMode  \/ Ok \n / currentMode = selection 
+ModeChanged --> ModeChanged : selection != currentMode / - 
+
+state Init {
+}
+
+state ModeChanged {
+}
+@enduml
+
+
+
+
+
+
+
+
+@startuml
+
+[*] --> Init
+
+Init --> ManualON 					: Manual button clicked / -
+
+ManualON --> Init 					: Manual button clicked / - 
+ManualON --> StabilizationOFF 		: Stabilization button clicked / -
+
+StabilizationOFF --> ManualON 		: Stabilization button clicked / - 
+StabilizationOFF --> AngleEdited 	: Slider value changed / angleValue = slider.getValue()
+
+AngleEdited --> AngleEdited 		: Slider value changed / angleValue = slider.getValue()
+AngleEdited --> StabilizationON 	: Stabilization button clicked / -
+
+StabilizationON --> AngleEdited 	: Stabilization button clicked / -
+StabilizationON --> ManualOFF 		: Manual button clicked / - 
+
+ManualOFF --> StabilizationON 		: Manual button clicked / - 
+ManualOFF --> Init					: Ok button clicked / -
+
+
+state Init {
+}
+state ManualON {
+}
+state StabilizationOFF {
+}
+state AngleEdited {
+}
+state StabilizationON {
+}
+state ManualOFF {
+}
+
+@enduml

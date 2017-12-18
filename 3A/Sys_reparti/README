@@ -1,0 +1,170 @@
+---------
+Hypothese:
+---------
+
+vous venez de copier/detarrer le fichier contenant
+les sources des TP de PVM. 
+
+Les fichiers refcard_3_3.pdf (et refcard_3_3.ps)
+contiennent un resume du guide PVM.
+
+
+----------
+Preambule:
+----------
+
+1/ Pour autoriser un acces distant par ssh sans mot de passe faire 
+   (si ce n'a pas deja ete fait pour un autre TP):
+ssh-keygen -t rsa;
+   (et accepter tous (3) les choix par defaut)
+
+cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+
+2/ Faire 
+  echo "StrictHostKeyChecking no" >> ~/.ssh/config
+( pour supprimer les problemes lies aux messages envoyés lorsque l'on 
+  se connecte pour la premiere fois en ssh sur une machine distante:
+     Are you sure you want to continue connecting (yes/no) ?)
+
+3/ lancer le script install_pvm sous votre repertoire de TP pour PVM
+source ./install_pvm
+
+4/ En fonction de votre shell 
+  (faire echo $SHELL dans une fenetre)
+Si votre SHELL est tcsh alors 
+  Completer votre fichier .cshrc en ajoutant les lignes suivantes
+    setenv PVM_RSH "/usr/bin/ssh"
+    setenv PVM_ARCH "`pvmgetarch`"
+    setenv PATH "${PATH}:${HOME}/pvm3/bin/${PVM_ARCH}"
+sinon 
+   Completer votre fichier .bashrc en ajoutant les lignes suivantes
+    export PVM_RSH="/usr/bin/ssh"
+    export PVM_ARCH="`pvmgetarch`"
+    export PATH="${PATH}:${HOME}/pvm3/bin/${PVM_ARCH}"
+finsi
+
+
+--------
+Remarque:
+--------
+ l'aide en ligne man est diponible et permet d'obtenir
+ Lne description complete des procedures de pvm.
+ man nom_procedure_pvm (ou nom_procedure_pvm et le nom de la procedure c)
+ ex: man pvm_send
+
+
+ -----------------------------------
+ Description des repertoires fournis:
+ -----------------------------------
+
+   TP1 contient la version avec decoupage statique de la matrice
+       initiale (par block de lignes)
+
+   TP2 contient une version dynamique qu'il faudra completer.
+
+   BEJacob: contient un sujet de BE pour aller plus loin 
+       (voir BEJacob/sujet.pdf)
+
+
+---------
+Exercices
+---------
+
+TP1/ Experimentation des outils PVM et XPVM (repertoire TP1)
+   *******************************************************
+   Le code correspondant a la parallelisation statique du
+   produit matrice vecteur sera utilise/modifie pour
+   illustrer les fonctionalites des outils PVM et XPVM
+ 
+ 
+  0/ Lancer xpvm dans une fenetre de votre machine
+     > xpvm
+        Puis ajouter d'autres machines dans votre machine virtuelle
+          Bouton  Hosts/OtherHosts...
+
+  1/ Dans le repertoire TP1; Tester la version fournie
+     > make
+       : cela genere un executable de nom dotmatvec
+     > rehash (cshell) ou hash -r 
+       : mise a jour des tables d'executables
+     > matvec_master
+       : lancement du code du maitre
+     
+  2/ Modifier la version donnee dans TP1 en envoyant en seul message
+     toutes les donnees associees a la matrice initiale.
+
+  3/ Modifier la reception des resultats pour permettre au
+   processus maitre de recevoir les resultats dans un ordre quelconque.
+
+
+
+
+TP2/ Ecrire la version dynamique du code parallele
+***************************************************************************
+Version Dynamique du produit matrice-vecteur
+    y = A x
+   
+     Le sous-repertoire TP2 contient une version de depart qu'il
+     faudra completer.
+     
+     Pour tester sous le repertoire TP2
+     idem TP1 l'executable est nomme masterD
+
+     Seul le code du maitre doit etre change/complete
+     (Lire README dans repertoire TP2)
+
+
+
+I/ Algorithmes:
+   -----------
+ Le processus pvm maitre controle l'execution
+ des esclaves sans participer au calcul
+ Le maitre fournit du travail aux esclaves
+ recupere les resultats du calcul et gere 
+ la distribution du travail entre les esclaves
+ de facon dynamique.
+
+ Algorithme du maitre
+ --------------------
+ Creer les processus esclaves
+ Decouper la matrice A en nbtasks bandes
+
+ Envoyer les donnees communes (x et taille de x)
+ Envoyer une premiere tache (bande) a chaque esclave
+ Tant que tous les resultats ne sont pas recus faire
+   recevoir un resultat en provenance de n'importe qui
+   Ranger le resultat dans y au bon endroit
+   Determiner la provenance : tidslave
+   Si il reste des taches (bandes non envoyees) alors 
+         renvoyer a tidslave une nouvelle tache (bande) 
+   Sinon
+        envoyer message de fin a tidslave
+   FinSi
+ FinTantQue
+
+
+ Algorithme de l'esclave 
+ ----------------------
+ Boucle infinie
+   Recevoir message en provenance du maitre
+   Si message de fin alors exit
+   Extraire la bande de la matrice du buffer
+   Calculer un morceau de y et l'envoyer au maitre
+ Fin boucle
+
+
+II/ TRAVAIL A FAIRE:
+    ---------------
+
+    Le code de l'esclave est fourni et ne sera pas modifie
+     ( On devra donc respecter le schema de communication
+       et les labels de l'esclave )
+ 
+    Il est demande d'ecrire la boucle du maitre
+       (
+        Tant que tous les resultats ne sont pas recus faire
+          ...
+        Fin TantQue
+        )
+    
+

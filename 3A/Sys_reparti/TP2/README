@@ -1,0 +1,55 @@
+Version Dynamique du produit matrice-vecteur
+    y = A x
+
+I/ Algorithmes:
+   -----------
+ Le processus pvm maitre controle l'execution
+ des esclaves sans participer au calcul
+ Le maitre fournit du travail aux escalves
+ recupere les resultats du calcul et gere 
+ la distribution du travail entre les esclaves
+ de facon dynamique.
+
+ Algorithme du maitre
+ --------------------
+ Creer les processus esclaves
+ Decouper la matrice A en nbtasks bandes
+
+ Envoyer les données communes (x et taille de x)
+ Envoyer une permiere tache (bande) a chaque esclave
+ Tant que tous les resultats ne sont pas recus faire
+   recevoir un resultat en provenance de n'importe qui
+   Ranger le resultat dans y
+   Determiner la provenance : tidslave
+   Si il reste des taches (bandes non envoyees) alors 
+         renvoyer  à tidslave une nouvelle tache (bande) 
+   Sinon
+        envoyer message de fin à tidslave
+   FinSi
+ FinTantQue
+
+
+ Algorithme de l'esclave 
+ ----------------------
+ Boucle infinie
+   Recevoir message en provenance du maitre
+   Si message de fin alors exit
+   Extraire la bande de la matrice du buffer
+   Calculer un morceau de y et l'envoyer au maitre
+ Fin boucle
+
+
+II/ TRAVAIL A FAIRE:
+    ---------------
+
+    Le code de l'esclave est founi et ne sera pas modifié
+     ( On devra donc respecter le schema de communication
+       et les labels de l'esclave )
+ 
+    Il est demandé d'ecrire la boucle du maitre
+       (
+        Tant que tous les resultats ne sont pas recus faire
+          ...
+        Fin TantQue
+        )
+    
