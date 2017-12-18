@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+  zookeeper:
+    image: fdubois/server_basic:zookeeper
+    command: /start.sh
+    container_name: zookeeper
+    expose:
+      - "2181"
+
+  kafka:
+    image: fdubois/server_basic:kafka
+    command: /start.sh
+    container_name: kafka
+    link:
+      - zookeeper
+    expose:
+      - "9092"
+      - "9093"
+    depends_on:
+      - zookeeper
+
+  simu:
+    image: fdubois/server_basic:simu
+    command: /start.sh
+    container_name: simu
+    ports:
+      - 8080:8080
+    link:
+      - kafka
+    depends_on:
+      - zookeeper
+      - kafka
+
+  spark: 
+    image: fdubois/server_basic:spark
+    command: /start.sh
+    container_name: spark
+    link:
+      - kafka
+    depends_on:
+      - zookeeper
+      - kafka
+      - simu
